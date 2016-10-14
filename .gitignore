@@ -8,5 +8,11 @@
 *.war
 *.ear
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# NetBeans specific #
+/practica-1/nbproject/private/
+/practica-1/build/
+/practica-1/nbbuild/
+/practica-1/dist/
+/practica-1/nbdist/
+/practica-1/nbactions.xml
+/practica-1/nb-configuration.xml
