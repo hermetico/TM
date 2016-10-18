@@ -16,3 +16,6 @@
 /practica-1/nbdist/
 /practica-1/nbactions.xml
 /practica-1/nb-configuration.xml
+
+# some python stuff
+*.pyc
