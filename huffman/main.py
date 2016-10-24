@@ -1,5 +1,6 @@
 from huffman import Huffman
 import random
+import math
 
 def readfile( filename ):
     """Returns an 2*N matrix"""
@@ -33,10 +34,13 @@ def sequence( probs, length=1 ):
     return new_sequence
 
 
+def entropy(table):
+    norm_table = [ x[1]/100. for x in table]
+    return -math.fsum([ prob * math.log(prob, 2) for prob in norm_table])
+
 ## Loads the library
 encoder = Huffman()
 
-## A)
 simbolos = [
     ['R', 30.],
     ['K', 20.],
@@ -45,9 +49,15 @@ simbolos = [
     ['10', 10.],
     ['9', 5.]
     ]
+
+entropia = entropy(simbolos)
+##
+print "Simbols ", simbolos
+print "Entropia %.4f" % entropia
+## A)
 huffman_table = encoder.codify(simbolos)
 print "A)"
-print "The huffman table"
+print "Taula Huffman"
 for line in sorted(huffman_table.items(), key=lambda t:t[0], reverse=True):
     print "%s %s" %(line[0], line[1])
 
@@ -55,7 +65,7 @@ for line in sorted(huffman_table.items(), key=lambda t:t[0], reverse=True):
 text = 'RKQJQJQJQ10K10R9'
 print
 print "B)"
-print "Codifying the text: %s" % text
+print "Text codificat: %s" % text
 print encoder.translate(text, huffman_table)
 
 
@@ -63,13 +73,33 @@ print encoder.translate(text, huffman_table)
 length = 20
 print
 print "C)"
-print "Generating a random sequence of length %s:" % length
+print "Generant una sequencia aleatoria de %s simbols:" % length
 print sequence(simbolos, length)
 
 ## D)
-# TODO
-length = 100000
+print
+print "D)"
+lengths = [1000, 10000, 100000, 1000000]
 secuencia = sequence(simbolos, length)
-print "El factor de compresion en esta secuencia de %i caracteres es:" % length
-print "%f / %f bits = %f" %(length*7, len(secuencia), length*7./len(secuencia))
+print "Generant", len(lengths), "sequencies aleatories amb ", lengths, " simbols"
+for i, length in enumerate(lengths):
+    sequencia = sequence(simbolos, length)
+    sequencia_codificada = encoder.translate(sequencia, huffman_table)
+    print "Test", i+1, "-"*70
+    print "Sequencia amb %i simbols" % (length)
+    print "Sense codificar es necesiten 3 bits per simbol, el que dona un "
+    print "total de %i bits per a la sequencia" %(length * 3)
+    print "Amb la codificacio Huffman necessitem un total de %i bits" %(len(sequencia_codificada))
+    print
+    print "El factor de compresio es %i/%i --> %.4f:1" %(length * 3,
+                                                   len(sequencia_codificada),
+                                                   length * 3. /  len(sequencia_codificada))
+    print "En aquesta sequencia concreta per cada bit d'informacio codificada estem "
+    print "enviant %.4f bits d'informacio" %(length * 3. /  len(sequencia_codificada))
+    print
+print "Conclusions " + "-"*65
+print "El factor de compresio teoric diu que %i/%.4f --> %.4f:1" %(3,entropia, 3./entropia)
+print "Per tant, amb un 1 bit d'informacio codificada podem generar %f bits d'informacio " %(3./entropia)
+print "sense codificar"
+print "Veiem que en els 4 casos anteriors ens hem acostat prou a les capacitats teoriques"
 
