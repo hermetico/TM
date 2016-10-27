@@ -58,23 +58,30 @@ entropia = entropy(simbolos)
 ##
 print
 print
-print "Simbols ", simbolos
-print "Entropia %.4f" % entropia
+print "Taula de simbols d'entrada"
+for line in simbolos:
+    print "%s %s" %(line[0], line[1])
+
+print "Entropia per aquesta taula: %.4f" % entropia
+raw_input("\n>> Intro per continuar <<\n")
 ## A)
-huffman_table = encoder.codify(simbolos)
+huffman_table = encoder.codify(simbolos) # en realitat es un diccionari
+print
 print "A)"
-print "Taula Huffman"
+print "Taula Huffman generada"
 for line in sorted(huffman_table.items(), key=lambda t:t[0], reverse=True):
     print "%s %s" %(line[0], line[1])
 
+raw_input("\n>> Intro per continuar <<\n")
 ## B)
 text = 'RKQJQJQJQ10K10R9'
 print
 print "B)"
-print "Text codificat: %s" % text
+print "Text: %s\ncodificat:" % text
 print encoder.translate(text, huffman_table)
 
 
+raw_input("\n>> Intro per continuar <<\n")
 ## C)
 length = 20
 print
@@ -82,15 +89,19 @@ print "C)"
 print "Generant una sequencia aleatoria de %s simbols:" % length
 print sequence(simbolos, length)
 
+raw_input("\n>> Intro per continuar <<\n")
 ## D)
 print
 print "D)"
 lengths = [1000, 10000, 100000, 1000000]
 secuencia = sequence(simbolos, length)
-print "Generant", len(lengths), "sequencies aleatories amb ", lengths, " simbols"
+print "Generant", len(lengths), "sequencies aleatories amb ", lengths, " simbols (les ultimes iteracions poden trigar)"
 for i, length in enumerate(lengths):
     sequencia = sequence(simbolos, length)
     sequencia_codificada = encoder.translate(sequencia, huffman_table)
+    # DESCOMENTAR AQUESTES DUES LINEES PER VEURE ELS CODIS (NO RECOMANAT)
+    #print sequencia
+    ##print sequencia_codificada
     print "Test", i+1, "-"*70
     print "Sequencia amb %i simbols" % (length)
     print "Sense codificar es necesiten 3 bits per simbol, el que dona un "
