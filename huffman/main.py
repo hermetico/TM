@@ -52,6 +52,8 @@ simbolos = [
 
 entropia = entropy(simbolos)
 ##
+print
+print
 print "Simbols ", simbolos
 print "Entropia %.4f" % entropia
 ## A)
