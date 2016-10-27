@@ -46,7 +46,7 @@ def entropy(table):
 encoder = Huffman()
 
 simbolos = [
-    ['R', 30.],
+    ['diamante', 30.],
     ['K', 20.],
     ['Q', 20.],
     ['J', 15.],
@@ -74,7 +74,7 @@ for line in sorted(huffman_table.items(), key=lambda t:t[0], reverse=True):
 
 raw_input("\n>> Intro per continuar <<\n")
 ## B)
-text = 'RKQJQJQJQ10K10R9'
+text = 'diamanteKQJQJQJQ10K10diamante9'
 print
 print "B)"
 print "Text: %s\ncodificat:" % text
