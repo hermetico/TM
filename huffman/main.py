@@ -1,3 +1,7 @@
+#
+# Practica realitzada per: Juan Marin Vega && Fernando Moral Algaba
+#
+
 from huffman import Huffman
 import random
 import math
