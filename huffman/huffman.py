@@ -58,3 +58,26 @@ class Huffman(object):
             else:
                 offset += 1
         return output     
+
+if __name__ == "__main__":
+    encoder = Huffman()
+    verbose = True
+    simbolos = [
+        ['diamante', 30.],
+        ['K', 20.],
+        ['Q', 20.],
+        ['J', 15.],
+        ['10', 10.],
+        ['9', 5.]
+        ]
+
+    raw_input("\n>> Intro per continuar <<\n")
+    ## A)
+    huffman_table = encoder.codify(simbolos, verbose=True) # en realitat es un diccionari
+    print
+    print "A)"
+    print "Taula Huffman generada"
+    for line in sorted(huffman_table.items(), key=lambda t:t[0], reverse=True):
+        print "%s %s" %(line[0], line[1])
+
+
