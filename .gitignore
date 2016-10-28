@@ -8,6 +8,9 @@
 *.war
 *.ear
 
+# some python stuff
+*.pyc
+
 # NetBeans specific #
 /practica-1/nbproject/private/
 /practica-1/build/
@@ -17,5 +20,5 @@
 /practica-1/nbactions.xml
 /practica-1/nb-configuration.xml
 
-# some python stuff
-*.pyc
+/practica-2/nbproject/private/
+/practica-2/target/
