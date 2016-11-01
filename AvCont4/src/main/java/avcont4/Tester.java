@@ -8,6 +8,7 @@ package avcont4;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 
+
 /**
  *
  * @author ferran
@@ -24,13 +25,24 @@ public class Tester {
             if (parser.help){ 
                 jcomm.usage();
             }
+            // check slide and input window size are rigth
+            if(parser.getInputWindow() >= parser.getSlideWindow()){
+                throw new ParameterException("Slide window must be greater than Input Window");
+            }
+            if (parser.getInputWindow() + parser.getSlideWindow() > parser.getBinaryInput().length()){
+                throw new ParameterException ("sum of Input window and Slide window must be lower than input binary length");
+            }
+            
             //System.out.println("Debug Mode: " + parser.getDebug());
             //System.out.println("Help Mode: " + parser.help);
             
         }catch(ParameterException e){
-            e.getMessage();
+            System.out.println(e.getMessage());
             System.err.println(" Try --help or -h for help");
         }
+        
+        
+        
         
     }
     

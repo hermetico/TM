@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package avcont4;
+package validators;
 
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;
@@ -12,16 +12,13 @@ import com.beust.jcommander.ParameterException;
  *
  * @author ferran
  */
-class ValidateInputWindow implements IParameterValidator{
+public class ValidateBinaryStream implements IParameterValidator {
     @Override
-     public void validate(String name, String value) {
-        // check if number 
-        try{
-            Integer.parseInt(value);
-        }catch(NumberFormatException e){
-            throw new ParameterException("Input window not valid");
-  
+    public void validate(String name, String value) throws ParameterException{
+        if(!value.matches("[01]+")){
+            throw new ParameterException(value + " is not binary");
+
         }
+        
     }
-    
 }

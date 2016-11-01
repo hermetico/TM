@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package avcont4;
-import com.beust.jcommander.JCommander;
+import validators.ValidateInputWindow;
+import validators.ValidateBinaryStream;
+import validators.ValidateSlideWindow;
 import com.beust.jcommander.Parameter;
 /**
  *
@@ -20,14 +22,25 @@ public class ArgParser {
     @Parameter(names = {"--inputBinary","-i"}, description = "required binary number argument", required = true, validateWith = ValidateBinaryStream.class)
     private String binaryInput;
     @Parameter(names = {"--inputWindow","-w"}, description = "required input window argument", required = true, validateWith = ValidateInputWindow.class)
-    private int inputWindow;
+    // length of input Window
+    private int Ment = 0;
+    @Parameter(names = {"--slideWindow","-s"}, description = "required input slide window argument", required = true, validateWith = ValidateSlideWindow.class)
+    //length of Slide window
+    private int Mdes = 0;
+    
     public boolean getDebug(){
         return debug;
     }
     public int getVerbose(){
         return verbose;
     }
-    private String getBinaryInput(){
+    public String getBinaryInput(){
         return binaryInput;
+    }
+    public int getInputWindow(){
+        return Ment;
+    }
+    public int getSlideWindow(){
+        return Mdes;
     }
 }
