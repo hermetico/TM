@@ -13,7 +13,7 @@ import com.beust.jcommander.ParameterException;
  *
  * @author ferran
  */
-public class Tester {
+public class Main {
     
     public static void main(String[] args) {
         
@@ -25,13 +25,8 @@ public class Tester {
             if (parser.help){ 
                 jcomm.usage();
             }
-            // check slide and input window size are rigth
-            if(parser.getInputWindow() >= parser.getSlideWindow()){
-                throw new ParameterException("Slide window must be greater than Input Window");
-            }
-            if (parser.getInputWindow() + parser.getSlideWindow() > parser.getBinaryInput().length()){
-                throw new ParameterException ("sum of Input window and Slide window must be lower than input binary length");
-            }
+            
+            parser.checkRelatedParameters();
             
             //System.out.println("Debug Mode: " + parser.getDebug());
             //System.out.println("Help Mode: " + parser.help);

@@ -8,6 +8,7 @@ package avcont4;
 import validators.ValidateBinaryStream;
 import validators.ValidateWindows;
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 /**
  *
  * @author ferran
@@ -42,5 +43,14 @@ public class ArgParser {
     }
     public int getSlideWindow(){
         return Mdes;
+    }
+    public void checkRelatedParameters(){
+        // check slide and input window size are rigth
+        if(this.getInputWindow() >= this.getSlideWindow()){
+            throw new ParameterException("Slide window must be greater than Input Window");
+        }
+        if (this.getInputWindow() + this.getSlideWindow() > this.getBinaryInput().length()){
+            throw new ParameterException ("sum of Input window and Slide window must be lower than input binary length");
+        }
     }
 }
