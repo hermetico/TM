@@ -5,10 +5,6 @@
  */
 package LZ77.exceptions;
 
-/**
- *
- * @author hermetico
- */
 public class NoCoincidenceException extends Exception{
     public NoCoincidenceException(){super();}
     public NoCoincidenceException(String message){super(message);}

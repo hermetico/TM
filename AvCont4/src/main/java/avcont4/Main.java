@@ -5,6 +5,7 @@
  */
 package avcont4;
 
+import LZ77.LZ77;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 
@@ -15,6 +16,7 @@ import com.beust.jcommander.ParameterException;
  */
 public class Main {
     
+    ArgParser args;
     public static void main(String[] args) {
         
         ArgParser parser = new ArgParser();
@@ -34,11 +36,26 @@ public class Main {
         }catch(ParameterException e){
             System.out.println(e.getMessage());
             System.err.println(" Try --help or -h for help");
+            System.exit(1);
         }
         
+        Main main = new Main(parser);
+        main.run();
+        
+    }
+    public Main(ArgParser args){
+        this.args = args;
+    }
+
+    public void run(){
+        String data = args.getBinaryInput();
+        int inputWindowSize = args.getInputWindow();
+        int slidingWindowSize = args.getSlideWindow();
         
         
-        
+        LZ77 compressor = new LZ77();
+        String compressed = compressor.compress(data, inputWindowSize, slidingWindowSize);
+        System.out.println(compressed);
     }
     
 }

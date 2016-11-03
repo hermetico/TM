@@ -5,6 +5,7 @@
  */
 package LZ77;
 
+import LZ77.utils.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,10 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author hermetico
- */
+
 public class EncoderTest {
     
     public EncoderTest() {
@@ -38,15 +36,15 @@ public class EncoderTest {
     }
 
     /**
-     * Test of decode method, of class Encoder.
+     * Test of decompress method, of class LZ77.
      */
 
     @org.junit.Test
     public void testDecode() {
-        System.out.println("decode");
-        Encoder instance = null;
+        System.out.println("decompress");
+        LZ77 instance = null;
         String expResult = "";
-        String result = instance.decode();
+        String result = instance.decompress();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -54,54 +52,42 @@ public class EncoderTest {
 
     
     /**
-     * Test of encode method, of class Encoder.
+     * Test of compress method, of class LZ77.
      */
     @org.junit.Test
     @SuppressWarnings("empty-statement")
     public void testEncode() {
-        System.out.println("encode");
+        System.out.println("Compress");
         String data = "1101110010100111";
         int inputWindowSize = 2;
         int slidingWindowSize = 4;
-        Encoder instance = new Encoder();
-        LZ77File result = instance.encode(data, inputWindowSize, slidingWindowSize);
-        String header = "1101";
-        String remainder = "1";
-        String[] coincidences = {"000", "100", "101", "011", "010", "011", "101"};
+        LZ77 instance = new LZ77();
+        String result = instance.compress(data, inputWindowSize, slidingWindowSize);
+        String expected = "11010001001010110100111011";
         
-        assertEquals(header, result.getHeader());
-        assertEquals(remainder, result.getRemainder());
-        for(int i = 0; i < coincidences.length; i++){
-            assertEquals(coincidences[i], result.getCoincidences()[i]);
-        }
+        assertEquals(result, expected);
 
         
         inputWindowSize = 4;
         slidingWindowSize = 4;
-        instance = new Encoder();
-        result = instance.encode(data, inputWindowSize, slidingWindowSize);
-        header = "1101";
-        remainder = "11";
-        String[] coincidences2 = {"1100", "0101", "1011", "1010", "1011"};
-        
-        assertEquals(header, result.getHeader());
-        assertEquals(remainder, result.getRemainder());
-        for(int i = 0; i < coincidences2.length; i++){
-            assertEquals(coincidences2[i], result.getCoincidences()[i]);
-        }
+        instance = new LZ77();
+        result = instance.compress(data, inputWindowSize, slidingWindowSize);
+        expected = "11011100010110111010101111";
 
+        
+        assertEquals(result, expected);
     }
 
 
     /**
-     * Test of longestCommonSubstring method, of class Encoder.
+     * Test of longestCommonSubstring method, of class LZ77.
      */
     @org.junit.Test
     public void testLongestCommonSubstring() {
         System.out.println("longestPrefixIn");
         String a = "aababa";
         String b = "bab";
-        Encoder instance = new Encoder();
+        LZ77 instance = new LZ77();
         Pair expResult = new Pair(3, 4);
         Pair result = instance.longestPrefixIn(a, b);
         assertTrue(expResult.equalsTo(result));
@@ -140,7 +126,7 @@ public class EncoderTest {
 
     }
      /**
-     * Test of testtranslate method, of class Encoder.
+     * Test of testtranslate method, of class LZ77.
      */
     @org.junit.Test
     public void testTranslatePieceWith() {
@@ -162,7 +148,7 @@ public class EncoderTest {
 
     }
      /**
-     * Test of testEncodePiece method, of class Encoder.
+     * Test of testEncodePiece method, of class LZ77.
      */
     @org.junit.Test
     public void testEncodePiece() {
