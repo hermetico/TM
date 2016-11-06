@@ -49,7 +49,7 @@ public class LZ77 {
             // we must search substring of length L at distance D from end to start          
             // select substring to add to header and update header
             
-            header += header.substring(header.length()-L , header.length()-L+D);        
+            header += header.substring(header.length()-D , header.length()-D + L);        
        
             // update remainder
             remainder = remainder.substring(inputWindowDigits + slideWindowDigits, remainder.length());                  

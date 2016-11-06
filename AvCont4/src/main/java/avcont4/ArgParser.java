@@ -47,6 +47,7 @@ public class ArgParser {
     public void checkRelatedParameters(){
         // check slide and input window size are rigth
         if(this.getInputWindow() >= this.getSlideWindow()){
+            System.out.println();
             throw new ParameterException("Slide window must be greater than Input Window");
         }
         if (this.getInputWindow() + this.getSlideWindow() > this.getBinaryInput().length()){

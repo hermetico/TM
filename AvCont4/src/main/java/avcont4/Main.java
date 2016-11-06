@@ -57,11 +57,11 @@ public class Main {
         
         
         // binario de 25 cifras aleatorias
-        String data = "11011100101001111010100010001";
-       /* 
+        String data = "";
+        
         for (int i=1; i<26; i++){ data += Math.round(Math.random()); }
         System.out.println("Data: " + data);
-        */
+        
         
         int inputWindowSize = args.getInputWindow();
         int slidingWindowSize = args.getSlideWindow();
@@ -69,9 +69,11 @@ public class Main {
         System.out.println("IW: " + inputWindowSize);
         LZ77 compressor = new LZ77();
         String compressed = compressor.compress(data, inputWindowSize, slidingWindowSize);
-        //String decompressed = compressor.decompress(compressed, inputWindowSize, slidingWindowSize);
+        String decompressed = compressor.decompress(compressed, inputWindowSize, slidingWindowSize);
         System.out.println("Compressed :" + compressed);
-        //System.out.println("Decompressed: " + decompressed);
+        System.out.println("Decompressed: " + decompressed);
+        System.out.println("Compressed len:" + compressed.length());
+        System.out.println("Decompressed len: " + decompressed.length());
         
     }
     
