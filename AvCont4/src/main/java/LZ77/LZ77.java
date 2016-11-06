@@ -12,10 +12,54 @@ import java.util.List;
 
 public class LZ77 {
 
-    
    
-    //TODO
-    public String decompress(){ return "";}
+    public String decompress(String data, int inputWindowSize, int slidingWindowSize){ 
+        
+        
+        // Compute digits size of each window 
+        int slideWindowDigits = (int)(Math.log(slidingWindowSize)/Math.log(2));
+        int inputWindowDigits = (int)(Math.log(inputWindowSize)/Math.log(2));
+        // length and distance of current substring
+        String currentL, currentD, currentStep;
+        int L,D ;
+        
+        String header, reverseHeader, remainder;
+  
+        // init header has the size of the sliding window
+        header = data.substring(0, slidingWindowSize);
+        
+        // reminder is the substring to decode
+        remainder = data.substring(slidingWindowSize, data.length());
+        
+        // If reminder length is larger than sum of windows, decode step must be done.
+        while (remainder.length() >= slideWindowDigits + inputWindowDigits){
+            // read L and D
+            currentL = remainder.substring(0, inputWindowDigits);
+            currentD = remainder.substring(inputWindowDigits, inputWindowDigits + slideWindowDigits);
+           
+            // transcode L & D to int values
+            L = Integer.parseInt(currentL, 2);
+            // maxsize of L & D  coded as 0 value
+            if (L == 0){ L = inputWindowSize;}
+            
+            D = Integer.parseInt(currentD, 2);
+            if (D == 0){ D = slidingWindowSize;}
+            
+            // we must search substring of L length at D distance from end to start
+            // for convenience reverse header and search substring from start to end
+            reverseHeader = new StringBuilder(header).reverse().toString();
+            
+            // select substring to add to header
+            header = header + reverseHeader.substring(L, L+D);
+            
+            // update remainder
+            remainder = remainder.substring(inputWindowDigits + slideWindowDigits, data.length());
+            
+        }
+        // size of remaing substring is lower than sum of windowas so add reamining unprocessed substring
+        header = header + remainder;
+        return header;
+    }
     
     
     public  String compress(String data, int inputWindowSize, int slidingWindowSize){
@@ -23,12 +67,12 @@ public class LZ77 {
         int endSlidingWindow = slidingWindowSize;
         int initInputWindow = endSlidingWindow;
         int endInputWindow = initInputWindow + inputWindowSize;
-
+        
         String header = "", remainder = "";
         List<String> pairs = new ArrayList<>();
         
         // creates the header based on the size of the sliding window
-        header = data.substring(0, slidingWindowSize);
+        header = data.substring(initSlidingWindow, slidingWindowSize);
         
         // creates the pairs
         for(int i = initSlidingWindow; endInputWindow <= data.length(); i++)
