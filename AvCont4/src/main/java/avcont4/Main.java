@@ -5,6 +5,7 @@
  */
 package avcont4;
 
+
 import LZ77.LZ77;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
@@ -17,8 +18,10 @@ import com.beust.jcommander.ParameterException;
 public class Main {
     
     ArgParser args;
+    
     public static void main(String[] args) {
         
+       
         ArgParser parser = new ArgParser();
         JCommander jcomm;
         try{
@@ -52,10 +55,12 @@ public class Main {
         int inputWindowSize = args.getInputWindow();
         int slidingWindowSize = args.getSlideWindow();
         
-        
         LZ77 compressor = new LZ77();
         String compressed = compressor.compress(data, inputWindowSize, slidingWindowSize);
+        String decompressed = compressor.decompress(compressed, inputWindowSize, slidingWindowSize);
         System.out.println(compressed);
+        System.out.println("Decompressed: " + decompressed);
+        
     }
     
 }

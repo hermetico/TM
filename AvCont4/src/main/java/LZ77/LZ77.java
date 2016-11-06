@@ -19,20 +19,24 @@ public class LZ77 {
         // Compute digits size of each window 
         int slideWindowDigits = (int)(Math.log(slidingWindowSize)/Math.log(2));
         int inputWindowDigits = (int)(Math.log(inputWindowSize)/Math.log(2));
+        
         // length and distance of current substring
         String currentL, currentD, currentStep;
         int L,D ;
         
         String header, reverseHeader, remainder;
-  
+        
         // init header has the size of the sliding window
         header = data.substring(0, slidingWindowSize);
         
         // reminder is the substring to decode
         remainder = data.substring(slidingWindowSize, data.length());
         
+        currentL = remainder.substring(0, inputWindowDigits);
+        currentD = remainder.substring(inputWindowDigits, inputWindowDigits + slideWindowDigits);
+          
         // If reminder length is larger than sum of windows, decode step must be done.
-        while (remainder.length() >= slideWindowDigits + inputWindowDigits){
+        while (remainder.length() >= inputWindowSize){
             // read L and D
             currentL = remainder.substring(0, inputWindowDigits);
             currentD = remainder.substring(inputWindowDigits, inputWindowDigits + slideWindowDigits);
@@ -45,19 +49,17 @@ public class LZ77 {
             D = Integer.parseInt(currentD, 2);
             if (D == 0){ D = slidingWindowSize;}
             
-            // we must search substring of L length at D distance from end to start
-            // for convenience reverse header and search substring from start to end
-            reverseHeader = new StringBuilder(header).reverse().toString();
+            // we must search substring of length L at distance D from end to start          
+            // select substring to add to header and update header
             
-            // select substring to add to header
-            header = header + reverseHeader.substring(L, L+D);
-            
+            header += header.substring(header.length()-L , header.length()-L+D);        
+       
             // update remainder
-            remainder = remainder.substring(inputWindowDigits + slideWindowDigits, data.length());
-            
+            remainder = remainder.substring(inputWindowDigits + slideWindowDigits, remainder.length());                  
         }
-        // size of remaing substring is lower than sum of windowas so add reamining unprocessed substring
+        // size of remaing substring is lower than sum of windows so add reamining unprocessed substring
         header = header + remainder;
+        System.out.println("result: " + header);
         return header;
     }
     

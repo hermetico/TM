@@ -42,12 +42,18 @@ public class EncoderTest {
     @org.junit.Test
     public void testDecode() {
         System.out.println("decompress");
-        LZ77 instance = null;
-        String expResult = "";
-        String result = instance.decompress();
+        String data = "11010001001010110100111011";
+        int inputWindowSize = 2;
+        int slidingWindowSize = 4;
+        LZ77 instance = new LZ77();
+        String expResult = "1101110010100111";
+        String result = instance.decompress(data, inputWindowSize, slidingWindowSize);
+        
         assertEquals(expResult, result);
+        
+        
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     
