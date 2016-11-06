@@ -42,15 +42,15 @@ public class EncoderTest {
     @org.junit.Test
     public void testDecode() {
         System.out.println("decompress");
-        String data = "11010001001010110100111011";
+        String data = "";
         int inputWindowSize = 2;
         int slidingWindowSize = 4;
-        LZ77 instance = new LZ77();
-        String expResult = "1101110010100111";
-        String result = instance.decompress(data, inputWindowSize, slidingWindowSize);
+        LZ77 instance = null;
+        String expResult = "";
+        //String result = instance.decompress(data, inputWindowSize, slidingWindowSize);
         
-        assertEquals(expResult, result);
-        
+        //assertEquals(expResult, result);
+        fail("The test case is a prototype.");
         
         // TODO review the generated test code and remove the default call to fail.
         
@@ -64,7 +64,7 @@ public class EncoderTest {
     @SuppressWarnings("empty-statement")
     public void testEncode() {
         System.out.println("Compress");
-        String data = "1101110010100111";
+        String data = "1101110010100110";
         int inputWindowSize = 2;
         int slidingWindowSize = 4;
         LZ77 instance = new LZ77();

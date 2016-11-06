@@ -21,19 +21,16 @@ public class LZ77 {
         int inputWindowDigits = (int)(Math.log(inputWindowSize)/Math.log(2));
         
         // length and distance of current substring
-        String currentL, currentD, currentStep;
+        String currentL, currentD;
         int L,D ;
         
-        String header, reverseHeader, remainder;
+        String header, remainder;
         
         // init header has the size of the sliding window
         header = data.substring(0, slidingWindowSize);
         
         // reminder is the substring to decode
         remainder = data.substring(slidingWindowSize, data.length());
-        
-        currentL = remainder.substring(0, inputWindowDigits);
-        currentD = remainder.substring(inputWindowDigits, inputWindowDigits + slideWindowDigits);
           
         // If reminder length is larger than sum of windows, decode step must be done.
         while (remainder.length() >= inputWindowSize){
@@ -59,7 +56,7 @@ public class LZ77 {
         }
         // size of remaing substring is lower than sum of windows so add reamining unprocessed substring
         header = header + remainder;
-        System.out.println("result: " + header);
+        
         return header;
     }
     
@@ -76,6 +73,14 @@ public class LZ77 {
         // creates the header based on the size of the sliding window
         header = data.substring(initSlidingWindow, slidingWindowSize);
         
+        
+        //---------------------TESTING---------------------
+        /*
+        System.out.println("HEADER: " + header);
+        System.out.println("SW: " + slidingWindowSize);
+        System.out.println("IW: " + inputWindowSize);
+        */
+        //--------------------END TESTING------------------
         // creates the pairs
         for(int i = initSlidingWindow; endInputWindow <= data.length(); i++)
         {
