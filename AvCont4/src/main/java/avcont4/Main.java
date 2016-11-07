@@ -42,6 +42,18 @@ public class Main {
             System.exit(1);
         }
         
+        
+        
+        //-----------------------Testing------------------
+        
+        // binario de 25 cifras aleatorias
+        String data = "";
+        
+        for (int i=1; i<26; i++){ data += Math.round(Math.random()); }
+        System.out.println("Data: " + data);
+        parser.setBinaryInput(data);
+        
+        //----------------------END TESTING----------------
         Main main = new Main(parser);
         main.run();
         
@@ -53,15 +65,7 @@ public class Main {
     public void run(){
         
         
-        //String data = args.getBinaryInput();
-        
-        
-        // binario de 25 cifras aleatorias
-        String data = "";
-        
-        for (int i=1; i<26; i++){ data += Math.round(Math.random()); }
-        System.out.println("Data: " + data);
-        
+        String data = args.getBinaryInput();
         
         int inputWindowSize = args.getInputWindow();
         int slidingWindowSize = args.getSlideWindow();

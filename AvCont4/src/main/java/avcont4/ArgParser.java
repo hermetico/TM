@@ -38,6 +38,9 @@ public class ArgParser {
     public String getBinaryInput(){
         return binaryInput;
     }
+    public void setBinaryInput(String number){
+        binaryInput = number;
+    }
     public int getInputWindow(){
         return Ment;
     }

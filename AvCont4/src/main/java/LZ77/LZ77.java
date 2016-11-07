@@ -13,6 +13,13 @@ import java.util.List;
 public class LZ77 {
 
    
+    /**
+     * Compute and decompress previously LZ77 compressed binary number 
+     * @param data binary number to decompress in string format
+     * @param inputWindowSize input window used to compress data
+     * @param slidingWindowSize slide window usedto compress data
+     * @return data decompressed. String formatted binary number
+     */
     public String decompress(String data, int inputWindowSize, int slidingWindowSize){ 
         
         
@@ -60,7 +67,13 @@ public class LZ77 {
         return header;
     }
     
-    
+    /**
+     * Compress binary number in string format using LZ77 algorithm
+     * @param data Binary number to compress formatted as string
+     * @param inputWindowSize 
+     * @param slidingWindowSize
+     * @return compressed data. String formatted binary number. 
+     */
     public  String compress(String data, int inputWindowSize, int slidingWindowSize){
         int initSlidingWindow = 0;
         int endSlidingWindow = slidingWindowSize;
@@ -73,14 +86,6 @@ public class LZ77 {
         // creates the header based on the size of the sliding window
         header = data.substring(initSlidingWindow, slidingWindowSize);
         
-        
-        //---------------------TESTING---------------------
-        /*
-        System.out.println("HEADER: " + header);
-        System.out.println("SW: " + slidingWindowSize);
-        System.out.println("IW: " + inputWindowSize);
-        */
-        //--------------------END TESTING------------------
         // creates the pairs
         for(int i = initSlidingWindow; endInputWindow <= data.length(); i++)
         {
