@@ -83,17 +83,17 @@ public class Main {
             data += Math.round(Math.random()); 
         }
 
-        //System.out.println("Slide Window:\tInput Window:\tCompression Factor:\tCompressed Length:\tDecompressed length:");
-        System.out.println("Slide Window:\tInput Window:\tCompression Factor:");
+        System.out.println("Slide Window:\tInput Window:\tCompressed Length:\tDecompressed length:\tCompression Factor:");
+        //System.out.println("Slide Window:\tInput Window:\tCompression Factor:");
         for (int  slidingWindow = 32; slidingWindow <= binaryLength; slidingWindow *= 2){ // sliding window
-            for(int inputWindow = 32; (inputWindow <= slidingWindow ) && ( inputWindow + slidingWindow < binaryLength ); inputWindow *= 2){ // inputWindow
+            for(int inputWindow = 32; (inputWindow <= slidingWindow ) && ( inputWindow + slidingWindow <= binaryLength ); inputWindow *= 2){ // inputWindow
                 compressed = compressor.compress(data, inputWindow, slidingWindow);
                 
                 System.out.print(slidingWindow + "\t" );
                 System.out.print(inputWindow + "\t" );
-                System.out.print(((float)binaryLength / (float)compressed.length()) + "\n" );
-                //System.out.print(compressed.length()  + "\t" );
-                //System.out.print(binaryLength  + "\n" );
+                System.out.print(compressed.length()  + "\t" );
+                System.out.print(binaryLength  + "\t" );
+                System.out.print(((float)binaryLength / (float)compressed.length()) + "\n" );                
                
             }
         }
