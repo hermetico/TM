@@ -46,15 +46,24 @@ public class Main {
         
         //-----------------------Testing------------------
        
-        // binario de 25 cifras aleatorias
+        // binario de 10000 cifras aleatorias
         String data = "";
+        int numIter = 100001;
         
-        for (int i=1; i<10001; i++){ data += Math.round(Math.random()); }
+        for (int i=1; i<numIter; i++){ data += Math.round(Math.random()); }
         parser.setBinaryInput(data);
-        System.out.println("Data: " + data);
+        //System.out.println("Data: " + data);
+        System.out.println("Slide Window:\tInput Window:\tCompressed Length:\tDecompressed length:");
+        for (int i =8; i< numIter; i*=2){
+            for(int j= 8; j<= i; j*=2){
+                parser.setSlideWindow(i);
+                parser.setInputWindow(j);
+                Main main = new Main(parser);
+                main.run();
+               
+            }
+        }
         
-        parser.setInputWindow(16);
-        parser.setSlideWindow(8192);
         //----------------------END TESTING----------------
         Main main = new Main(parser);
         main.run();
@@ -72,15 +81,14 @@ public class Main {
         
         int inputWindowSize = args.getInputWindow();
         int slidingWindowSize = args.getSlideWindow();
-        System.out.println("SW: " + slidingWindowSize);
-        System.out.println("IW: " + inputWindowSize);
+        //System.out.println("SW: " + slidingWindowSize);
+        //System.out.println("IW: " + inputWindowSize);
         LZ77 compressor = new LZ77();
         String compressed = compressor.compress(data, inputWindowSize, slidingWindowSize);
         String decompressed = compressor.decompress(compressed, inputWindowSize, slidingWindowSize);
-        System.out.println("Compressed :" + compressed);
-        System.out.println("Decompressed: " + decompressed);
-        System.out.println("Compressed len:" + compressed.length());
-        System.out.println("Decompressed len: " + decompressed.length());
+        
+        System.out.println(slidingWindowSize + "\t" + inputWindowSize + "\t" +  compressed.length() + "\t" + decompressed.length());
+        
         
     }
     
