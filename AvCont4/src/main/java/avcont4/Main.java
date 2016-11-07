@@ -9,6 +9,7 @@ package avcont4;
 import LZ77.LZ77;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
+import java.util.Random;
 
 
 /**
@@ -79,8 +80,9 @@ public class Main {
         int binaryLength = this.args.getTest();
         String compressed;
         LZ77 compressor = new LZ77();
+        Random rnd1 = new Random(7);
         for (int i=1; i <= binaryLength; i++){ 
-            data += Math.round(Math.random()); 
+            data += Math.round(rnd1.nextDouble()); 
         }
 
         System.out.println("Slide Window:\tInput Window:\tCompressed Length:\tDecompressed length:\tCompression Factor:");
