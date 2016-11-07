@@ -43,35 +43,15 @@ public class Main {
         }
         
         
-        
-        //-----------------------Testing------------------
-       
-        // binario de 10000 cifras aleatorias
-        String data = "";
-        int numIter = 100001;
-        
-        for (int i=1; i<numIter; i++){ data += Math.round(Math.random()); }
-        parser.setBinaryInput(data);
-        //System.out.println("Data: " + data);
-        System.out.println("Slide Window:\tInput Window:\tCompressed Length:\tDecompressed length:");
-        for (int i =8; i< numIter; i*=2){
-            for(int j= 8; j<= i; j*=2){
-                parser.setSlideWindow(i);
-                parser.setInputWindow(j);
-                Main main = new Main(parser);
-                main.run();
-               
-            }
-        }
-        
-        //----------------------END TESTING----------------
         Main main = new Main(parser);
-        main.run();
+        
         
         
     }
     public Main(ArgParser args){
         this.args = args;
+        if(args.getTest() != 0) test();
+        else run();
     }
 
     public void run(){
@@ -81,14 +61,42 @@ public class Main {
         
         int inputWindowSize = args.getInputWindow();
         int slidingWindowSize = args.getSlideWindow();
-        //System.out.println("SW: " + slidingWindowSize);
-        //System.out.println("IW: " + inputWindowSize);
+        System.out.println("SW: " + slidingWindowSize);
+        System.out.println("IW: " + inputWindowSize);
         LZ77 compressor = new LZ77();
         String compressed = compressor.compress(data, inputWindowSize, slidingWindowSize);
         String decompressed = compressor.decompress(compressed, inputWindowSize, slidingWindowSize);
+        System.out.print(slidingWindowSize + "\t" );
+        System.out.print(inputWindowSize + "\t" );
+        System.out.print(((float)decompressed.length() / (float)compressed.length()) + "\t" );
+        System.out.print(compressed.length()  + "\t" );
+        System.out.print(decompressed.length()  + "\n" );
+      
         
-        System.out.println(slidingWindowSize + "\t" + inputWindowSize + "\t" +  compressed.length() + "\t" + decompressed.length());
-        
+    }
+    public void test(){
+        String data = "";
+        int binaryLength = this.args.getTest();
+        String compressed;
+        LZ77 compressor = new LZ77();
+        for (int i=1; i <= binaryLength; i++){ 
+            data += Math.round(Math.random()); 
+        }
+
+        //System.out.println("Slide Window:\tInput Window:\tCompression Factor:\tCompressed Length:\tDecompressed length:");
+        System.out.println("Slide Window:\tInput Window:\tCompression Factor:");
+        for (int  slidingWindow = 32; slidingWindow <= binaryLength; slidingWindow *= 2){ // sliding window
+            for(int inputWindow = 32; (inputWindow <= slidingWindow ) && ( inputWindow + slidingWindow < binaryLength ); inputWindow *= 2){ // inputWindow
+                compressed = compressor.compress(data, inputWindow, slidingWindow);
+                
+                System.out.print(slidingWindow + "\t" );
+                System.out.print(inputWindow + "\t" );
+                System.out.print(((float)binaryLength / (float)compressed.length()) + "\n" );
+                //System.out.print(compressed.length()  + "\t" );
+                //System.out.print(binaryLength  + "\n" );
+               
+            }
+        }
         
     }
     

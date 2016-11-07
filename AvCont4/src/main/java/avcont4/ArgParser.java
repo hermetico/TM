@@ -16,8 +16,8 @@ import com.beust.jcommander.ParameterException;
 public class ArgParser {
     @Parameter(names="--debug", description = "Enter debug mode")
     private boolean debug = false;
-    @Parameter(names="--test", description = "Enter test mode")
-    private boolean test = false;
+    @Parameter(names={"--test", "-t"}, description = "Enter test mode")
+    private int test = 0;
     @Parameter(names = {"--help","-h"}, description= "Imprime este mensaje de ayuda", help = true)
     public boolean help;
     @Parameter(names = {"--verbose", "-v"}, description = "verbosity level" )
@@ -34,7 +34,7 @@ public class ArgParser {
     public boolean getDebug(){
         return debug;
     }
-    public boolean getTest(){
+    public int getTest(){
         return test;
     }
     public int getVerbose(){

@@ -81,7 +81,7 @@ public class LZ77 {
         int endInputWindow = initInputWindow + inputWindowSize;
         
         String header = "", remainder = "";
-        List<String> pairs = new ArrayList<>();
+        List<String> pairs = new ArrayList<String>();
         
         // creates the header based on the size of the sliding window
         header = data.substring(initSlidingWindow, slidingWindowSize);
@@ -105,6 +105,7 @@ public class LZ77 {
             
             pairs.add(current.translatePieceWith(inputWindowSize, slidingWindowSize));
             
+            //if(endInputWindow + current.length > data.length()) break;
             // moves both windows
             initSlidingWindow += current.length;
             endSlidingWindow += current.length;   
