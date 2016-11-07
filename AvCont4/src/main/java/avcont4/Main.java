@@ -45,17 +45,20 @@ public class Main {
         
         
         //-----------------------Testing------------------
-        
+       
         // binario de 25 cifras aleatorias
         String data = "";
         
-        for (int i=1; i<26; i++){ data += Math.round(Math.random()); }
-        System.out.println("Data: " + data);
+        for (int i=1; i<10001; i++){ data += Math.round(Math.random()); }
         parser.setBinaryInput(data);
+        System.out.println("Data: " + data);
         
+        parser.setInputWindow(16);
+        parser.setSlideWindow(8192);
         //----------------------END TESTING----------------
         Main main = new Main(parser);
         main.run();
+        
         
     }
     public Main(ArgParser args){

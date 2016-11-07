@@ -41,6 +41,13 @@ public class ArgParser {
     public void setBinaryInput(String number){
         binaryInput = number;
     }
+    public void setInputWindow(int number){
+        Ment = number;
+    }
+    public void setSlideWindow(int number){
+        Mdes = number;
+    }
+    
     public int getInputWindow(){
         return Ment;
     }
