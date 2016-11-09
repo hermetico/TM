@@ -64,16 +64,17 @@ public class Main {
         
         int inputWindowSize = args.getInputWindow();
         int slidingWindowSize = args.getSlideWindow();
-        //System.out.println("SW: " + slidingWindowSize);
-        //System.out.println("IW: " + inputWindowSize);
-        String compressed = compressor.compress(data, inputWindowSize, slidingWindowSize);
-        //String decompressed = compressor.decompress(compressed, inputWindowSize, slidingWindowSize);
-        System.out.println(compressed);
-        //System.out.print(slidingWindowSize + "\t" );
-        //System.out.print(inputWindowSize + "\t" );
-        //System.out.print(((float)decompressed.length() / (float)compressed.length()) + "\t" );
-        //System.out.print(compressed.length()  + "\t" );
-        //System.out.print(decompressed.length()  + "\n" );
+        
+        // check mode to compress or decompress input data
+        
+        String output;
+        if ("c".equals(args.getMode())){
+              output = compressor.compress(data, inputWindowSize, slidingWindowSize);
+        }else{
+              output = compressor.decompress(data, inputWindowSize, slidingWindowSize);
+        }
+        System.out.println(output);
+        
       
         
     }

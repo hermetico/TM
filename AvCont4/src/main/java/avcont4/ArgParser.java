@@ -9,6 +9,7 @@ import validators.ValidateBinaryStream;
 import validators.ValidateWindows;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import validators.ValidateMode;
 /**
  *
  * @author ferran
@@ -20,6 +21,8 @@ public class ArgParser {
     private int test = 0;
     @Parameter(names = {"--help","-h"}, description= "Imprime este mensaje de ayuda", help = true)
     public boolean help;
+    @Parameter(names = {"--mode"}, description = "Compression mode, c: compress(default), d: decompress", validateWith = ValidateMode.class)
+    public String mode = "c";
     @Parameter(names = {"--verbose", "-v"}, description = "verbosity level" )
     private int verbose = 1;
     @Parameter(names = {"--inputBinary","-i"}, description = "required binary number argument", required = true, validateWith = ValidateBinaryStream.class)
@@ -58,6 +61,9 @@ public class ArgParser {
     }
     public int getSlideWindow(){
         return Mdes;
+    }
+    public String getMode(){
+        return mode;
     }
     public void checkRelatedParameters(){
         // check slide and input window size are rigth
