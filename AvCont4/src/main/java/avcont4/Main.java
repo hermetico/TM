@@ -9,6 +9,7 @@ package avcont4;
 import LZ77.LZ77;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
+import java.math.BigDecimal;
 import java.util.Random;
 
 
@@ -86,21 +87,43 @@ public class Main {
             data += Math.round(rnd1.nextDouble()); 
         }
 
-        System.out.println("Slide Window:\tInput Window:\tCompressed Length:\tDecompressed length:\tCompression Factor:");
-        //System.out.println("Slide Window:\tInput Window:\tCompression Factor:");
+        System.out.println("Sliding Window: SW");
+        System.out.println("Input Window: IW");
+        System.out.println("Compressed length: CL");
+        System.out.println("Decompressed length: DL");
+        System.out.println("Compresion factor: CF");
+        System.out.println();
+        System.out.println("SW:\tIW:\tCL:\tDL:\tCF:");
+        
         for (int  slidingWindow = 32; slidingWindow <= binaryLength; slidingWindow *= 2){ // sliding window
             for(int inputWindow = 32; (inputWindow <= slidingWindow ) && ( inputWindow + slidingWindow <= binaryLength ); inputWindow *= 2){ // inputWindow
                 compressed = compressor.compress(data, inputWindow, slidingWindow);
+                
+                BigDecimal ratio;
+                ratio = round(((float)binaryLength / (float)compressed.length()),2);
                 
                 System.out.print(slidingWindow + "\t" );
                 System.out.print(inputWindow + "\t" );
                 System.out.print(compressed.length()  + "\t" );
                 System.out.print(binaryLength  + "\t" );
-                System.out.print(((float)binaryLength / (float)compressed.length()) + "\n" );                
+                System.out.print(ratio);
+                System.out.println();                
                
             }
         }
         
+    }
+    
+     /**
+     * rounds number d to n decimalPlaces
+     * @param d input number
+     * @param decimalPlace number of decimals
+     * @return number rounded to n decimal places
+     */
+    public static BigDecimal round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);       
+        return bd;
     }
     
 }
