@@ -15,16 +15,13 @@ import validators.ValidateMode;
  * @author ferran
  */
 public class ArgParser {
-    @Parameter(names="--debug", description = "Enter debug mode")
-    private boolean debug = false;
+    
     @Parameter(names={"--test", "-t"}, description = "Enter test mode")
     private int test = 0;
     @Parameter(names = {"--help","-h"}, description= "Imprime este mensaje de ayuda", help = true)
     public boolean help;
     @Parameter(names = {"--mode"}, description = "Compression mode, c: compress(default), d: decompress", validateWith = ValidateMode.class)
     public String mode = "c";
-    @Parameter(names = {"--verbose", "-v"}, description = "verbosity level" )
-    private int verbose = 1;
     @Parameter(names = {"--inputBinary","-i"}, description = "required binary number argument", required = true, validateWith = ValidateBinaryStream.class)
     private String binaryInput;
     @Parameter(names = {"--inputWindow","-w"}, description = "required input window argument", required = true, validateWith = ValidateWindows.class)
@@ -34,14 +31,9 @@ public class ArgParser {
     //length of Slide window
     private int Mdes = 0;
     
-    public boolean getDebug(){
-        return debug;
-    }
+   
     public int getTest(){
         return test;
-    }
-    public int getVerbose(){
-        return verbose;
     }
     public String getBinaryInput(){
         return binaryInput;
