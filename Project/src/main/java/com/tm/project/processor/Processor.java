@@ -7,6 +7,7 @@ package com.tm.project.processor;
 
 import com.tm.project.input.Sorter;
 import com.tm.project.input.Unzip;
+import com.tm.project.misc.Counters;
 import com.tm.project.settings.Configuration;
 import com.tm.project.misc.Tracer;
 import java.awt.image.BufferedImage;
@@ -14,16 +15,18 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 
 public class Processor implements Runnable{
-    Configuration cf;
-    Tracer tr;
-    Unzip zp;
-    List<ZipEntry> entries;
-    Buffer<BufferedImage> buffer;
+    protected Configuration cf;
+    protected Tracer tr;
+    protected Unzip zp;
+    protected List<ZipEntry> entries;
+    protected Buffer<BufferedImage> buffer;
+    protected Counters counters;
     
     
     public Processor(String path) {
         cf = Configuration.getInstance();
         tr =  Tracer.getInstance();
+        counters = new Counters();
         zp = new Unzip(path);
         entries = readZipData();
         buffer = new Buffer<BufferedImage>(entries.size());
@@ -42,25 +45,21 @@ public class Processor implements Runnable{
         
     }
     
-    public int lengthData(){
-        return entries.size();
-    }
-    
     public Buffer<BufferedImage> getBuffer(){
         return buffer;
     }
     
-
     @Override
     public void run() {
         for(ZipEntry entry: entries){
             BufferedImage img;
             img = zp.unzipImageEntry(entry);
-            // exclusion zone
             buffer.add(img);
             
+            if(cf.PROCESSING_COUNTERS)
+                counters.addTimestamp();
         }
+        if(cf.PROCESSING_COUNTERS)
+            counters.flushCounters("Encoding", "fps");
     }
-    
-    
 }

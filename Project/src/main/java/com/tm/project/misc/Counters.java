@@ -23,20 +23,25 @@ public class Counters {
             timestamps.add(System.nanoTime());
     }
     
-    public void flushCounters(){
+    public void flushCounters(String name, String scale){
         if(timestamps.size() > 2){
             long last = timestamps.get(0);
             timestamps.remove(0);
             
-            System.out.println("+ Resume of the counters:");
+            System.out.println("+ Resume of the " + name + ":");
             for(long stamp: timestamps){
                 long difference = stamp - last;
-                System.out.format("FrameRate: %.3fms\t", toFPS(difference));
+                System.out.format(name +": %.3f" + scale +"\t", toFPS(difference));
                 System.out.format("Difference with previous: %.3fms\n", toMillis(difference));
                 last = stamp;
             }
         }
         timestamps.clear();
+    }
+    
+    
+    public void flushFPS(){
+        flushCounters("FPS", "");
     }
     
     public float toFPS(long num){

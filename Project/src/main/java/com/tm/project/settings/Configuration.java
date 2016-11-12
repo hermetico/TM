@@ -12,9 +12,11 @@ public class Configuration {
     public final boolean TRACE = true;
     public final boolean SORT_INPUT_BY_NAME = true;
     public final boolean EXIT_ON_CLOSE_WINDOW = false;
+    public final boolean PROCESSING_COUNTERS = false;
     
     //ints
     public final int FIRST_DELAY = 200;
+    
             
 	
     private Configuration() {};

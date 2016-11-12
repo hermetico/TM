@@ -48,7 +48,7 @@ public class Player implements Runnable{
         this.stop();
         tr.trace("Exiting");
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
-        playerCounters.flushCounters();
+        playerCounters.flushFPS();
         System.exit(0);
     }
 

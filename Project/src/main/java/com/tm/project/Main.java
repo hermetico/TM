@@ -8,7 +8,9 @@ package com.tm.project;
 import com.tm.project.misc.Tracer;
 import com.tm.project.player.Player;
 import com.tm.project.processor.Buffer;
+import com.tm.project.processor.FilterProcessor;
 import com.tm.project.processor.Processor;
+import com.tm.project.processor.filters.Negative;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +28,7 @@ public class Main {
         Tracer tracer = Tracer.getInstance();
         String file = "Cubo.zip";
         int fps = 24;
-        Processor pr = new Processor(file);
+        FilterProcessor pr = new FilterProcessor(file, new Negative());
         Thread threadedProcessor;
         Thread threadedPlayer;
         
