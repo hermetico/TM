@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import com.tm.project.settings.Types;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
 
 public class Unzip {
     String path;
@@ -21,7 +24,6 @@ public class Unzip {
     public Unzip(String path){
         this.path = path;
     }
-    
     
     public List<ZipEntry> getEntries(){
         List<ZipEntry>  list = new ArrayList<ZipEntry>();
@@ -45,5 +47,26 @@ public class Unzip {
                     
         }
         return list;
-    }     
+    }
+    
+
+    public InputStream unzipEntry(ZipEntry entry){
+        try {
+            return zf.getInputStream(entry);
+        } catch (IOException ex) {
+            System.err.println("Error unzipping the entry");
+            System.err.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public BufferedImage unzipImageEntry(ZipEntry entry){
+        try {
+            return ImageIO.read(unzipEntry(entry));
+        } catch (IOException ex) {
+            System.err.println("Error unzipping the image");
+            System.err.println(ex.getMessage());
+        }
+        return null;
+    }
 }

@@ -35,20 +35,19 @@ public class Main {
         for(String arg: args)
             System.out.println(arg);
         
-        if(args.length >= 1)
-        {
+
             
-            visor = new Visor();
-            unziper = new Unzip(args[0]);
-            List<ZipEntry> entries = Sorter.sortEntriesByName(unziper.getPNG());
-            //slideShow(1000, entries);
-            
-            
-            // kind of video mode
-            slideShow(fps, entries);
-            
-            this.unziper.close();
-        }
+        visor = new Visor();
+        unziper = new Unzip("Cubo.zip");
+        List<ZipEntry> entries = Sorter.sortEntriesByName(unziper.getPNG());
+        //slideShow(1000, entries);
+
+
+        // kind of video mode
+        slideShow(fps, entries);
+
+        this.unziper.close();
+
     }
     public void slideShow(int time, List<ZipEntry> files)
     {

@@ -5,6 +5,7 @@
  */
 package com.tm.project.player.window;
 
+import com.tm.project.settings.Configuration;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 
 
 public class BaseWindow extends JFrame{
+    Configuration cf = Configuration.getInstance();
     JPanel contentPanel;
     JLabel label;
     ImageIcon image;
@@ -24,19 +26,20 @@ public class BaseWindow extends JFrame{
         contentPanel = new JPanel();
         label =  new JLabel();
         contentPanel.add(label, BorderLayout.CENTER);
+        this.add(contentPanel);
         this.addListeners();
     }
 
     public void draw(BufferedImage img){
         label.setIcon(new ImageIcon(img));
-        label.setSize(img.getWidth(), img.getHeight());
+        this.setSize(img.getWidth(), img.getHeight());
     }
     
     private void addListeners(){
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {
-                //TODO CHECK THIS
-                System.exit(0);
+                if(cf.EXIT_ON_CLOSE_WINDOW)
+                    System.exit(0);
              }
             }
         );
