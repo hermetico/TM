@@ -6,14 +6,15 @@
 package com.tm.project;
 
 import com.tm.project.misc.Tracer;
+import com.tm.project.output.Zip;
 import com.tm.project.player.Player;
 import com.tm.project.processor.Buffer;
 import com.tm.project.processor.FilterProcessor;
-import com.tm.project.processor.Processor;
 import com.tm.project.processor.filters.Negative;
+import com.tm.project.settings.Types;
+import com.tm.project.settings.Types.Type;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 
 public class Main {
@@ -27,6 +28,7 @@ public class Main {
     public Main(String[] args){
         Tracer tracer = Tracer.getInstance();
         String file = "Cubo.zip";
+        Zip zipper = new Zip();
         int fps = 24;
         FilterProcessor pr = new FilterProcessor(file, new Negative());
         Thread threadedProcessor;
@@ -50,6 +52,7 @@ public class Main {
             tracer.trace("Joining player");
             threadedPlayer.join();
             tracer.trace("All finished");
+            zipper.zipData(sharedBuffer, "Out.zip", Type.JPG);
         } catch (InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

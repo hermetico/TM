@@ -10,6 +10,7 @@ import com.tm.project.input.Unzip;
 import com.tm.project.misc.Counters;
 import com.tm.project.settings.Configuration;
 import com.tm.project.misc.Tracer;
+import com.tm.project.player.Player;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -21,6 +22,7 @@ public class Processor implements Runnable{
     protected List<ZipEntry> entries;
     protected Buffer<BufferedImage> buffer;
     protected Counters counters;
+    protected Player player;
     
     
     public Processor(String path) {
@@ -32,7 +34,6 @@ public class Processor implements Runnable{
         buffer = new Buffer<BufferedImage>(entries.size());
         
     }
-
     
     private List<ZipEntry> readZipData(){
         List<ZipEntry> entries = zp.getEntries();

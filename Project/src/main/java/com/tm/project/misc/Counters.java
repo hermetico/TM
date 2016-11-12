@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Counters {
     
-    List<Long> timestamps;
+    private List<Long> timestamps;
     
     public Counters(){
         timestamps = new ArrayList<Long>();
@@ -20,7 +20,18 @@ public class Counters {
     }
     
     public void addTimestamp(){
-            timestamps.add(System.nanoTime());
+        timestamps.add(System.nanoTime());
+    }
+    
+    
+    public void addAndShowTimestamp(String name, String scale){
+        long current = System.nanoTime();
+        if(!timestamps.isEmpty()){
+            long last = timestamps.get(timestamps.size() - 1);
+            
+            System.out.format(name + ": %.3f\n" + scale, toFPS(current-last));
+        }
+        timestamps.add(current);
     }
     
     public void flushCounters(String name, String scale){

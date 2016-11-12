@@ -12,38 +12,42 @@ public class Buffer <T>{
     private int size;
     private int end;
     private int init;
-    private int elements;
+    private int bufferedElements;
     
     public Buffer(int size){
         buffer = (T[]) new Object[size];
         init = 0;
         end = 0;
-        elements = 0;
+        bufferedElements = 0;
         this.size = size;
         
     }
     
     
     public synchronized T get(){
-        if (elements == 0) return null;
+        if (bufferedElements == 0) return null;
         T t = buffer[init++];
         init %= size;
-        elements--;
+        bufferedElements--;
         return t;
     }
     
     public synchronized void add(T t){
         buffer[end++] = t;
         end %= size;
-        elements++;
+        bufferedElements++;
     }
     
-    public synchronized int getElements(){
-        return elements;
+    public synchronized int getBufferedElements(){
+        return bufferedElements;
     }
+    
     public int getSize(){
         return this.size;
     }
-
+    
+    public synchronized T getIndex(int i){
+        return buffer[i];
+    }
     
 }

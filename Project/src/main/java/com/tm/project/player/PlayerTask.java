@@ -35,6 +35,7 @@ public class PlayerTask extends TimerTask  {
         if(img != null){
             window.draw(img);
             times--;
+            //counters.addAndShowTimestamp("FPS", "");
             counters.addTimestamp();
         }
             
