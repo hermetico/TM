@@ -5,7 +5,7 @@
  */
 package com.tm.project.output;
 import com.tm.project.processor.Buffer;
-import com.tm.project.settings.Types.Type;
+import com.tm.project.settings.Types.FileType;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.logging.Level;
@@ -14,14 +14,14 @@ import java.util.zip.*;
 import javax.imageio.ImageIO;
 public class Zip {
     
-    public void zipData(Buffer<BufferedImage> buffer, String path, Type type){
+    public void zipData(Buffer<BufferedImage> buffer, String path, FileType fileType){
         try {
             ZipOutputStream zout = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(path)));
             
             for(int i = 0; i < buffer.getSize(); i++){
                 BufferedImage image = buffer.getIndex(i);
-                InputStream in = toInputStream(image, type);
-                zout.putNextEntry(new ZipEntry(i + "." + type.toString()));
+                InputStream in = toInputStream(image, fileType);
+                zout.putNextEntry(new ZipEntry(i + "." + fileType.toString()));
                 
                 // pump data from file into zip file
 		byte[] buf = new byte[1024];
@@ -39,11 +39,11 @@ public class Zip {
 
     }
     
-    public InputStream toInputStream(BufferedImage image, Type type){
+    public InputStream toInputStream(BufferedImage image, FileType fileType){
         try {
             
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ImageIO.write(image, type.toString(), os);
+            ImageIO.write(image, fileType.toString(), os);
             
             return new ByteArrayInputStream(os.toByteArray());
         } catch (IOException ex) {

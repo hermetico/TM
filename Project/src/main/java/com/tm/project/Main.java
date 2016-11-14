@@ -14,7 +14,7 @@ import com.tm.project.player.Player;
 import com.tm.project.processor.Buffer;
 import com.tm.project.processor.FilterProcessor;
 import com.tm.project.processor.filters.Negative;
-import com.tm.project.settings.Types.Type;
+import com.tm.project.settings.Types.FileType;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -67,7 +67,7 @@ public class Main {
             tracer.trace("Joining player");
             threadedPlayer.join();
             tracer.trace("All finished");
-            zipper.zipData(sharedBuffer, "Out.zip", Type.JPG);
+            zipper.zipData(sharedBuffer, "Out.zip", FileType.JPG);
         } catch (InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
