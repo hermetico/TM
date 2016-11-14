@@ -11,6 +11,10 @@
 # some python stuff
 *.pyc
 
+# video fles
+*.mov
+*.avi
+
 # NetBeans specific #
 /practica-1/nbproject/private/
 /practica-1/build/
@@ -28,3 +32,5 @@
 /AvCont4/nbproject/
 /Project/target/
 /Project/nbproject/
+
+
