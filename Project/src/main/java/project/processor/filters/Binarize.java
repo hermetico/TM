@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 public class Binarize implements Filter{
     int treshold;
     public Binarize(int treshold){
-    this.treshold = treshold;
+        this.treshold = treshold;
     }
     
     @Override

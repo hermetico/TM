@@ -11,13 +11,18 @@ import project.input.ArgsParser;
 import project.misc.Tracer;
 import project.output.Zip;
 import project.player.Player;
+import project.processor.FilterProcessor;
 import project.processor.Processor;
+import project.processor.filters.Average;
+import project.processor.filters.Binarize;
+import project.processor.filters.Filter;
+import project.processor.filters.Negative;
 import project.settings.Types.FileType;
 
 
 
 public class Main {
-
+    Tracer tr;
     
     
     public static void main(String[] args){
@@ -27,6 +32,7 @@ public class Main {
     public Main(String[] args){
         ArgsParser parser = new ArgsParser();
         JCommander jcomm;
+        tr = Tracer.getInstance();
         try{
             jcomm = new JCommander(parser, args);
            }catch(ParameterException e){
@@ -42,27 +48,45 @@ public class Main {
         
         
         Zip zipper = new Zip();
-        /*
-        FilterProcessor pr;
+        int fps = parser.getFps();
         
         
-        //int fps = 24;
+        
+        
+        //TODO something cleaner
+        Filter filter = null;
+        Processor pr;
         if(parser.isNegativeFilterEnabled()){
-            System.out.println("negative");
-           pr = new FilterProcessor(parser.getInputFile(), new Negative());
+            tr.trace("negative");
+            filter = new Negative();
         }else if (parser.isAverageFilterEnabled()){
-            System.out.println("average");
-           pr = new FilterProcessor(parser.getInputFile(), new Average(parser.getAvgValue()));
+            tr.trace("average");
+            filter = new Average(parser.getAvgValue());
         }else if (parser.isBinarizeFilterEnabled()){
-            System.out.println("Binarization");
-           pr = new FilterProcessor(parser.getInputFile(), new Binarize(parser.getBinValue()));
-        }else{
-           pr = new FilterProcessor(parser.getInputFile(), new Negative());
+            tr.trace("Binarization");
+            filter = new Binarize(parser.getBinValue());
         }
-        */
         
-        //FilterProcessor pr = new FilterProcessor(parser.getInputFile(), new Negative());
-        Processor pr = new Processor(parser.getInputFile(), new Player(parser.getFps()));
+        
+        // then batch mode or not
+        if (!parser.isBatchModeEnabled()){
+            Player pl = new Player(fps);
+            if(filter == null){
+                pr = new Processor(parser.getInputFile(), pl);
+            }
+            else{
+                pr = new FilterProcessor(parser.getInputFile(), filter, pl);
+            }
+        }else{
+            if(filter == null){
+                pr = new Processor(parser.getInputFile());
+            }
+            else{
+                pr = new FilterProcessor(parser.getInputFile(), filter);
+            }
+        }
+        
+        
         tracer.trace("Starting processor");
         pr.processData();
         

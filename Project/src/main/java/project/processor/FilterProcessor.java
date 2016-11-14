@@ -8,6 +8,7 @@ package project.processor;
 import project.processor.filters.Filter;
 import java.awt.image.BufferedImage;
 import java.util.zip.ZipEntry;
+import project.player.Player;
 
 /**
  *
@@ -16,22 +17,28 @@ import java.util.zip.ZipEntry;
 public class FilterProcessor extends Processor{
     
     private Filter filter;
-    private int value;
+
     public FilterProcessor(String path, Filter filter) {
         super(path);
         this.filter = filter;
         
     }
-   
-    public FilterProcessor(String path, Filter filter, int value) {
-        super(path);    
-        this.filter = filter;
-        this.value=value;
-                
+    
+    public FilterProcessor(String path, Filter filter, Player player){
+        this(path, filter);
+        this.player = player;
+        this.player.setBuffer(buffer);
+        
     }
     
     
     public void processData() {
+        
+        // starts the player if there is any set up
+        if(player != null){ 
+            tr.trace("Starting player");
+            player.playLoop();
+        }
         for(ZipEntry entry: entries){
             BufferedImage img;
             img = zp.unzipImageEntry(entry);
