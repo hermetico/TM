@@ -13,6 +13,7 @@ import com.tm.project.output.Zip;
 import com.tm.project.player.Player;
 import com.tm.project.processor.Buffer;
 import com.tm.project.processor.FilterProcessor;
+import com.tm.project.processor.Processor;
 import com.tm.project.processor.filters.Negative;
 import com.tm.project.settings.Types.FileType;
 import java.util.logging.Level;
@@ -45,32 +46,14 @@ public class Main {
         
         Zip zipper = new Zip();
         //int fps = 24;
-        FilterProcessor pr = new FilterProcessor(parser.getInputFile(), new Negative());
-        Thread threadedProcessor;
-        Thread threadedPlayer;
         
-        Player pl = new Player();
-        Buffer sharedBuffer = pr.getBuffer();
-        
-        try {
-
-            threadedProcessor = new Thread(pr);
-            threadedPlayer = new Thread(pl);
-            pl.set(sharedBuffer, parser.getFps());
+        //FilterProcessor pr = new FilterProcessor(parser.getInputFile(), new Negative());
+        Processor pr = new Processor(parser.getInputFile(), new Player(parser.getFps()));
+        tracer.trace("Starting processor");
+        pr.processData();
             
-            tracer.trace("Starting processor");
-            threadedProcessor.start();
-            tracer.trace("Starting player");
-            threadedPlayer.start();
-            tracer.trace("Joining processor");
-            threadedProcessor.join();
-            tracer.trace("Joining player");
-            threadedPlayer.join();
-            tracer.trace("All finished");
-            zipper.zipData(sharedBuffer, "Out.zip", FileType.JPG);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        zipper.zipData(pr.getBuffer(), "Out.zip", FileType.JPG);
+
     }
     
 }

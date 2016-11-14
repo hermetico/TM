@@ -22,8 +22,8 @@ public class FilterProcessor extends Processor{
         
     }
     
-    @Override
-    public void run() {
+    
+    public void processData() {
         for(ZipEntry entry: entries){
             BufferedImage img;
             img = zp.unzipImageEntry(entry);

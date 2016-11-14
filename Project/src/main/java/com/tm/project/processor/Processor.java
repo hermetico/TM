@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.zip.ZipEntry;
 
-public class Processor implements Runnable{
+public class Processor{
     protected Configuration cf;
     protected Tracer tr;
     protected Unzip zp;
@@ -32,6 +32,14 @@ public class Processor implements Runnable{
         zp = new Unzip(path);
         entries = readZipData();
         buffer = new Buffer<BufferedImage>(entries.size());
+        this.player = null;
+        
+    }
+    
+    public Processor(String path, Player player){
+        this(path);
+        this.player = player;
+        this.player.setBuffer(buffer);
         
     }
     
@@ -46,12 +54,18 @@ public class Processor implements Runnable{
         
     }
     
+
     public Buffer<BufferedImage> getBuffer(){
         return buffer;
     }
     
-    @Override
-    public void run() {
+    public void processData() {
+        // starts the player if there is any set up
+        if(player != null){ 
+            tr.trace("Starting player");
+            player.playLoop();
+        }
+        
         for(ZipEntry entry: entries){
             BufferedImage img;
             img = zp.unzipImageEntry(entry);
@@ -63,4 +77,5 @@ public class Processor implements Runnable{
         if(cf.PROCESSING_COUNTERS)
             counters.flushCounters("Encoding", "fps");
     }
+    
 }
