@@ -7,8 +7,8 @@ package com.tm.project.settings;
 
 public class Parsers {
 
-    public static int fpsToFrameRate(int fps){
-        return (int) 1000 / fps;
+    public static long fpsToMillisDelay(int fps){
+        return (long) 1000 / fps;
     }
 }
 

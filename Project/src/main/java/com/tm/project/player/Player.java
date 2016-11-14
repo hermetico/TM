@@ -54,7 +54,7 @@ public class Player implements Runnable{
 
     @Override
     public void run() {
-        timer.scheduleAtFixedRate((TimerTask) task, (long)config.FIRST_DELAY, (long)Parsers.fpsToFrameRate(fps));
+        timer.scheduleAtFixedRate((TimerTask) task, config.FIRST_DELAY, Parsers.fpsToMillisDelay(fps));
     }
     
     
