@@ -75,7 +75,7 @@ public class Main {
                 pr = new Processor(parser.getInputFile(), pl);
             }
             else{
-                pr = new FilterProcessor(parser.getInputFile(), filter, pl);
+                pr = new FilterProcessor(parser.getInputFile(), filter, pl, new Player(fps));
             }
         }else{
             if(filter == null){

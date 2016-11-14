@@ -19,7 +19,7 @@ import java.util.TimerTask;
 public class Player {
     private Configuration config = Configuration.getInstance();
     private Tracer tr = Tracer.getInstance();
-    private  BaseWindow window;
+    private BaseWindow window;
     private Timer timer;
     private FPSCounters playerCounters;
     private Buffer buffer;
