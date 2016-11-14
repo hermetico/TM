@@ -15,7 +15,7 @@ public class Configuration {
     public final boolean PROCESSING_COUNTERS = false;
     
     //ints
-    public final int FIRST_DELAY = 200;
+    public final long FIRST_DELAY = 200;
     
             
 	
