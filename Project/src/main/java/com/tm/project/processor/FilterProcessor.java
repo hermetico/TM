@@ -26,12 +26,12 @@ public class FilterProcessor extends Processor{
     public FilterProcessor(String path, Filter filter, int value) {
         super(path);    
         this.filter = filter;
-        //this.value=value;
+        this.value=value;
                 
     }
     
-    @Override
-    public void run() {
+    
+    public void processData() {
         for(ZipEntry entry: entries){
             BufferedImage img;
             img = zp.unzipImageEntry(entry);

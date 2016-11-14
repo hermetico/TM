@@ -15,30 +15,41 @@ import java.awt.event.WindowEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Player implements Runnable{
-    Configuration config = Configuration.getInstance();
-    Tracer tr = Tracer.getInstance();
-    BaseWindow window;
-    Timer timer;
-    Counters playerCounters;
-    Buffer buffer;
-    int fps;
-    PlayerTask task;
+public class Player {
+    private Configuration config = Configuration.getInstance();
+    private Tracer tr = Tracer.getInstance();
+    private  BaseWindow window;
+    private Timer timer;
+    private Counters playerCounters;
+    private Buffer buffer;
+    private int FPS;
     
-    public Player(){
+    private Player(){
         window = new BaseWindow();
         window.setVisible(true);
         timer  = new Timer();
         playerCounters = new Counters();
     }
     
-    public void set(Buffer buffer, int fps){
-        this.fps = fps;
-        this.buffer = buffer;
-        this.task = new PlayerTask(this, window, buffer, playerCounters);
-        
+    public Player(int fps){
+        this();
+        this.FPS = fps;
     }
     
+    public void setBuffer(Buffer buffer){
+        this.buffer = buffer;
+    }
+
+    public void setFPS(int fps){
+        this.FPS = fps;
+    }
+    
+    public void playLoop(){
+        timer.scheduleAtFixedRate(
+                (TimerTask) new PlayerTask(this, window, buffer, playerCounters), 
+                config.FIRST_DELAY, Parsers.fpsToMillisDelay(FPS));
+    }
+
     public void stop(){
         timer.cancel();
         timer.purge();
@@ -51,11 +62,4 @@ public class Player implements Runnable{
         playerCounters.flushFPS();
         System.exit(0);
     }
-
-    @Override
-    public void run() {
-        timer.scheduleAtFixedRate((TimerTask) task, config.FIRST_DELAY, Parsers.fpsToMillisDelay(fps));
-    }
-    
-    
 }

@@ -49,5 +49,5 @@ public class Buffer <T>{
     public synchronized T getIndex(int i){
         return buffer[i];
     }
-    
+            
 }
