@@ -40,10 +40,12 @@ public class Main {
         
         Tracer tracer = Tracer.getInstance();
         
+        
+        Zip zipper = new Zip();
         /*
         FilterProcessor pr;
         
-        Zip zipper = new Zip();
+        
         //int fps = 24;
         if(parser.isNegativeFilterEnabled()){
             System.out.println("negative");
@@ -63,7 +65,8 @@ public class Main {
         Processor pr = new Processor(parser.getInputFile(), new Player(parser.getFps()));
         tracer.trace("Starting processor");
         pr.processData();
-            
+        
+        tracer.trace("Zipping data");
         zipper.zipData(pr.getBuffer(), "Out.zip", FileType.JPG);
 
     }

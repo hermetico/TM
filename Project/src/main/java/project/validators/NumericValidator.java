@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.tm.validators;
+package project.validators;
 
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;
@@ -24,6 +24,7 @@ public class NumericValidator implements IParameterValidator{
         }catch(NumberFormatException e){
             throw new ParameterException(name + " is not a valid integer: " + value);
         }
+        
         
         System.out.println("Nombre: " + name);
         // check valid range
@@ -51,7 +52,7 @@ public class NumericValidator implements IParameterValidator{
             if (val<1 || val> 10 ){
                 throw new ParameterException(name + " valid range is 1-10: " + value + "not allowed");
             }
-        }  
+        }    
         
                 
     }

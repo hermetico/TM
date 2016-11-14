@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.tm.project.processor.filters;
+package project.processor.filters;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
