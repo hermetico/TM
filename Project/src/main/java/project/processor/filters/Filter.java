@@ -8,6 +8,7 @@ package project.processor.filters;
 import java.awt.image.BufferedImage;
 
 public interface Filter {
+    
     public void apply(BufferedImage image);
     
 }

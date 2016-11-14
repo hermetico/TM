@@ -35,13 +35,29 @@ public class Main {
                System.err.println("Try --help or -h for help");
                System.exit(1);
         }
+        // checks if encode and/or decode mode is selected
+        parser.checkMode();
         
         Tracer tracer = Tracer.getInstance();
         
-        //String file = "Cubo.zip";
+        /*
+        FilterProcessor pr;
         
         Zip zipper = new Zip();
         //int fps = 24;
+        if(parser.isNegativeFilterEnabled()){
+            System.out.println("negative");
+           pr = new FilterProcessor(parser.getInputFile(), new Negative());
+        }else if (parser.isAverageFilterEnabled()){
+            System.out.println("average");
+           pr = new FilterProcessor(parser.getInputFile(), new Average(parser.getAvgValue()));
+        }else if (parser.isBinarizeFilterEnabled()){
+            System.out.println("Binarization");
+           pr = new FilterProcessor(parser.getInputFile(), new Binarize(parser.getBinValue()));
+        }else{
+           pr = new FilterProcessor(parser.getInputFile(), new Negative());
+        }
+        */
         
         //FilterProcessor pr = new FilterProcessor(parser.getInputFile(), new Negative());
         Processor pr = new Processor(parser.getInputFile(), new Player(parser.getFps()));

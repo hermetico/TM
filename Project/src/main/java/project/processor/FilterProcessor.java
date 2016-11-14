@@ -16,10 +16,18 @@ import java.util.zip.ZipEntry;
 public class FilterProcessor extends Processor{
     
     private Filter filter;
+    private int value;
     public FilterProcessor(String path, Filter filter) {
         super(path);
         this.filter = filter;
         
+    }
+   
+    public FilterProcessor(String path, Filter filter, int value) {
+        super(path);    
+        this.filter = filter;
+        this.value=value;
+                
     }
     
     
