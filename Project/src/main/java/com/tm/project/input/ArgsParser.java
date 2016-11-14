@@ -6,7 +6,9 @@
 package com.tm.project.input;
 
 import com.beust.jcommander.Parameter;
-import com.tm.validators.numericValidator;
+import com.beust.jcommander.ParameterException;
+import com.tm.validators.NumericValidator;
+import java.util.List;
 
 public class ArgsParser {
     
@@ -14,7 +16,7 @@ public class ArgsParser {
     private String inputFile;
     
     @Parameter(names = {"--output", "-o"}, description = "output File <path to output file>")
-    private String outputFile;
+    private String outputFile = "Out.zip";
     
     @Parameter(names = {"--encode", "-e"}, description = "Reads image sequence from input File, apply selected filters, convert to jpeg and play sequence")
     private boolean encode = false ;
@@ -22,25 +24,25 @@ public class ArgsParser {
     @Parameter(names = {"--decode", "-d"}, description = "decode image sequence from input coded File, play decoded sequence")
     private boolean decode = false ;
     
-    @Parameter(names = {"--fps"}, description = "selects frame rate speed", validateWith = numericValidator.class)
+    @Parameter(names = {"--fps"}, description = "selects frame rate speed", validateWith = NumericValidator.class)
     private int fps = 24;
     
-    @Parameter(names = {"--binarization"}, description = "binarization filter treshold value", validateWith = numericValidator.class)
-    private int binValue;
+    @Parameter(names = {"--binarization"}, description = "binarization filter treshold value", validateWith = NumericValidator.class)
+    private int binValue = 0;
     
     @Parameter(names = {"--negative"}, description = "Apply negative filter")
     private boolean negative = false;
     
-    @Parameter(names = {"--averaging"}, description = "Apply average filter", validateWith = numericValidator.class)
+    @Parameter(names = {"--averaging"}, description = "Apply average filter", validateWith = NumericValidator.class)
     private int avgValue;
     
-    @Parameter(names = {"--Tiles"}, description = " ")
-    private int numTiles;
+    @Parameter(names = "--nTiles", arity = 2, description = "number of tiles")
+    private List<String> numTiles;
      
-    @Parameter(names = {"--seekRange"}, description = "max displacement in matching tile search", validateWith = numericValidator.class)
+    @Parameter(names = {"--seekRange"}, description = "max displacement in matching tile search", validateWith = NumericValidator.class)
     private int seekRange = 0;
     
-    @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = numericValidator.class)
+    @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = NumericValidator.class)
     private int GOP = 0;
     
     @Parameter(names = {"--quality"}, description = "quality factor determine when two tiles match ")
@@ -49,12 +51,12 @@ public class ArgsParser {
     @Parameter(names = {"--batch", "-b"}, description = "batch mode")
     private boolean batch = false ;
     
-    private String getMode(){
-        String mode;
-        if(encode){mode = "encode";}
-        else if(decode){mode = "decode";}
-        else{mode = null;}
-        return mode;
+    public void checkMode(){
+        
+        if(!encode&&!decode){
+            System.out.println();
+            throw new ParameterException("Must select encode options, -e and/or -d");
+        }
     }
     
     public String getInputFile(){
@@ -69,6 +71,12 @@ public class ArgsParser {
     }
     public int getBinValue(){
         return binValue;
+    }
+    public boolean isBinarizeFilterEnabled(){
+        boolean enabled;
+        if (binValue!=0){ enabled = true; }
+        else{ enabled = false; }
+        return enabled;
     }
     public boolean isNegativeFilterEnabled(){
         return negative;
