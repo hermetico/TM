@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 
-public class Negative implements Filter{
+public class Negative extends Filter{
 
     @Override
     public void apply(BufferedImage image) {

@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  *
  * @author ferran
  */
-public class Binarize implements Filter{
+public class Binarize extends Filter{
     int treshold;
     public Binarize(int treshold){
         this.treshold = treshold;

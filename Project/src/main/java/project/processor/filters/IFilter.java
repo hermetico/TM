@@ -11,13 +11,8 @@ import java.awt.image.BufferedImage;
  *
  * @author ferran
  */
-public class Average extends Filter{
+public interface IFilter {
     
-    public Average(int value){};
-
-    @Override
-    public void apply(BufferedImage image) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void apply(BufferedImage image);
     
 }

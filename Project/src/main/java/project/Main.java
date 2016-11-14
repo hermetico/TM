@@ -45,8 +45,7 @@ public class Main {
         parser.checkMode();
         
         Tracer tracer = Tracer.getInstance();
-        
-        
+ 
         Zip zipper = new Zip();
         int fps = parser.getFps();
         
@@ -91,7 +90,7 @@ public class Main {
         pr.processData();
         
         tracer.trace("Zipping data");
-        zipper.zipData(pr.getBuffer(), "Out.zip", FileType.JPG);
+        zipper.zipData(pr.getBuffer(), parser.getOutputFile(), FileType.JPG);
 
     }
     
