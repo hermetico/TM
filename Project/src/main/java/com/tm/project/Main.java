@@ -14,7 +14,6 @@ import com.tm.project.player.Player;
 import com.tm.project.processor.Buffer;
 import com.tm.project.processor.FilterProcessor;
 import com.tm.project.processor.filters.Negative;
-import com.tm.project.settings.Types;
 import com.tm.project.settings.Types.Type;
 import java.util.logging.Level;
 import java.util.logging.Logger;
