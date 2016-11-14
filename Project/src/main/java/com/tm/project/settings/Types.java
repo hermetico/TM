@@ -5,40 +5,66 @@
  */
 package com.tm.project.settings;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 
 public class Types{
-    public enum Type {
+    
+    public enum FileType{
         JPG("jpg"),
         PNG("png"),
         GIF("gif"), 
         BMP("bmp")
         ;
-        private final String type;
+        private final String fileType;
+        private static final Map<String,FileType> ENUM_MAP;
 
-        private Type(final String type){
-            this.type = type;
+        private FileType(final String type){
+            this.fileType = type;
         }
 
+        static {
+            Map<String,FileType> map = new ConcurrentHashMap<String,FileType>();
+            for (FileType instance : FileType.values()) {
+                map.put(instance.toString().toLowerCase(),instance);
+            }
+            ENUM_MAP = Collections.unmodifiableMap(map);
+        }
+        
+        // statics
+        
+        public static FileType get (String name) {
+            return ENUM_MAP.get(name);
+        }
+        
+        public static boolean isAcceptedFile(String fileName){
+            return FileType.isAcceptedFileType(
+                    fileName.substring(fileName.lastIndexOf(".") + 1));
+        }
+        
+        public static boolean isAcceptedFileType(String type){
+            return ENUM_MAP.containsKey(type.toLowerCase());
+        }
+        
+        
+        
         @Override
         public String toString(){
-            return type;
+            return fileType;
         }
-
+        
         public boolean contains (String name){
+            
             return this.equalsTo(name.substring(name.lastIndexOf(".") + 1));
         }
         
         public boolean equalsTo(String other){
-            return other.equalsIgnoreCase(type);
+            return other.equalsIgnoreCase(fileType);
         }
+        
+
     }
     
-    public static Type[] validTypes = {Type.JPG, Type.PNG, Type.GIF, Type.BMP};
-    
-    public static boolean isAccepted(String name){
-        for(Type current: validTypes){
-            if(current.contains(name)) return true;
-        }
-        return false;
-    }
 }

@@ -12,7 +12,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import com.tm.project.settings.Types;
+import com.tm.project.settings.Types.FileType;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
@@ -36,7 +36,7 @@ public class Unzip {
 
                     if(!entry.isDirectory()){
                         fileName = entry.getName();
-                        if(Types.isAccepted(fileName))
+                        if(FileType.isAcceptedFile(fileName))
                             list.add(entry);
                     }
             }
