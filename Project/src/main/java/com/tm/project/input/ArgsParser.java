@@ -74,7 +74,7 @@ public class ArgsParser {
     }
     public boolean isBinarizeFilterEnabled(){
         boolean enabled;
-        if (avgValue!=0){ enabled = true; }
+        if (binValue!=0){ enabled = true; }
         else{ enabled = false; }
         return enabled;
     }

@@ -22,10 +22,11 @@ public class FilterProcessor extends Processor{
         this.filter = filter;
         
     }
+   
     public FilterProcessor(String path, Filter filter, int value) {
         super(path);    
         this.filter = filter;
-        this.value=value;
+        //this.value=value;
                 
     }
     
@@ -34,7 +35,7 @@ public class FilterProcessor extends Processor{
         for(ZipEntry entry: entries){
             BufferedImage img;
             img = zp.unzipImageEntry(entry);
-            if (filter!= null){filter.apply(img);}
+            
             filter.apply(img);
             buffer.add(img);
             

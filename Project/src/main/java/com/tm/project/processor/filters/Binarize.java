@@ -27,11 +27,11 @@ public class Binarize implements Filter{
                 for (int j = 0; j<image.getHeight(); j++){
                     
                     pixelInt = image.getRGB(i,j);
+                    
                     from = new Color(pixelInt);
                     value = (int)((from.getRed()+ from.getGreen() + from.getBlue())/3);
                     if(value<treshold){to = new Color(0,0,0);}
-                    else{to = new Color(1,1,1);}
-                    
+                    else{to = new Color(255,255,255);}      
                     image.setRGB(i, j, to.getRGB());
                 }
             } 

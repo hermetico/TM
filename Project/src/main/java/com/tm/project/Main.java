@@ -46,19 +46,23 @@ public class Main {
         
         Tracer tracer = Tracer.getInstance();
         Zip zipper = new Zip();
+        
         FilterProcessor pr;
         
         if(parser.isNegativeFilterEnabled()){
+            System.out.println("negative");
            pr = new FilterProcessor(parser.getInputFile(), new Negative());
         }else if (parser.isAverageFilterEnabled()){
+            System.out.println("average");
            pr = new FilterProcessor(parser.getInputFile(), new Average(parser.getAvgValue()));
         }else if (parser.isBinarizeFilterEnabled()){
+            System.out.println("Binarization");
            pr = new FilterProcessor(parser.getInputFile(), new Binarize(parser.getBinValue()));
         }else{
            pr = new FilterProcessor(parser.getInputFile(), new Negative());
         }
         
-   
+  
         
         Thread threadedProcessor;
         Thread threadedPlayer;
