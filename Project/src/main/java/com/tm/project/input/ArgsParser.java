@@ -6,6 +6,7 @@
 package com.tm.project.input;
 
 import com.beust.jcommander.Parameter;
+import com.tm.validators.numericValidator;
 
 public class ArgsParser {
     
@@ -21,25 +22,25 @@ public class ArgsParser {
     @Parameter(names = {"--decode", "-d"}, description = "decode image sequence from input coded File, play decoded sequence")
     private boolean decode = false ;
     
-    @Parameter(names = {"--fps"}, description = "selects frame rate speed")
+    @Parameter(names = {"--fps"}, description = "selects frame rate speed", validateWith = numericValidator.class)
     private int fps = 24;
     
-    @Parameter(names = {"--binarization"}, description = "binarization filter treshold value")
+    @Parameter(names = {"--binarization"}, description = "binarization filter treshold value", validateWith = numericValidator.class)
     private int binValue;
     
     @Parameter(names = {"--negative"}, description = "Apply negative filter")
     private boolean negative = false;
     
-    @Parameter(names = {"--averaging"}, description = "Apply average filter ")
+    @Parameter(names = {"--averaging"}, description = "Apply average filter", validateWith = numericValidator.class)
     private int avgValue;
     
     @Parameter(names = {"--Tiles"}, description = " ")
     private int numTiles;
      
-    @Parameter(names = {"--seekRange"}, description = "max displacement in matching tile search")
+    @Parameter(names = {"--seekRange"}, description = "max displacement in matching tile search", validateWith = numericValidator.class)
     private int seekRange = 0;
     
-    @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images")
+    @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = numericValidator.class)
     private int GOP = 0;
     
     @Parameter(names = {"--quality"}, description = "quality factor determine when two tiles match ")

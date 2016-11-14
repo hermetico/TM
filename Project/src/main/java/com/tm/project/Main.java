@@ -5,6 +5,9 @@
  */
 package com.tm.project;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.ParameterException;
+import com.tm.project.input.ArgsParser;
 import com.tm.project.misc.Tracer;
 import com.tm.project.output.Zip;
 import com.tm.project.player.Player;
@@ -26,11 +29,24 @@ public class Main {
     }
     
     public Main(String[] args){
+        ArgsParser parser = new ArgsParser();
+        JCommander jcomm;
+        try{
+            jcomm = new JCommander(parser, args);
+           }catch(ParameterException e){
+               System.out.println(e.getMessage());
+               System.err.println();
+               System.err.println("Try --help or -h for help");
+               System.exit(1);
+        }
+        
         Tracer tracer = Tracer.getInstance();
-        String file = "Cubo.zip";
+        
+        //String file = "Cubo.zip";
+        
         Zip zipper = new Zip();
-        int fps = 24;
-        FilterProcessor pr = new FilterProcessor(file, new Negative());
+        //int fps = 24;
+        FilterProcessor pr = new FilterProcessor(parser.getInputFile(), new Negative());
         Thread threadedProcessor;
         Thread threadedPlayer;
         
@@ -41,7 +57,7 @@ public class Main {
 
             threadedProcessor = new Thread(pr);
             threadedPlayer = new Thread(pl);
-            pl.set(sharedBuffer, fps);
+            pl.set(sharedBuffer, parser.getFps());
             
             tracer.trace("Starting processor");
             threadedProcessor.start();
