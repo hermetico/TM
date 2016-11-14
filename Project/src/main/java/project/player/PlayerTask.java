@@ -10,6 +10,7 @@ import project.player.window.BaseWindow;
 import project.processor.Buffer;
 import java.awt.image.BufferedImage;
 import java.util.TimerTask;
+import project.settings.Configuration;
 
 
 public class PlayerTask extends TimerTask  {
@@ -18,18 +19,23 @@ public class PlayerTask extends TimerTask  {
     FPSCounters counters;
     Player player;
     int times;
+    Configuration cf;
+    
     public PlayerTask( Player player, BaseWindow window, Buffer buffer, FPSCounters counters){
         this.window = window;
         this.buffer = buffer;
         this.counters = counters;
         this.player = player;
         this.times = buffer.getSize();
+        cf = Configuration.getInstance();
             
     }
     
     @Override
     public void run() {
-        if(times == 0 ) player.close();
+        
+        if(times == 0) player.close();
+        
         BufferedImage img = (BufferedImage) buffer.get();
         
         if(img != null){

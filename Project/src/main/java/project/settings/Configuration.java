@@ -14,6 +14,7 @@ public class Configuration {
     public final boolean EXIT_ON_CLOSE_WINDOW = false;
     public final boolean PROCESSING_COUNTERS = false;
     public final boolean LIVE_COUNTERS = true;
+    public final boolean LOOP_PLAY = true;
     
     //ints
     public final long FIRST_DELAY = 200;

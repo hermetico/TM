@@ -20,21 +20,19 @@ public class Buffer <T>{
         end = 0;
         bufferedElements = 0;
         this.size = size;
-        
     }
     
     
     public synchronized T get(){
         if (bufferedElements == 0) return null;
         T t = buffer[init++];
-        init %= size;
+        //init %= size;
         bufferedElements--;
         return t;
     }
     
     public synchronized void add(T t){
         buffer[end++] = t;
-        end %= size;
         bufferedElements++;
     }
     
@@ -49,5 +47,13 @@ public class Buffer <T>{
     public synchronized T getIndex(int i){
         return buffer[i];
     }
-            
+    
+    /**
+     * Resets the buffer in case you want to loop
+     * again over the data
+     */
+    public synchronized void resetGet(){
+        init = 0;
+        bufferedElements = end;
+    }
 }
