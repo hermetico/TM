@@ -5,9 +5,9 @@
  */
 package com.tm.project.processor;
 
-import com.tm.project.processor.filters.Filter;
 import java.awt.image.BufferedImage;
 import java.util.zip.ZipEntry;
+import com.tm.project.processor.filters.Filter;
 
 /**
  *
@@ -16,10 +16,17 @@ import java.util.zip.ZipEntry;
 public class FilterProcessor extends Processor{
     
     private Filter filter;
+    private int value;
     public FilterProcessor(String path, Filter filter) {
         super(path);
         this.filter = filter;
         
+    }
+    public FilterProcessor(String path, Filter filter, int value) {
+        super(path);    
+        this.filter = filter;
+        this.value=value;
+                
     }
     
     @Override
@@ -27,6 +34,7 @@ public class FilterProcessor extends Processor{
         for(ZipEntry entry: entries){
             BufferedImage img;
             img = zp.unzipImageEntry(entry);
+            if (filter!= null){filter.apply(img);}
             filter.apply(img);
             buffer.add(img);
             
