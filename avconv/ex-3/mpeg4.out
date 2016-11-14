@@ -1,0 +1,15 @@
+avconv version 9.18-6:9.18-0ubuntu0.14.04.1+fdkaac, Copyright (c) 2000-2014 the Libav developers
+  built on Apr 10 2015 23:18:58 with gcc 4.8 (Ubuntu 4.8.2-19ubuntu1)
+Input #0, image2, from 'imagenes/Cubo%02d.png':
+  Duration: 00:00:04.00, start: 0.000000, bitrate: N/A
+    Stream #0.0: Video: png, rgb24, 320x240, 25 fps, 25 tbr, 25 tbn
+Output #0, avi, to 'cub_mpeg4.avi':
+  Metadata:
+    ISFT            : Lavf54.20.4
+    Stream #0.0: Video: mpeg4, yuv420p, 320x240, q=2-31, 200 kb/s, 25 tbn, 25 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png -> mpeg4)
+Press ctrl-c to stop encoding
+frame=  100 fps=  0 q=31.0 Lsize=     193kB time=4.00 bitrate= 395.7kbits/s    
+video:185kB audio:0kB global headers:0kB muxing overhead 4.288335%
+bench: utime=0.382s maxrss=16860kB

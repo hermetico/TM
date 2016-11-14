@@ -1,0 +1,9 @@
+#!/bin/bash
+
+codec="h264"
+mkdir ${codec}
+mkdir out
+for i in `seq 1 100`; do
+	avconv -benchmark -r 25 -i imagenes/Cubo%02d.png -g ${i} -refs 0 -r 25 -codec:v ${codec} ${codec}/cub_${codec}_g${i}_ref0_r25.avi > out/${codec}_g${i}.out 2>&1
+	cat out/${codec}_g${i}.out | grep 'frame I\|frame P'
+done

@@ -1,0 +1,29 @@
+avconv version 9.18-6:9.18-0ubuntu0.14.04.1+fdkaac, Copyright (c) 2000-2014 the Libav developers
+  built on Apr 10 2015 23:18:58 with gcc 4.8 (Ubuntu 4.8.2-19ubuntu1)
+Input #0, image2, from 'imagenes/Cubo%02d.png':
+  Duration: 00:00:04.00, start: 0.000000, bitrate: N/A
+    Stream #0.0: Video: png, rgb24, 320x240, 25 fps, 25 tbr, 25 tbn
+[libx264 @ 0xf53340] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX
+[libx264 @ 0xf53340] profile High, level 1.3
+Output #0, avi, to 'h264/cub_h264_g10_ref0_r25.avi':
+  Metadata:
+    ISFT            : Lavf54.20.4
+    Stream #0.0: Video: libx264, yuv420p, 320x240, q=-1--1, 25 tbn, 25 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png -> libx264)
+Press ctrl-c to stop encoding
+frame=  100 fps=  0 q=32764.0 Lsize=     437kB time=3.92 bitrate= 914.1kbits/s    
+video:316kB audio:0kB global headers:0kB muxing overhead 38.462395%
+[libx264 @ 0xf53340] frame I:15    Avg QP:26.56  size:  6074
+[libx264 @ 0xf53340] frame P:85    Avg QP:27.90  size:  4102
+[libx264 @ 0xf53340] mb I  I16..4:  9.8% 77.8% 12.4%
+[libx264 @ 0xf53340] mb P  I16..4:  4.9% 30.6%  5.9%  P16..4: 22.2% 22.9%  9.3%  0.0%  0.0%    skip: 4.1%
+[libx264 @ 0xf53340] 8x8 transform intra:75.0% inter:75.3%
+[libx264 @ 0xf53340] coded y,uvDC,uvAC intra: 72.4% 94.0% 78.0% inter: 53.3% 64.6% 15.8%
+[libx264 @ 0xf53340] i16 v,h,dc,p: 12% 40% 13% 35%
+[libx264 @ 0xf53340] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 20% 14% 21%  6%  6%  8%  5% 12%  7%
+[libx264 @ 0xf53340] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 23% 11% 15%  9%  7% 10%  6% 13%  5%
+[libx264 @ 0xf53340] i8c dc,h,v,p: 41% 20% 22% 17%
+[libx264 @ 0xf53340] Weighted P-Frames: Y:16.5% UV:14.1%
+[libx264 @ 0xf53340] kb/s:879.52
+bench: utime=1.264s maxrss=41796kB
