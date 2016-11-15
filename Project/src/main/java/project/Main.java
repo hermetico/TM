@@ -9,16 +9,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 import project.input.ArgsParser;
 import project.misc.Tracer;
-import project.output.Zip;
-import project.player.Player;
-import project.processor.FilterProcessor;
-import project.processor.Processor;
-import project.processor.filters.Average;
-import project.processor.filters.Binarize;
-import project.processor.filters.Filter;
-import project.processor.filters.Negative;
 import project.settings.Setup;
-import project.settings.Types.FileType;
 
 
 
