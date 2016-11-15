@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.tm.project.input;
+package project.input;
 
 import project.input.Unzip;
 import java.util.List;

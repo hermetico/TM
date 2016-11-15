@@ -17,6 +17,7 @@ import project.processor.filters.Average;
 import project.processor.filters.Binarize;
 import project.processor.filters.Filter;
 import project.processor.filters.Negative;
+import project.settings.Setup;
 import project.settings.Types.FileType;
 
 
@@ -26,7 +27,7 @@ public class Main {
     
     
     public static void main(String[] args){
-        Main main = new Main(args);
+        Main software = new Main(args);
     }
     
     public Main(String[] args){
@@ -44,54 +45,13 @@ public class Main {
         // checks if encode and/or decode mode is selected
         parser.checkMode();
         
-        Tracer tracer = Tracer.getInstance();
- 
-        Zip zipper = new Zip();
-        int fps = parser.getFps();
+        // do rest of checks from the parser
+        // TODO
         
-        
-        
-        
-        //TODO something cleaner
-        Filter filter = null;
-        Processor pr;
-        if(parser.isNegativeFilterEnabled()){
-            tr.trace("negative");
-            filter = new Negative();
-        }else if (parser.isAverageFilterEnabled()){
-            tr.trace("average");
-            filter = new Average(parser.getAvgValue());
-        }else if (parser.isBinarizeFilterEnabled()){
-            tr.trace("Binarization");
-            filter = new Binarize(parser.getBinValue());
-        }
-        
-        
-        // then batch mode or not
-        if (!parser.isBatchModeEnabled()){
-            Player pl = new Player(fps);
-            if(filter == null){
-                pr = new Processor(parser.getInputFile(), pl);
-            }
-            else{
-                pr = new FilterProcessor(parser.getInputFile(), filter, pl);
-            }
-        }else{
-            if(filter == null){
-                pr = new Processor(parser.getInputFile());
-            }
-            else{
-                pr = new FilterProcessor(parser.getInputFile(), filter);
-            }
-        }
-        
-        
-        tracer.trace("Starting processor");
-        pr.processData();
-        
-        tracer.trace("Zipping data");
-        zipper.zipData(pr.getBuffer(), parser.getOutputFile(), FileType.JPG);
-
+        // Creates a setup for the app
+        Setup setup = new Setup(parser);
+        App app = new App(setup);
+                
     }
     
 }

@@ -7,8 +7,9 @@ package project.input;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
-import project.validators.NumericValidator;
+
 import java.util.List;
+import project.validators.NumericValidator;
 
 
 public class ArgsParser {
@@ -17,7 +18,7 @@ public class ArgsParser {
     private String inputFile;
     
     @Parameter(names = {"--output", "-o"}, description = "output File <path to output file>")
-    private String outputFile = "Out.zip";
+    private String outputFile;
     
     @Parameter(names = {"--encode", "-e"}, description = "Reads image sequence from input File, apply selected filters, convert to jpeg and play sequence")
     private boolean encode = false ;

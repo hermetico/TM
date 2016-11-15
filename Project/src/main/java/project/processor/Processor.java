@@ -43,6 +43,11 @@ public class Processor{
         
     }
     
+    public void setPlayer(Player player){
+        this.player = player;
+        this.player.setBuffer(buffer);
+    }
+    
     private List<ZipEntry> readZipData(){
         List<ZipEntry> entries = zp.getEntries();
         
