@@ -6,6 +6,11 @@
 package project.processor.filters;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,11 +18,31 @@ import java.awt.image.BufferedImage;
  */
 public class Average extends Filter{
     
-    public Average(int value){};
+    int value;
+    public Average(int value){this.value = value;};
 
     @Override
     public void apply(BufferedImage image) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        List<Float> dataList = new ArrayList<Float>();
+        int n = value*value;
+        for (int i=0;i < n; i++){
+            dataList.add(1.0f/9.0f);
+        }
+        
+        float[] data = new float[ dataList.size() ];
+       int i = 0; 
+       for (Float f : dataList){
+            data[i] = f;
+            i++;
+       }
+ 
+        Kernel avgKernel = new Kernel(3,3,data);
+        
+        BufferedImageOp average = new ConvolveOp(avgKernel);
+        BufferedImage output = average.filter(image, null);
+        
+        image.setData(output.getRaster());
     }
     
 }

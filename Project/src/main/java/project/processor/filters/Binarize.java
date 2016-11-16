@@ -20,6 +20,7 @@ public class Binarize extends Filter{
     
     @Override
     public void apply(BufferedImage image) {
+        
         int pixelInt;
         int value;
         Color from, to;

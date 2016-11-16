@@ -13,6 +13,7 @@ public class Negative extends Filter{
 
     @Override
     public void apply(BufferedImage image) {
+        
         int pixelInt;
         Color from, to;
             for(int i = 0; i < image.getWidth(); i++){
