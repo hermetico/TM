@@ -1,0 +1,12 @@
+#!/bin/bash
+
+rm -r result
+rm -r outs
+
+mkdir result
+mkdir outs
+
+for i in `seq 1 500`; do
+	avconv -benchmark -r 25 -i imagenes/Cubo%02d.png -g 50 -refs 0 -r 25 -codec:v h264 -me_method umh  -me_range ${i} result/cub_umh_${i}.avi > outs/umh_${i}.out 2>&1
+	cat outs/umh_${i}.out | grep bench
+done

@@ -1,0 +1,660 @@
+socrates
+    description: Desktop Computer
+    product: System Product Name (To be filled by O.E.M.)
+    vendor: System manufacturer
+    version: System Version
+    serial: System Serial Number
+    width: 64 bits
+    capabilities: smbios-2.6 dmi-2.6 vsyscall32
+    configuration: boot=normal chassis=desktop family=To be filled by O.E.M. sku=To be filled by O.E.M. uuid=A0AB001E-8C00-0044-3C08-F46D0496790D
+  *-core
+       description: Motherboard
+       product: P8P67 DELUXE
+       vendor: ASUSTeK Computer INC.
+       physical id: 0
+       version: Rev 1.xx
+       serial: MT7013K30602187
+       slot: To be filled by O.E.M.
+     *-firmware
+          description: BIOS
+          vendor: American Megatrends Inc.
+          physical id: 0
+          version: 1502
+          date: 03/02/2011
+          size: 64KiB
+          capacity: 4032KiB
+          capabilities: pci upgrade shadowing cdboot bootselect socketedrom edd int13floppy1200 int13floppy720 int13floppy2880 int5printscreen int9keyboard int14serial int17printer acpi usb biosbootspecification
+     *-cpu
+          description: CPU
+          product: Intel(R) Core(TM) i7-2600K CPU @ 3.40GHz
+          vendor: Intel Corp.
+          physical id: 4
+          bus info: cpu@0
+          version: Intel(R) Core(TM) i7-2600K CPU @ 3.40GHz
+          serial: To Be Filled By O.E.M.
+          slot: LGA1155
+          size: 1600MHz
+          capacity: 3800MHz
+          width: 64 bits
+          clock: 100MHz
+          capabilities: x86-64 fpu fpu_exception wp vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid cpufreq
+          configuration: cores=4 enabledcores=1 threads=2
+        *-cache:0
+             description: L1 cache
+             physical id: 5
+             slot: L1-Cache
+             size: 256KiB
+             capacity: 256KiB
+             capabilities: internal write-back unified
+        *-cache:1
+             description: L2 cache
+             physical id: 6
+             slot: L2-Cache
+             size: 1MiB
+             capacity: 1MiB
+             capabilities: internal varies unified
+        *-cache:2 DISABLED
+             description: L3 cache
+             physical id: 7
+             slot: L3-Cache
+             size: 8MiB
+             capacity: 8MiB
+             capabilities: internal unified
+     *-memory
+          description: System Memory
+          physical id: 24
+          slot: System board or motherboard
+          size: 16GiB
+        *-bank:0
+             description: DIMM DDR3 Synchronous 1333 MHz (0,8 ns)
+             product: 9905403-400.A00LF
+             vendor: Kingston
+             physical id: 0
+             serial: 5C085E8
+             slot: DIMM0
+             size: 4GiB
+             width: 64 bits
+             clock: 1333MHz (0.8ns)
+        *-bank:1
+             description: DIMM Synchronous [empty]
+             product: Array1_PartNumber1
+             vendor: Manufacturer1
+             physical id: 1
+             serial: SerNum1
+             slot: DIMM1
+             width: 64 bits
+        *-bank:2
+             description: DIMM DDR3 Synchronous 1333 MHz (0,8 ns)
+             product: 9905403-400.A00LF
+             vendor: Kingston
+             physical id: 2
+             serial: 5D08578
+             slot: DIMM2
+             size: 4GiB
+             width: 64 bits
+             clock: 1333MHz (0.8ns)
+        *-bank:3
+             description: DIMM DDR3 Synchronous 1333 MHz (0,8 ns)
+             product: KHX1600C10D3/8G
+             vendor: Kingston
+             physical id: 3
+             serial: 0E085C2
+             slot: DIMM3
+             size: 8GiB
+             width: 64 bits
+             clock: 1333MHz (0.8ns)
+     *-pci
+          description: Host bridge
+          product: 2nd Generation Core Processor Family DRAM Controller
+          vendor: Intel Corporation
+          physical id: 100
+          bus info: pci@0000:00:00.0
+          version: 09
+          width: 32 bits
+          clock: 33MHz
+        *-pci:0
+             description: PCI bridge
+             product: Xeon E3-1200/2nd Generation Core Processor Family PCI Express Root Port
+             vendor: Intel Corporation
+             physical id: 1
+             bus info: pci@0000:00:01.0
+             version: 09
+             width: 32 bits
+             clock: 33MHz
+             capabilities: pci pm msi pciexpress normal_decode bus_master cap_list
+             configuration: driver=pcieport
+             resources: irq:40 ioport:e000(size=4096) memory:fa000000-fb0fffff ioport:c0000000(size=301989888)
+           *-display
+                description: VGA compatible controller
+                product: GM206 [GeForce GTX 960]
+                vendor: NVIDIA Corporation
+                physical id: 0
+                bus info: pci@0000:01:00.0
+                version: a1
+                width: 64 bits
+                clock: 33MHz
+                capabilities: pm msi pciexpress vga_controller bus_master cap_list rom
+                configuration: driver=nvidia latency=0
+                resources: irq:73 memory:fa000000-faffffff memory:c0000000-cfffffff memory:d0000000-d1ffffff ioport:e000(size=128) memory:fb000000-fb07ffff
+           *-multimedia
+                description: Audio device
+                product: NVIDIA Corporation
+                vendor: NVIDIA Corporation
+                physical id: 0.1
+                bus info: pci@0000:01:00.1
+                version: a1
+                width: 32 bits
+                clock: 33MHz
+                capabilities: pm msi pciexpress bus_master cap_list
+                configuration: driver=snd_hda_intel latency=0
+                resources: irq:17 memory:fb080000-fb083fff
+        *-communication
+             description: Communication controller
+             product: 6 Series/C200 Series Chipset Family MEI Controller #1
+             vendor: Intel Corporation
+             physical id: 16
+             bus info: pci@0000:00:16.0
+             version: 04
+             width: 64 bits
+             clock: 33MHz
+             capabilities: pm msi bus_master cap_list
+             configuration: driver=mei_me latency=0
+             resources: irq:71 memory:fb629000-fb62900f
+        *-network
+             description: Ethernet interface
+             product: 82579V Gigabit Network Connection
+             vendor: Intel Corporation
+             physical id: 19
+             bus info: pci@0000:00:19.0
+             logical name: eth1
+             version: 05
+             serial: f4:6d:04:96:79:0d
+             size: 1Gbit/s
+             capacity: 1Gbit/s
+             width: 32 bits
+             clock: 33MHz
+             capabilities: pm msi bus_master cap_list ethernet physical tp 10bt 10bt-fd 100bt 100bt-fd 1000bt-fd autonegotiation
+             configuration: autonegotiation=on broadcast=yes driver=e1000e driverversion=2.3.2-k duplex=full firmware=0.13-4 ip=192.168.1.11 latency=0 link=yes multicast=yes port=twisted pair speed=1Gbit/s
+             resources: irq:68 memory:fb600000-fb61ffff memory:fb628000-fb628fff ioport:f040(size=32)
+        *-usb:0
+             description: USB controller
+             product: 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #2
+             vendor: Intel Corporation
+             physical id: 1a
+             bus info: pci@0000:00:1a.0
+             version: 05
+             width: 32 bits
+             clock: 33MHz
+             capabilities: pm debug ehci bus_master cap_list
+             configuration: driver=ehci-pci latency=0
+             resources: irq:23 memory:fb627000-fb6273ff
+        *-multimedia
+             description: Audio device
+             product: 6 Series/C200 Series Chipset Family High Definition Audio Controller
+             vendor: Intel Corporation
+             physical id: 1b
+             bus info: pci@0000:00:1b.0
+             version: 05
+             width: 64 bits
+             clock: 33MHz
+             capabilities: pm msi pciexpress bus_master cap_list
+             configuration: driver=snd_hda_intel latency=0
+             resources: irq:72 memory:fb620000-fb623fff
+        *-pci:1
+             description: PCI bridge
+             product: 6 Series/C200 Series Chipset Family PCI Express Root Port 1
+             vendor: Intel Corporation
+             physical id: 1c
+             bus info: pci@0000:00:1c.0
+             version: b5
+             width: 32 bits
+             clock: 33MHz
+             capabilities: pci pciexpress msi pm normal_decode bus_master cap_list
+             configuration: driver=pcieport
+             resources: irq:41
+        *-pci:2
+             description: PCI bridge
+             product: 6 Series/C200 Series Chipset Family PCI Express Root Port 5
+             vendor: Intel Corporation
+             physical id: 1c.4
+             bus info: pci@0000:00:1c.4
+             version: b5
+             width: 32 bits
+             clock: 33MHz
+             capabilities: pci pciexpress msi pm normal_decode bus_master cap_list
+             configuration: driver=pcieport
+             resources: irq:42 memory:fb500000-fb5fffff
+           *-usb
+                description: USB controller
+                product: uPD720200 USB 3.0 Host Controller
+                vendor: NEC Corporation
+                physical id: 0
+                bus info: pci@0000:03:00.0
+                version: 04
+                width: 64 bits
+                clock: 33MHz
+                capabilities: pm msi msix pciexpress xhci bus_master cap_list
+                configuration: driver=xhci_hcd latency=0
+                resources: irq:16 memory:fb500000-fb501fff
+        *-pci:3
+             description: PCI bridge
+             product: 6 Series/C200 Series Chipset Family PCI Express Root Port 7
+             vendor: Intel Corporation
+             physical id: 1c.6
+             bus info: pci@0000:00:1c.6
+             version: b5
+             width: 32 bits
+             clock: 33MHz
+             capabilities: pci pciexpress msi pm normal_decode bus_master cap_list
+             configuration: driver=pcieport
+             resources: irq:43 memory:fb400000-fb4fffff
+           *-usb
+                description: USB controller
+                product: uPD720200 USB 3.0 Host Controller
+                vendor: NEC Corporation
+                physical id: 0
+                bus info: pci@0000:04:00.0
+                version: 04
+                width: 64 bits
+                clock: 33MHz
+                capabilities: pm msi msix pciexpress xhci bus_master cap_list
+                configuration: driver=xhci_hcd latency=0
+                resources: irq:18 memory:fb400000-fb401fff
+        *-pci:4
+             description: PCI bridge
+             product: 6 Series/C200 Series Chipset Family PCI Express Root Port 8
+             vendor: Intel Corporation
+             physical id: 1c.7
+             bus info: pci@0000:00:1c.7
+             version: b5
+             width: 32 bits
+             clock: 33MHz
+             capabilities: pci pciexpress msi pm normal_decode bus_master cap_list
+             configuration: driver=pcieport
+             resources: irq:44 ioport:b000(size=12288) memory:fb100000-fb3fffff ioport:d2100000(size=1048576)
+           *-pci
+                description: PCI bridge
+                product: PEX 8608 8-lane, 8-Port PCI Express Gen 2 (5.0 GT/s) Switch
+                vendor: PLX Technology, Inc.
+                physical id: 0
+                bus info: pci@0000:05:00.0
+                version: ba
+                width: 32 bits
+                clock: 33MHz
+                capabilities: pci pm msi pciexpress normal_decode bus_master cap_list
+                configuration: driver=pcieport
+                resources: irq:45 memory:fb300000-fb31ffff ioport:b000(size=12288) memory:fb100000-fb2fffff ioport:d2100000(size=1048576)
+              *-pci:0
+                   description: PCI bridge
+                   product: PEX 8608 8-lane, 8-Port PCI Express Gen 2 (5.0 GT/s) Switch
+                   vendor: PLX Technology, Inc.
+                   physical id: 1
+                   bus info: pci@0000:06:01.0
+                   version: ba
+                   width: 32 bits
+                   clock: 33MHz
+                   capabilities: pci pm msi pciexpress normal_decode bus_master cap_list
+                   configuration: driver=pcieport
+                   resources: irq:46 ioport:d000(size=4096) memory:fb200000-fb2fffff
+                 *-firewire
+                      description: FireWire (IEEE 1394)
+                      product: VT6315 Series Firewire Controller
+                      vendor: VIA Technologies, Inc.
+                      physical id: 0
+                      bus info: pci@0000:07:00.0
+                      version: 01
+                      width: 64 bits
+                      clock: 33MHz
+                      capabilities: pm msi pciexpress ohci bus_master cap_list
+                      configuration: driver=firewire_ohci latency=0
+                      resources: irq:16 memory:fb200000-fb2007ff ioport:d000(size=256)
+              *-pci:1
+                   description: PCI bridge
+                   product: PEX 8608 8-lane, 8-Port PCI Express Gen 2 (5.0 GT/s) Switch
+                   vendor: PLX Technology, Inc.
+                   physical id: 4
+                   bus info: pci@0000:06:04.0
+                   version: ba
+                   width: 32 bits
+                   clock: 33MHz
+                   capabilities: pci pm msi pciexpress normal_decode bus_master cap_list
+                   configuration: driver=pcieport
+                   resources: irq:47
+              *-pci:2
+                   description: PCI bridge
+                   product: PEX 8608 8-lane, 8-Port PCI Express Gen 2 (5.0 GT/s) Switch
+                   vendor: PLX Technology, Inc.
+                   physical id: 5
+                   bus info: pci@0000:06:05.0
+                   version: ba
+                   width: 32 bits
+                   clock: 33MHz
+                   capabilities: pci pm msi pciexpress normal_decode bus_master cap_list
+                   configuration: driver=pcieport
+                   resources: irq:48 ioport:c000(size=4096) memory:fb100000-fb1fffff
+                 *-storage
+                      description: SATA controller
+                      product: JMB362 SATA Controller
+                      vendor: JMicron Technology Corp.
+                      physical id: 0
+                      bus info: pci@0000:09:00.0
+                      version: 10
+                      width: 32 bits
+                      clock: 33MHz
+                      capabilities: storage pm pciexpress ahci_1.0 bus_master cap_list rom
+                      configuration: driver=ahci latency=0
+                      resources: irq:16 ioport:c040(size=8) ioport:c030(size=4) ioport:c020(size=8) ioport:c010(size=4) ioport:c000(size=16) memory:fb110000-fb1101ff memory:fb100000-fb10ffff
+              *-pci:3
+                   description: PCI bridge
+                   product: PEX 8608 8-lane, 8-Port PCI Express Gen 2 (5.0 GT/s) Switch
+                   vendor: PLX Technology, Inc.
+                   physical id: 7
+                   bus info: pci@0000:06:07.0
+                   version: ba
+                   width: 32 bits
+                   clock: 33MHz
+                   capabilities: pci pm msi pciexpress normal_decode bus_master cap_list
+                   configuration: driver=pcieport
+                   resources: irq:49
+              *-pci:4
+                   description: PCI bridge
+                   product: PEX 8608 8-lane, 8-Port PCI Express Gen 2 (5.0 GT/s) Switch
+                   vendor: PLX Technology, Inc.
+                   physical id: 8
+                   bus info: pci@0000:06:08.0
+                   version: ba
+                   width: 32 bits
+                   clock: 33MHz
+                   capabilities: pci pm msi pciexpress normal_decode bus_master cap_list
+                   configuration: driver=pcieport
+                   resources: irq:50
+                 *-pci
+                      description: PCI bridge
+                      product: ASM1083/1085 PCIe to PCI Bridge
+                      vendor: ASMedia Technology Inc.
+                      physical id: 0
+                      bus info: pci@0000:0b:00.0
+                      version: 01
+                      width: 32 bits
+                      clock: 33MHz
+                      capabilities: pci msi pm pciexpress normal_decode bus_master cap_list
+              *-pci:5
+                   description: PCI bridge
+                   product: PEX 8608 8-lane, 8-Port PCI Express Gen 2 (5.0 GT/s) Switch
+                   vendor: PLX Technology, Inc.
+                   physical id: 9
+                   bus info: pci@0000:06:09.0
+                   version: ba
+                   width: 32 bits
+                   clock: 33MHz
+                   capabilities: pci pm msi pciexpress normal_decode bus_master cap_list
+                   configuration: driver=pcieport
+                   resources: irq:51 ioport:b000(size=4096) ioport:d2100000(size=1048576)
+                 *-network
+                      description: Ethernet interface
+                      product: RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller
+                      vendor: Realtek Semiconductor Co., Ltd.
+                      physical id: 0
+                      bus info: pci@0000:0d:00.0
+                      logical name: eth0
+                      version: 06
+                      serial: f4:6d:04:96:66:17
+                      size: 10Mbit/s
+                      capacity: 1Gbit/s
+                      width: 64 bits
+                      clock: 33MHz
+                      capabilities: pm msi pciexpress msix vpd bus_master cap_list ethernet physical tp mii 10bt 10bt-fd 100bt 100bt-fd 1000bt 1000bt-fd autonegotiation
+                      configuration: autonegotiation=on broadcast=yes driver=r8169 driverversion=2.3LK-NAPI duplex=half firmware=rtl_nic/rtl8168e-2.fw latency=0 link=no multicast=yes port=MII speed=10Mbit/s
+                      resources: irq:69 ioport:b000(size=256) memory:d2104000-d2104fff memory:d2100000-d2103fff
+        *-usb:1
+             description: USB controller
+             product: 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #1
+             vendor: Intel Corporation
+             physical id: 1d
+             bus info: pci@0000:00:1d.0
+             version: 05
+             width: 32 bits
+             clock: 33MHz
+             capabilities: pm debug ehci bus_master cap_list
+             configuration: driver=ehci-pci latency=0
+             resources: irq:23 memory:fb626000-fb6263ff
+        *-isa
+             description: ISA bridge
+             product: P67 Express Chipset Family LPC Controller
+             vendor: Intel Corporation
+             physical id: 1f
+             bus info: pci@0000:00:1f.0
+             version: 05
+             width: 32 bits
+             clock: 33MHz
+             capabilities: isa bus_master cap_list
+             configuration: driver=lpc_ich latency=0
+             resources: irq:0
+        *-storage
+             description: SATA controller
+             product: 6 Series/C200 Series Chipset Family SATA AHCI Controller
+             vendor: Intel Corporation
+             physical id: 1f.2
+             bus info: pci@0000:00:1f.2
+             version: 05
+             width: 32 bits
+             clock: 66MHz
+             capabilities: storage msi pm ahci_1.0 bus_master cap_list
+             configuration: driver=ahci latency=0
+             resources: irq:70 ioport:f090(size=8) ioport:f080(size=4) ioport:f070(size=8) ioport:f060(size=4) ioport:f020(size=32) memory:fb625000-fb6257ff
+        *-serial UNCLAIMED
+             description: SMBus
+             product: 6 Series/C200 Series Chipset Family SMBus Controller
+             vendor: Intel Corporation
+             physical id: 1f.3
+             bus info: pci@0000:00:1f.3
+             version: 05
+             width: 64 bits
+             clock: 33MHz
+             configuration: latency=0
+             resources: memory:fb624000-fb6240ff ioport:f000(size=32)
+     *-scsi:0
+          physical id: 1
+          logical name: scsi0
+          capabilities: emulated
+        *-disk
+             description: ATA Disk
+             product: Samsung SSD 850
+             physical id: 0.0.0
+             bus info: scsi@0:0.0.0
+             logical name: /dev/sda
+             version: EMT0
+             serial: S2R6NX0H775276X
+             size: 232GiB (250GB)
+             capabilities: partitioned partitioned:dos
+             configuration: ansiversion=5 sectorsize=512 signature=969a0b74
+           *-volume:0
+                description: Windows NTFS volume
+                physical id: 1
+                bus info: scsi@0:0.0.0,1
+                logical name: /dev/sda1
+                version: 3.1
+                serial: 8855-0b45
+                size: 498MiB
+                capacity: 500MiB
+                capabilities: primary bootable ntfs initialized
+                configuration: clustersize=4096 created=2016-10-12 21:17:54 filesystem=ntfs label=System Reserved modified_by_chkdsk=true mounted_on_nt4=true resize_log_file=true state=dirty upgrade_on_mount=true
+           *-volume:1
+                description: Windows NTFS volume
+                physical id: 2
+                bus info: scsi@0:0.0.0,2
+                logical name: /dev/sda2
+                version: 3.1
+                serial: ecbf8621-26d4-464d-bba9-1eefe60745bd
+                size: 116GiB
+                capacity: 116GiB
+                capabilities: primary ntfs initialized
+                configuration: clustersize=4096 created=2016-10-12 21:17:55 filesystem=ntfs state=clean
+           *-volume:2
+                description: EXT4 volume
+                vendor: Linux
+                physical id: 3
+                bus info: scsi@0:0.0.0,3
+                logical name: /dev/sda3
+                logical name: /
+                version: 1.0
+                serial: 1f769138-49c2-4206-936b-387bde99cd5e
+                size: 115GiB
+                capacity: 115GiB
+                capabilities: primary journaled extended_attributes large_files huge_files dir_nlink recover extents ext4 ext2 initialized
+                configuration: created=2016-10-12 22:06:03 filesystem=ext4 lastmountpoint=/ modified=2016-11-16 10:28:07 mount.fstype=ext4 mount.options=rw,relatime,errors=remount-ro,data=ordered mounted=2016-11-16 10:28:07 state=mounted
+     *-scsi:1
+          physical id: 2
+          logical name: scsi2
+          capabilities: emulated
+        *-disk
+             description: ATA Disk
+             product: WDC WD20EZRX-00D
+             vendor: Western Digital
+             physical id: 0.0.0
+             bus info: scsi@2:0.0.0
+             logical name: /dev/sdb
+             version: 80.0
+             serial: WD-WMC4M2351866
+             size: 1863GiB (2TB)
+             capabilities: partitioned partitioned:dos
+             configuration: ansiversion=5 sectorsize=4096 signature=867c156c
+           *-volume
+                description: EXT4 volume
+                vendor: Linux
+                physical id: 1
+                bus info: scsi@2:0.0.0,1
+                logical name: /dev/sdb1
+                logical name: /media/hermetico/2TB
+                version: 1.0
+                serial: 87dac6ff-cb06-4b3e-b319-66e4cc1d2eea
+                size: 1862GiB
+                capacity: 1862GiB
+                capabilities: primary journaled extended_attributes large_files huge_files dir_nlink recover extents ext4 ext2 initialized
+                configuration: created=2015-12-04 22:03:54 filesystem=ext4 label=2TB lastmountpoint=/media/hermetico/2TB modified=2016-11-16 10:28:08 mount.fstype=ext4 mount.options=rw,relatime,data=ordered mounted=2016-11-16 10:28:08 state=mounted
+     *-scsi:2
+          physical id: 3
+          logical name: scsi3
+          capabilities: emulated
+        *-disk
+             description: ATA Disk
+             product: ST3500418AS
+             vendor: Seagate
+             physical id: 0.0.0
+             bus info: scsi@3:0.0.0
+             logical name: /dev/sdc
+             version: CC34
+             serial: 5VM1BL6H
+             size: 465GiB (500GB)
+             capabilities: partitioned partitioned:dos
+             configuration: ansiversion=5 sectorsize=512 signature=000d45df
+           *-volume
+                description: Extended partition
+                physical id: 2
+                bus info: scsi@3:0.0.0,2
+                logical name: /dev/sdc2
+                size: 465GiB
+                capacity: 465GiB
+                capabilities: primary extended partitioned partitioned:extended
+              *-logicalvolume:0
+                   description: Linux filesystem partition
+                   physical id: 5
+                   logical name: /dev/sdc5
+                   capacity: 9536MiB
+              *-logicalvolume:1
+                   description: Linux filesystem partition
+                   physical id: 6
+                   logical name: /dev/sdc6
+                   capacity: 195GiB
+              *-logicalvolume:2
+                   description: Linux swap / Solaris partition
+                   physical id: 7
+                   logical name: /dev/sdc7
+                   capacity: 15GiB
+                   capabilities: nofs
+              *-logicalvolume:3
+                   description: Linux swap / Solaris partition
+                   physical id: 8
+                   logical name: /dev/sdc8
+                   capacity: 29GiB
+                   capabilities: nofs
+              *-logicalvolume:4
+                   description: Linux filesystem partition
+                   physical id: 9
+                   logical name: /dev/sdc9
+                   logical name: /home
+                   capacity: 215GiB
+                   configuration: mount.fstype=ext4 mount.options=rw,relatime,data=ordered state=mounted
+     *-scsi:3
+          physical id: 5
+          logical name: scsi4
+          capabilities: emulated
+        *-disk
+             description: ATA Disk
+             product: WDC WD10EARS-00Y
+             vendor: Western Digital
+             physical id: 0.0.0
+             bus info: scsi@4:0.0.0
+             logical name: /dev/sdd
+             version: 80.0
+             serial: WD-WCAV5W101746
+             size: 931GiB (1TB)
+             capabilities: partitioned partitioned:dos
+             configuration: ansiversion=5 sectorsize=4096 signature=00043474
+           *-volume:0
+                description: EXT4 volume
+                vendor: Linux
+                physical id: 1
+                bus info: scsi@4:0.0.0,1
+                logical name: /dev/sdd1
+                logical name: /media/hermetico/storage-1
+                version: 1.0
+                serial: 24d72698-a376-400b-954a-075357e0d752
+                size: 197GiB
+                capacity: 197GiB
+                capabilities: primary journaled extended_attributes large_files huge_files dir_nlink recover extents ext4 ext2 initialized
+                configuration: created=2015-12-04 03:35:17 filesystem=ext4 label=storage-1 lastmountpoint=/media/hermetico/storage-1 modified=2016-11-16 10:28:08 mount.fstype=ext4 mount.options=rw,relatime,data=ordered mounted=2016-11-16 10:28:08 state=mounted
+           *-volume:1
+                description: EXT4 volume
+                vendor: Linux
+                physical id: 2
+                bus info: scsi@4:0.0.0,2
+                logical name: /dev/sdd2
+                logical name: /media/hermetico/storage-2
+                version: 1.0
+                serial: 601cd48b-3bad-4ee5-8e3e-0b7fec0789d4
+                size: 734GiB
+                capacity: 734GiB
+                capabilities: primary journaled extended_attributes large_files huge_files dir_nlink recover extents ext4 ext2 initialized
+                configuration: created=2015-12-04 03:35:20 filesystem=ext4 label=storage-2 lastmountpoint=/media/hermetico/storage-2 modified=2016-11-16 10:28:08 mount.fstype=ext4 mount.options=rw,relatime,data=ordered mounted=2016-11-16 10:28:08 state=mounted
+     *-scsi:4
+          physical id: 6
+          logical name: scsi5
+          capabilities: emulated
+        *-cdrom
+             description: DVD-RAM writer
+             product: CDDVDW SH-S223C
+             vendor: TSSTcorp
+             physical id: 0.0.0
+             bus info: scsi@5:0.0.0
+             logical name: /dev/cdrom
+             logical name: /dev/sr0
+             version: SB06
+             capabilities: removable audio cd-r cd-rw dvd dvd-r dvd-ram
+             configuration: ansiversion=5 status=nodisc
+  *-power:0 UNCLAIMED
+       description: To Be Filled By O.E.M.
+       product: To Be Filled By O.E.M.
+       vendor: To Be Filled By O.E.M.
+       physical id: 1
+       version: To Be Filled By O.E.M.
+       serial: To Be Filled By O.E.M.
+       capacity: 32768mWh
+  *-power:1 UNCLAIMED
+       description: To Be Filled By O.E.M.
+       product: To Be Filled By O.E.M.
+       vendor: To Be Filled By O.E.M.
+       physical id: 2
+       version: To Be Filled By O.E.M.
+       serial: To Be Filled By O.E.M.
+       capacity: 32768mWh

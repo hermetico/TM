@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cmp_list="sad sse satd chroma"
+rm -r result
+rm -r out
+
+mkdir result
+mkdir out
+for cmp in $cmp_list; do
+	avconv -benchmark -r 25 -i imagenes/Cubo%02d.png -g 50 -refs 0 -r 25 -codec:v h264 -cmp ${cmp} result/cub_${cmp}.avi > ${cmp}.out 2>&1
+	cat ${cmp}.out | grep bench
+done
