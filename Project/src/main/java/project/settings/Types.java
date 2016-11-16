@@ -77,6 +77,7 @@ public class Types{
         NEGATIVE("negative"),
         BINARIZATION("binarization"),
         AVERAGE("average"),
+        CONVOLUTIONAL("conv"),
         NONE("NONE")
         ;
         

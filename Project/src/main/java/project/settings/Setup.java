@@ -24,6 +24,7 @@ public class Setup {
     
     private String inputFilePath;
     private String outputFilePath;
+    private String type;
     
     private int FPS = 0;
     private int binarizationValue = 0;
@@ -55,6 +56,10 @@ public class Setup {
             binarizationValue = parser.getBinValue();
         }else if(parser.isNegativeFilterEnabled()){
             filter = FilterType.NEGATIVE;
+        }
+        else if(parser.isConvolutionalFilterEnabled()){
+            filter = FilterType.CONVOLUTIONAL;
+            type = parser.getConvolutionalFilterType();
         }
     }
     
@@ -156,6 +161,9 @@ public class Setup {
 
     public int getQuality() {
         return quality;
+    }
+    public String getConvolutionalFilterType(){
+        return type;
     }
     
     

@@ -9,6 +9,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 
 import java.util.List;
+import project.validators.ConvolutionalFilterTypeValidator;
 import project.validators.NumericValidator;
 
 
@@ -52,6 +53,11 @@ public class ArgsParser {
     
     @Parameter(names = {"--batch", "-b"}, description = "batch mode")
     private boolean batch = false ;
+    
+    @Parameter(names = {"--conv"}, 
+            description = "Apply convolutional filter, valid tipes: prewitt_x, prewitt_y, sobel_x, sobel_y, laplacian, unsharp, sharpen, blur, emboss",
+            validateWith = ConvolutionalFilterTypeValidator.class)
+    private String type;
     
     public void checkMode(){
         
@@ -108,5 +114,15 @@ public class ArgsParser {
     }
     public boolean isBatchModeEnabled(){
         return batch;
+    }
+    public boolean isConvolutionalFilterEnabled(){
+        boolean enabled = false;
+        if(type!=null){
+            enabled = true;
+        }
+        return enabled;
+    }
+    public String getConvolutionalFilterType(){
+        return type;
     }
 }

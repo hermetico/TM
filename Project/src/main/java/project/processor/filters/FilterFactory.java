@@ -22,6 +22,10 @@ public class FilterFactory {
             case BINARIZATION:
                 fl = new Binarize(setup.getBinarizationValue());
                 break;
+            case CONVOLUTIONAL:
+                fl = new Conv(setup.getConvolutionalFilterType());
+                break;
+                
             case NONE:
             default:
                 fl = null;
