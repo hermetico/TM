@@ -41,6 +41,7 @@ public class Main {
         
         // Creates a setup for the app
         Setup setup = new Setup(parser);
+        
         App app = new App(setup);
                 
     }

@@ -50,13 +50,13 @@ public class App {
         pr.processData();
         
         // TODO check this
-        if(setup.isStoring()){
+        //if(setup.isStoring()){
             if(setup.getOutputContainer() == FileType.ZIP){
                 Zip zipper = new Zip();
                 tr.trace("Zipping data");
                 zipper.zipData(pr.getBuffer(), setup.getOutputFilePath(), setup.getOutputFile());
             }
-        }
+       // }
 
          
         
