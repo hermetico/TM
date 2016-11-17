@@ -27,7 +27,7 @@ public class Average extends Filter{
         List<Float> dataList = new ArrayList<Float>();
         int n = value*value;
         for (int i=0;i < n; i++){
-            dataList.add(1.0f/9.0f);
+            dataList.add(1.0f/(float)n);
         }
         
         float[] data = new float[ dataList.size() ];
@@ -37,7 +37,7 @@ public class Average extends Filter{
             i++;
        }
  
-        Kernel avgKernel = new Kernel(3,3,data);
+        Kernel avgKernel = new Kernel(value,value,data);
         
         BufferedImageOp average = new ConvolveOp(avgKernel);
         BufferedImage output = average.filter(image, null);

@@ -39,12 +39,12 @@ public class NumericValidator implements IParameterValidator{
                 throw new ParameterException(name + " valid range is 2-254: " + value + " not allowed");
             }
         }else if (name.equals("--averaging")){
-            if (val<1 || val>254){
-                throw new ParameterException(name + " valid range is 1-254: " + value + " not allowed");
+            if (val<1 || val>50){
+                throw new ParameterException(name + " valid range is 1-50: " + value + " not allowed");
             }
         }else if(name.equals("--seekRange")){
-            if (val<0 ){
-                throw new ParameterException(name + " must be greater than 0: " + value + " not allowed");
+            if (val<0 || val>100){
+                throw new ParameterException(name + " valid range is 1-100: " + value + " not allowed");
             }
         }else if (name.equals("--GOP")){
             if (val<1 || val> 100 ){

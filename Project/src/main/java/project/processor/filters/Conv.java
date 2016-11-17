@@ -43,9 +43,10 @@ public class Conv extends Filter{
                 data = new float[] { -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 1.0f };
                 break;
             case PREWITT_Y:
+                data = new float[] { 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f, -1.0f, -1.0f };
                 break;
             case SOBEL_X:
-                data = new float[] { 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f, -1.0f, -1.0f };
+                data = new float[] { -1.0f, 0.0f, 1.0f, -2.0f, 0.0f, 2.0f, -1.0f, 0.0f, 1.0f };
                 break;
             case SOBEL_Y:
                 data = new float[] { 1.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f, -2.0f, -1.0f };
