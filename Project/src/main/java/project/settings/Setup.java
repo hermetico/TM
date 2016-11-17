@@ -20,10 +20,10 @@ public class Setup {
     private boolean batchMode = false;
     private boolean encoding = false;
     private boolean decoding = false;
-    private boolean storing = false;
+    private boolean storing = true;
     
     private String inputFilePath;
-    private String outputFilePath;
+    private String outputFilePath = "out";
     private String type;
     
     private int FPS = 0;

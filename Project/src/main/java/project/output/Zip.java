@@ -15,6 +15,8 @@ import javax.imageio.ImageIO;
 public class Zip {
     
     public void zipData(Buffer<BufferedImage> buffer, String path, FileType fileType){
+        
+            path += "." + FileType.ZIP.toString();
         try {
             ZipOutputStream zout = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(path)));
             

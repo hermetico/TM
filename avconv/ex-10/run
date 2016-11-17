@@ -1,3 +1,3 @@
 #!/bin/bash
 
-avconv -benchmark -r 25 -i imagenes/Cubo%02d.png -codec:v h264 -r 25 -g 15 -refs 0 -cmp chroma -me_method umh -me_range 10 output.avi 
+avconv -benchmark -r 25 -i imagenes/Cubo%02d.png -codec:v h264 -r 25 -g 15  -cmp chroma -me_method umh -me_range 10 output.avi 
