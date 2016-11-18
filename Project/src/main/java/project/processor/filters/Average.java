@@ -22,6 +22,9 @@ public class Average extends Filter{
     public Average(int value){this.value = value;};
 
     @Override
+    // average value computed by convolution with n x n array where n = value
+    // all array elements has 1/(n*n) value. 
+    // If n = 3 then array is {1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9}
     public void apply(BufferedImage image) {
         
         List<Float> dataList = new ArrayList<Float>();

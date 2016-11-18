@@ -10,10 +10,7 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 
-/**
- *
- * @author ferran
- */
+
 public class Conv extends Filter{
     
     // type filter in string format
@@ -74,11 +71,13 @@ public class Conv extends Filter{
   
     }
     @Override
+    
+    // conv filters convolve image with selected 3 x 3 kernel filter
     public void apply(BufferedImage image) {
         
-        Kernel avgKernel = new Kernel(3,3,data);
-        BufferedImageOp average = new ConvolveOp(avgKernel);
-        BufferedImage output = average.filter(image, null);
+        Kernel kernel = new Kernel(3,3,data);
+        BufferedImageOp bio = new ConvolveOp(kernel);
+        BufferedImage output = bio.filter(image, null);
         image.setData(output.getRaster());
     } 
 }

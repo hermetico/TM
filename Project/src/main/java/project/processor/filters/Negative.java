@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 public class Negative extends Filter{
 
     @Override
+    
+    // negative filter sets pixel value to  255 -pixel value
     public void apply(BufferedImage image) {
         
         int pixelInt;
