@@ -59,6 +59,9 @@ public class ArgsParser {
             validateWith = ConvolutionalFilterTypeValidator.class)
     private String type;
     
+    @Parameter(names = {"--help","-h"}, description = "help", help = true)
+    public boolean help;
+    
     public void checkMode(){
         
         if(!encode&&!decode){
