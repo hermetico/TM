@@ -7,10 +7,7 @@ package project.processor.filters;
 
 import java.awt.image.BufferedImage;
 
-/**
- *
- * @author ferran
- */
+
 public interface IFilter {
     
     public void apply(BufferedImage image);

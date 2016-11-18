@@ -8,10 +8,6 @@ package project.processor.filters;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-/**
- *
- * @author ferran
- */
 public class Binarize extends Filter{
     int treshold;
     public Binarize(int treshold){
@@ -19,6 +15,8 @@ public class Binarize extends Filter{
     }
     
     @Override
+    // Binarize sets all image pixels with value under treshold to be 0 (black).
+    // Pixels with value over treshold are set to 255 (white)
     public void apply(BufferedImage image) {
         
         int pixelInt;

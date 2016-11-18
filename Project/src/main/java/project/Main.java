@@ -7,6 +7,7 @@ package project;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
+import static java.lang.System.exit;
 import project.input.ArgsParser;
 import project.misc.Tracer;
 import project.settings.Setup;
@@ -27,6 +28,7 @@ public class Main {
         tr = Tracer.getInstance();
         try{
             jcomm = new JCommander(parser, args);
+            if (parser.help){ jcomm.usage(); exit(0);}
            }catch(ParameterException e){
                System.out.println(e.getMessage());
                System.err.println();

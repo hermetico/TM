@@ -59,6 +59,10 @@ public class ArgsParser {
             validateWith = ConvolutionalFilterTypeValidator.class)
     private String type;
     
+    @Parameter(names = {"--help","-h"}, description = "help", help = true)
+    public boolean help;
+    
+    // mode must be selected: option are encode and/or decode
     public void checkMode(){
         
         if(!encode&&!decode){
@@ -77,6 +81,7 @@ public class ArgsParser {
     public int getFps(){
         return fps;
     }
+    // treshold value to binarize
     public int getBinValue(){
         return binValue;
     }
@@ -99,7 +104,7 @@ public class ArgsParser {
         }
         return enabled;
     }
-    // returns average filter value;
+    // Average value computed
     public int getAvgValue(){
         return avgValue;
     }

@@ -7,12 +7,8 @@ package project.validators;
 
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;
-import java.util.List;
 
-/**
- *
- * @author ferran
- */
+
 public class NumericValidator implements IParameterValidator{
     
     @Override
@@ -27,8 +23,6 @@ public class NumericValidator implements IParameterValidator{
             throw new ParameterException(name + " is not a valid integer: " + value);
         }
         
-        
-        System.out.println("Nombre: " + name);
         // check valid range
         if(name.equals("--fps")){         
             if (val<1 || val>200){
