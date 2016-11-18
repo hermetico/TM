@@ -59,8 +59,7 @@ public class Player {
     public void close(){
         this.stop();
         tr.trace("Exiting");
-        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
         playerCounters.flushCounters();
-        System.exit(0);
+        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 }

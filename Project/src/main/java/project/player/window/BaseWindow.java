@@ -28,6 +28,7 @@ public class BaseWindow extends JFrame{
         contentPanel.add(label, BorderLayout.CENTER);
         this.add(contentPanel);
         this.addListeners();
+        
     }
 
     public void draw(BufferedImage img){
@@ -38,8 +39,10 @@ public class BaseWindow extends JFrame{
     private void addListeners(){
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {
-                if(cf.EXIT_ON_CLOSE_WINDOW)
-                    System.exit(0);
+                BaseWindow.this.dispose();
+                
+                if(cf.EXIT_ON_CLOSE_WINDOW) System.exit(0);
+                
              }
             }
         );
