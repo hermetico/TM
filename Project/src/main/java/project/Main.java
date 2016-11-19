@@ -37,6 +37,8 @@ public class Main {
         }
         // checks if encode and/or decode mode is selected
         parser.checkMode();
+        //check and set tile values
+        parser.setTileValues();
         
         // do rest of checks from the parser
         // TODO

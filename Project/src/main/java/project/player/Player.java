@@ -6,6 +6,7 @@
 package project.player;
 
 
+import java.awt.Dimension;
 import project.counters.FPSCounters;
 import project.misc.Tracer;
 import project.player.window.BaseWindow;
@@ -27,7 +28,8 @@ public class Player {
     
     private Player(){
         window = new BaseWindow();
-        window.setVisible(true);
+        // center window
+        window.setLocationRelativeTo(null);
         timer  = new Timer();
         playerCounters = new FPSCounters();
     }

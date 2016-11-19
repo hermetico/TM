@@ -7,10 +7,12 @@ package project.input;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import static java.lang.Integer.parseInt;
 
 import java.util.List;
 import project.validators.ConvolutionalFilterTypeValidator;
 import project.validators.NumericValidator;
+import project.validators.TileValueValidator;
 
 
 public class ArgsParser {
@@ -39,7 +41,7 @@ public class ArgsParser {
     @Parameter(names = {"--averaging"}, description = "Apply average filter", validateWith = NumericValidator.class)
     private int avgValue;
     
-    @Parameter(names = "--nTiles", arity = 2, description = "number of tiles")
+    @Parameter(names = "--nTiles", arity = 2, description = "Number of tiles: nTiles<x y> or pixels per tile: ntiles<x y>p", validateWith=TileValueValidator.class)
     private List<String> numTiles;
      
     @Parameter(names = {"--seekRange"}, description = "max displacement in matching tile search", validateWith = NumericValidator.class)
@@ -68,6 +70,30 @@ public class ArgsParser {
         if(!encode&&!decode){
             System.out.println();
             throw new ParameterException("Must select encode options, -e and/or -d");
+        }
+    }
+    public void setTileValues(){
+        //check if number
+        int nTilesX;
+        int nTilesY;
+        int nPixelsX;
+        int nPixelsY;
+        String lastX;
+        String lastY;
+        
+        lastX = numTiles.get(0).substring(numTiles.get(0).length() - 1);
+        lastY = numTiles.get(1).substring(numTiles.get(1).length() - 1);
+        // Check if user enters number pixels per tile or tile number 
+        if (lastX.toUpperCase().equals("P")&&lastY.toUpperCase().equals("P")){
+            try{
+                nPixelsX = parseInt(numTiles.get(0).substring(0, numTiles.get(0).length() - 2));
+                nPixelsY = parseInt(numTiles.get(1).substring(0, numTiles.get(1).length() - 2));
+            }catch(NumberFormatException e){
+                throw new ParameterException("Wrong value: " + numTiles.get(0) +", " + numTiles.get(1));
+            }
+        }else{
+            nTilesX= parseInt(numTiles.get(0));
+            nTilesY= parseInt(numTiles.get(1));   
         }
     }
     
