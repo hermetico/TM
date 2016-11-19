@@ -55,16 +55,16 @@ public class ArgParser {
     public String getMode(){
         return mode;
     }
-    public void checkRelatedParameters(){
+    public void checkRelatedParameters(int size){
         // check slide and input window size are rigth
         if(this.getInputWindow() >= this.getSlideWindow()){
             System.out.println();
             throw new ParameterException("Slide window must be greater than Input Window");
         }
-        /*
-        if (this.getInputWindow() + this.getSlideWindow() > 8){
+        
+        if (this.getInputWindow() + this.getSlideWindow() > size){
             throw new ParameterException ("sum of Input window and Slide window must be lower than input binary length");
         }
-*/
+
     }
 }

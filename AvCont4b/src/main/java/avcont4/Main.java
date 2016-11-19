@@ -33,8 +33,9 @@ public class Main {
             if (parser.help){ 
                 jcomm.usage();
             }
-            
-            parser.checkRelatedParameters();
+           
+            int size = txtReader.cargarTxt(parser.getFileName()).length();
+            parser.checkRelatedParameters(size);
             
             //System.out.println("Debug Mode: " + parser.getDebug());
             //System.out.println("Help Mode: " + parser.help);
@@ -62,7 +63,7 @@ public class Main {
        
         // Load text file
         String data = txtReader.cargarTxt(args.getFileName()).toString();
-        System.out.println("data:   " + data);
+        System.out.println("data:   " + data.length());
         
         LZ77 compressor = new LZ77();
         
@@ -78,7 +79,7 @@ public class Main {
               output = compressor.decompress(data, inputWindowSize, slidingWindowSize);
         }
             
-        System.out.println("Output: " + output);
+        System.out.println("Output: " + output.length());
         
       
         
