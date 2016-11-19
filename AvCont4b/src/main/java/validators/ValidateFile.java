@@ -7,17 +7,14 @@ package validators;
 
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;
+import java.io.File;
 
-/**
- *
- * @author ferran
- */
-public class ValidateBinaryStream implements IParameterValidator {
+public class ValidateFile implements IParameterValidator {
     @Override
     public void validate(String name, String value) throws ParameterException{
-        if(!value.matches("[01]+")){
-            throw new ParameterException(value + " is not binary");
-
+        File f = new File(value);
+        if(!f.exists() && f.isDirectory()) { 
+            throw new ParameterException(value + " not found");
         }
         
     }

@@ -5,7 +5,7 @@
  */
 package avcont4;
 
-import validators.ValidateBinaryStream;
+import validators.ValidateFile;
 import validators.ValidateWindows;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
@@ -22,8 +22,8 @@ public class ArgParser {
     public boolean help;
     @Parameter(names = {"--mode"}, description = "Compression mode, c: compress(default), d: decompress", validateWith = ValidateMode.class)
     public String mode = "c";
-    @Parameter(names = {"--inputBinary","-i"}, description = "required binary number argument", required = true, validateWith = ValidateBinaryStream.class)
-    private String binaryInput;
+    @Parameter(names = {"--file","-f"}, description = "required input file path argument", required = true, validateWith = ValidateFile.class)
+    private String fileName;
     @Parameter(names = {"--inputWindow","-w"}, description = "required input window argument", required = true, validateWith = ValidateWindows.class)
     // length of input Window
     private int Ment = 0;
@@ -35,12 +35,10 @@ public class ArgParser {
     public int getTest(){
         return test;
     }
-    public String getBinaryInput(){
-        return binaryInput;
+    public String getFileName(){
+        return fileName;
     }
-    public void setBinaryInput(String number){
-        binaryInput = number;
-    }
+    
     public void setInputWindow(int number){
         Ment = number;
     }
@@ -63,8 +61,10 @@ public class ArgParser {
             System.out.println();
             throw new ParameterException("Slide window must be greater than Input Window");
         }
-        if (this.getInputWindow() + this.getSlideWindow() > this.getBinaryInput().length()){
+        /*
+        if (this.getInputWindow() + this.getSlideWindow() > 8){
             throw new ParameterException ("sum of Input window and Slide window must be lower than input binary length");
         }
+*/
     }
 }

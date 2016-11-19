@@ -7,6 +7,7 @@ package avcont4;
 
 
 import LZ77.LZ77;
+import LZ77.utils.txtReader;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 import java.math.BigDecimal;
@@ -58,8 +59,11 @@ public class Main {
 
     public void run(){
         
+       
+        // Load text file
+        String data = txtReader.cargarTxt(args.getFileName()).toString();
+        System.out.println("data:   " + data);
         
-        String data = args.getBinaryInput();
         LZ77 compressor = new LZ77();
         
         int inputWindowSize = args.getInputWindow();
@@ -73,7 +77,8 @@ public class Main {
         }else{
               output = compressor.decompress(data, inputWindowSize, slidingWindowSize);
         }
-        System.out.println(output);
+            
+        System.out.println("Output: " + output);
         
       
         
