@@ -11,22 +11,19 @@ import LZ77.utils.txtReader;
 import static LZ77.utils.txtReader.loadDat;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
-import java.io.DataOutputStream;
-import java.io.File;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-/**
- *
- * @author ferran
- */
 public class Main {
     
     ArgParser args;
@@ -57,27 +54,27 @@ public class Main {
         
         
         Main main = new Main(parser);
-        
-        
-        
+  
     }
-    public Main(ArgParser args){
+    public Main(ArgParser args) {
         this.args = args;
         if(args.getTest() != 0) test();
         else run();
     }
 
-    public void run(){
+    public void run()  {
         
        String data;
+       String output;
+       StringBuffer sbOutput;
         // Load text file
         if(args.getMode().toUpperCase().equals("C")){
             data = txtReader.cargarTxt(args.getFileName()).toString();
+            
         }else{
             data = loadDat(args.getFileName()).toString();
         }
-            
-        
+             
         System.out.println("data:   " + data.length());
         
         LZ77 compressor = new LZ77();
@@ -87,40 +84,46 @@ public class Main {
         
         // check mode to compress or decompress input data
         
-        String output;
-        StringBuffer sbOutput;
+        
         if ("c".equals(args.getMode())){
               output = compressor.compress(data, inputWindowSize, slidingWindowSize);  
         }else{
               output = compressor.decompress(data, inputWindowSize, slidingWindowSize);
               sbOutput = new StringBuffer(output);          
-              output = txtReader.ASCIIbin2string(sbOutput).toString();
+              output = txtReader.ASCIIbin2string(sbOutput);
+        }  
+        try {       
+            save2File(output);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        save2File(output);  
         System.out.println("Output: " + output.length());   
     }
     
-    public void save2File(String output){
+    public void save2File(String output) throws FileNotFoundException {
         
+        Writer out = null;
         int i = output.length();
         String fileName;
-        File file;
-        FileWriter fw;
-        DataOutputStream os;
-        try {
-            if(args.getMode().toUpperCase().equals("C")){
+        if(args.getMode().toUpperCase().equals("C")){
                 fileName = "out.dat";
             }else{ fileName = "out.txt"; }
-            file = new File(fileName);
-            fw = new FileWriter(file);
-            fw.write(output);
-            fw.flush();
-            fw.close();
-        } catch (FileNotFoundException ex) {        
+        
+        try {
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
+            out.write(output);
+        } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {      
+                out.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+   
     }
       
    

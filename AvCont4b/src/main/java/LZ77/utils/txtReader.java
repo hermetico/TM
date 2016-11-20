@@ -1,7 +1,13 @@
 package LZ77.utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,12 +34,32 @@ public class txtReader {
 
         return (output);
     }
-
+    public static StringBuffer string2ASCIIbin2(StringBuffer input) {
+    
+    String data = input.toString();
+    byte[] dataBytes = null;
+    
+    dataBytes = data.getBytes();
+        
+    StringBuffer output = new StringBuffer();
+    for (byte b : dataBytes)
+    {
+       int val = b;
+       for (int i = 0; i < 8; i++)
+       {
+          output.append((val & 128) == 0 ? 0 : 1);
+          val <<= 1;
+       }
+    }
+    
+    return output; 
+    }
+    
     /**
      * @param input cadena de caracteres "1" y "0" con los códigos ASCII de todas las letras a decodificar
      * @return output cadena de caracteres (letras) decodificadas
      */
-    public static StringBuffer ASCIIbin2string(StringBuffer input) {
+    public static String ASCIIbin2string(StringBuffer input) {
         int ASCIImodulo = 8;
         StringBuffer output = new StringBuffer("");
         for (int i = 0; i <= input.length() - ASCIImodulo; i = i + ASCIImodulo) {
@@ -42,7 +68,7 @@ public class txtReader {
             output.append(c);
         }
 
-        return (output);
+        return output.toString();
     }
 
     /**
@@ -63,10 +89,11 @@ public class txtReader {
             Logger.getLogger(txtReader.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //System.out.println("Text d'entrada: " + txt_data);
+        System.out.println("Text d'entrada: " + txt_data);
 
-        return (string2ASCIIbin(txt_data));
+        return (string2ASCIIbin2(txt_data));
     }
+    
     
     /**
      * @param path ruta al fichero de texto
