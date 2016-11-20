@@ -5,6 +5,7 @@
  */
 package avcont4;
 
+import avcont4b.Main;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

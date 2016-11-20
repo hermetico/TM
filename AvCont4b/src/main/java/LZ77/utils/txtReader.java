@@ -67,6 +67,29 @@ public class txtReader {
 
         return (string2ASCIIbin(txt_data));
     }
+    
+    /**
+     * @param path ruta al fichero de texto
+     * @return output cadena binaria correspondiente al texto en ASCII
+     */
+    public static StringBuffer loadDat(String path) {
+        StringBuffer txt_data = new StringBuffer("");
+        FileReader fr;
+
+        try {
+            fr = new FileReader(path);
+            Scanner scn = new Scanner(fr);
+            while (scn.hasNext()) {
+                txt_data.append(scn.next() + " ");
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(txtReader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //System.out.println("Text d'entrada: " + txt_data);
+
+        return txt_data;
+    }
 
     /**
      * @param valor número entero a codificar en binario natural

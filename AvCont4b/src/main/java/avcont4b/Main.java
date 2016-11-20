@@ -3,15 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package avcont4;
+package avcont4b;
 
 
 import LZ77.LZ77;
 import LZ77.utils.txtReader;
+import static LZ77.utils.txtReader.loadDat;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -60,9 +69,15 @@ public class Main {
 
     public void run(){
         
-       
+       String data;
         // Load text file
-        String data = txtReader.cargarTxt(args.getFileName()).toString();
+        if(args.getMode().toUpperCase().equals("C")){
+            data = txtReader.cargarTxt(args.getFileName()).toString();
+        }else{
+            data = loadDat(args.getFileName()).toString();
+        }
+            
+        
         System.out.println("data:   " + data.length());
         
         LZ77 compressor = new LZ77();
@@ -73,17 +88,42 @@ public class Main {
         // check mode to compress or decompress input data
         
         String output;
+        StringBuffer sbOutput;
         if ("c".equals(args.getMode())){
-              output = compressor.compress(data, inputWindowSize, slidingWindowSize);
+              output = compressor.compress(data, inputWindowSize, slidingWindowSize);  
         }else{
               output = compressor.decompress(data, inputWindowSize, slidingWindowSize);
+              sbOutput = new StringBuffer(output);          
+              output = txtReader.ASCIIbin2string(sbOutput).toString();
         }
-            
-        System.out.println("Output: " + output.length());
-        
-      
-        
+        save2File(output);  
+        System.out.println("Output: " + output.length());   
     }
+    
+    public void save2File(String output){
+        
+        int i = output.length();
+        String fileName;
+        File file;
+        FileWriter fw;
+        DataOutputStream os;
+        try {
+            if(args.getMode().toUpperCase().equals("C")){
+                fileName = "out.dat";
+            }else{ fileName = "out.txt"; }
+            file = new File(fileName);
+            fw = new FileWriter(file);
+            fw.write(output);
+            fw.flush();
+            fw.close();
+        } catch (FileNotFoundException ex) {        
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+      
+   
     public void test(){
         String data = "";
         int binaryLength = this.args.getTest();
