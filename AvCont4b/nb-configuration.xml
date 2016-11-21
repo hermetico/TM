@@ -8,8 +8,10 @@ Without this configuration present, some functionality in the IDE may be limited
 -->
     <config-data xmlns="http://www.netbeans.org/ns/maven-config-data/1">
         <configurations>
-            <configuration id="test-input" profiles=""/>
+            <configuration id="encode-hamlet" profiles=""/>
             <configuration id="main-input" profiles=""/>
+            <configuration id="test-input" profiles=""/>
+            <configuration id="encode-quijote" profiles=""/>
         </configurations>
     </config-data>
 </project-shared-configuration>

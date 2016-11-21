@@ -36,23 +36,23 @@ public class txtReader {
     }
     public static StringBuffer string2ASCIIbin2(StringBuffer input) {
     
-    String data = input.toString();
-    byte[] dataBytes = null;
-    
-    dataBytes = data.getBytes();
-        
-    StringBuffer output = new StringBuffer();
-    for (byte b : dataBytes)
-    {
-       int val = b;
-       for (int i = 0; i < 8; i++)
-       {
-          output.append((val & 128) == 0 ? 0 : 1);
-          val <<= 1;
-       }
-    }
-    
-    return output; 
+        String data = input.toString();
+        byte[] dataBytes = null;
+
+        dataBytes = data.getBytes();
+
+        StringBuffer output = new StringBuffer();
+        for (byte b : dataBytes)
+        {
+           int val = b;
+           for (int i = 0; i < 8; i++)
+           {
+              output.append((val & 128) == 0 ? 0 : 1);
+              val <<= 1;
+           }
+        }
+
+        return output; 
     }
     
     /**
@@ -89,7 +89,7 @@ public class txtReader {
             Logger.getLogger(txtReader.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("Text d'entrada: " + txt_data);
+        //System.out.println("Text d'entrada: " + txt_data);
 
         return (string2ASCIIbin2(txt_data));
     }

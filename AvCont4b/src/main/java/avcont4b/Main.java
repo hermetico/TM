@@ -7,6 +7,7 @@ package avcont4b;
 
 
 import LZ77.LZ77;
+import LZ77.utils.Parsers;
 import LZ77.utils.txtReader;
 import static LZ77.utils.txtReader.loadDat;
 import com.beust.jcommander.JCommander;
@@ -20,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -58,7 +60,7 @@ public class Main {
     }
     public Main(ArgParser args) {
         this.args = args;
-        if(args.getTest() != 0) test();
+        if(args.getTest()) test();
         else run();
     }
 
@@ -67,6 +69,7 @@ public class Main {
        String data;
        String output;
        StringBuffer sbOutput;
+       
         // Load text file
         if(args.getMode().toUpperCase().equals("C")){
             data = txtReader.cargarTxt(args.getFileName()).toString();
@@ -74,8 +77,8 @@ public class Main {
         }else{
             data = loadDat(args.getFileName()).toString();
         }
-             
-        System.out.println("data:   " + data.length());
+        
+        //System.out.println("data:   " + data.length());
         
         LZ77 compressor = new LZ77();
         
@@ -91,13 +94,14 @@ public class Main {
               output = compressor.decompress(data, inputWindowSize, slidingWindowSize);
               sbOutput = new StringBuffer(output);          
               output = txtReader.ASCIIbin2string(sbOutput);
-        }  
+        }
+        
         try {       
             save2File(output);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Output: " + output.length());   
+        //System.out.println("Output: " + output.length());   
     }
     
     public void save2File(String output) throws FileNotFoundException {
@@ -128,35 +132,39 @@ public class Main {
       
    
     public void test(){
-        String data = "";
-        int binaryLength = this.args.getTest();
+        String textData;
         String compressed;
+        int binaryLength;
+        long init, end;
         LZ77 compressor = new LZ77();
-        Random rnd1 = new Random(7);
-        for (int i=1; i <= binaryLength; i++){ 
-            data += Math.round(rnd1.nextDouble()); 
-        }
 
+        textData =  txtReader.cargarTxt(args.getFileName()).toString();
+        binaryLength = 4096; //textData.length();
+        /*
         System.out.println("Sliding Window: SW");
         System.out.println("Input Window: IW");
         System.out.println("Compressed length: CL");
-        System.out.println("Decompressed length: DL");
+        System.out.println("Uncompressed length: DL");
         System.out.println("Compresion factor: CF");
+        System.out.println("Time spent in microseconds: T");
         System.out.println();
-        System.out.println("SW:\tIW:\tCL:\tDL:\tCF:");
-        
+        System.out.println("SW:\tIW:\tCL:\tDL:\tCF:\tT:");
+        */
         for (int  slidingWindow = 32; slidingWindow <= binaryLength; slidingWindow *= 2){ // sliding window
-            for(int inputWindow = 32; (inputWindow <= slidingWindow ) && ( inputWindow + slidingWindow <= binaryLength ); inputWindow *= 2){ // inputWindow
-                compressed = compressor.compress(data, inputWindow, slidingWindow);
+            for(int inputWindow = 32; (inputWindow <= slidingWindow ); inputWindow *= 2){ // inputWindow
+                init = System.nanoTime();
+                compressed = compressor.compress(textData, inputWindow, slidingWindow);
+                end = System.nanoTime();
                 
                 BigDecimal ratio;
-                ratio = round(((float)binaryLength / (float)compressed.length()),2);
+                ratio = round(((float)textData.length() / (float)compressed.length()),2);
                 
                 System.out.print(slidingWindow + "\t" );
                 System.out.print(inputWindow + "\t" );
                 System.out.print(compressed.length()  + "\t" );
-                System.out.print(binaryLength  + "\t" );
-                System.out.print(ratio);
+                System.out.print(textData.length()  + "\t" );
+                System.out.print(ratio + "\t");
+                System.out.format("%.0f", (float) TimeUnit.NANOSECONDS.toMicros(end-init));
                 System.out.println();                
                
             }

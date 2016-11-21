@@ -17,7 +17,7 @@ import validators.ValidateMode;
 public class ArgParser {
     
     @Parameter(names={"--test", "-t"}, description = "Enter test mode")
-    private int test = 0;
+    private boolean test = false;
     @Parameter(names = {"--help","-h"}, description= "Imprime este mensaje de ayuda", help = true)
     public boolean help;
     @Parameter(names = {"--mode"}, description = "Compression mode, c: compress(default), d: decompress", validateWith = ValidateMode.class)
@@ -32,7 +32,7 @@ public class ArgParser {
     private int Mdes = 0;
     
    
-    public int getTest(){
+    public boolean getTest(){
         return test;
     }
     public String getFileName(){
