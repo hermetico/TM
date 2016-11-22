@@ -150,8 +150,8 @@ public class Main {
         System.out.println();
         System.out.println("SW:\tIW:\tCL:\tDL:\tCF:\tT:");
         */
-        for (int  slidingWindow = 32; slidingWindow <= binaryLength; slidingWindow *= 2){ // sliding window
-            for(int inputWindow = 32; (inputWindow <= slidingWindow ); inputWindow *= 2){ // inputWindow
+        for (int  slidingWindow = 8; slidingWindow <= binaryLength; slidingWindow *= 2){ // sliding window
+            for(int inputWindow = 8; (inputWindow <= slidingWindow ); inputWindow *= 2){ // inputWindow
                 init = System.nanoTime();
                 compressed = compressor.compress(textData, inputWindow, slidingWindow);
                 end = System.nanoTime();
