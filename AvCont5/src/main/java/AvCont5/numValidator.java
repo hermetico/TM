@@ -1,3 +1,5 @@
+package AvCont5;
+
 
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;
@@ -25,6 +27,7 @@ public class numValidator implements IParameterValidator{
             }
         }      
     }
+    
     public boolean IsPowerOfTwo(int x){
          return (x != 0) && ((x & (x - 1)) == 0);
      }   

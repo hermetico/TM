@@ -1,4 +1,4 @@
-
+package AvCont5;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 import static java.lang.Math.abs;
@@ -19,26 +19,39 @@ ArgParser parser = new ArgParser();
         JCommander jcomm;
         try{
             jcomm = new JCommander(parser, args);
+            parser.checkRange();
+            if (parser.help){ 
+                jcomm.usage();
+            }
             
             }catch(ParameterException e){
-            System.out.println(e.getMessage());
+           
             System.err.println(" Try --help or -h for help");
+            System.out.println(e.getMessage());
             System.exit(1);
-        }       
+        }
+         Main main = new Main(parser);
+    }
+    
+    public Main(ArgParser args) {
+        this.args = args;
+        run();
     }
     
     public void run(){
-        String n0 = args.n.get(0);
-        String n1 = args.n.get(0);
+        int n0 = args.n.get(0);
+        int n1 = args.n.get(1);
         int m = args.m;
-        int n = 17;
-        int out;
-        out = getNumber(n,m); 
+        
+        int out = 0;
+        for (int number = n0; number < n1;  number++){ 
+            out = getNumber(number,m);
+            System.out.print(number + "\t");
+            System.out.println(out);
+        }
+        
     };
     
-    public boolean IsPowerOfTwo(int x){
-         return (x != 0) && ((x & (x - 1)) == 0);
-     }
     
     public String getQ(int n, int m){
         int counter;
