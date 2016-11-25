@@ -43,11 +43,14 @@ ArgParser parser = new ArgParser();
         int n1 = args.n.get(1);
         int m = args.m;
         
-        int out = 0;
-        for (int number = n0; number < n1;  number++){ 
+        String out;
+        System.out.print("Number"+ "\t");
+        System.out.println("Coded length");
+        for (int number = n0; number <= n1;  number++){ 
             out = getNumber(number,m);
+            
             System.out.print(number + "\t");
-            System.out.println(out);
+            System.out.println(out.length());
         }
         
     };
@@ -75,9 +78,9 @@ ArgParser parser = new ArgParser();
         if (n>=0){ s ++; }
         return Integer.toString(s);
     }
-    public int getNumber(int n, int m){
+    public String getNumber(int n, int m){
         String str = getSign(n) + getQ(n, m) + getR(n, m);
-        return Integer.parseInt(str);
+        return str;
     }
     
 }
