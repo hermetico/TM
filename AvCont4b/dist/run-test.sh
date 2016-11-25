@@ -1,4 +1,4 @@
 #!/bin/bash
-ARG1=${1:-100}
-java -jar avcont4.jar -i 00000000 -s 4 -w 2 -t $ARG1 | tee data.txt
+java -jar avcont4.jar -f hamlet_short.txt -s 16 -w 8 --mode c --test > hamlet_raw_data.txt
+java -jar avcont4.jar -f quijote_short.txt -s 16 -w 8 --mode c --test > quijote_raw_data.txt
 
