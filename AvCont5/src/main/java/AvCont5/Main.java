@@ -51,6 +51,7 @@ ArgParser parser = new ArgParser();
             
             System.out.print(number + "\t");
             System.out.println(out.length());
+            
         }
         
     };
@@ -68,9 +69,22 @@ ArgParser parser = new ArgParser();
         return output.toString();
     }
     public String getR(int n, int m){
-        int out; 
+        String R;
+        int out;
+        //compute out value
         out = abs(n)%m;
-        return Integer.toBinaryString(out);
+        R = Integer.toBinaryString(out);
+        // R must have log2(M) digits.
+        // determine needed R output length
+        int l = (int) (Math.log(m)/Math.log(2));
+        // look for R current digits  
+        int length = R.length();
+        // pad the left side of out with 0's if R has less digits than log2(M) 
+        while (length<l){
+             R = '0' + R;
+             length++;
+        }
+        return R;
     }
     public String getSign(int n){
         Integer.signum(n);

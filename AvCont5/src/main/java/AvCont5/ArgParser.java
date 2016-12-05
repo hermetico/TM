@@ -20,10 +20,9 @@ public class ArgParser {
     public boolean help;
     
     public void checkRange(){
-        // check slide and input window size are rigth
-        if(n.get(0) >= n.get(1)){
+        if(n.get(0) > n.get(1)){
             System.out.println();
-            throw new ParameterException("Range error," + n.get(0) + " must be lower than "+ n.get(1));
+            throw new ParameterException("Range error," + n.get(0) + " must be lower or equal than "+ n.get(1));
         }
     }
 }
