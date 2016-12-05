@@ -18,19 +18,21 @@ public class Main {
 ArgParser parser = new ArgParser();
         JCommander jcomm;
         try{
+            
             jcomm = new JCommander(parser, args);
-            parser.checkRange();
             if (parser.help){ 
                 jcomm.usage();
+            }else{
+                parser.checkRange();
             }
-            
-            }catch(ParameterException e){
+            Main main = new Main(parser);
+        }catch(ParameterException e){
            
-            System.err.println(" Try --help or -h for help");
-            System.out.println(e.getMessage());
-            System.exit(1);
+                System.err.println(" Try --help or -h for help");
+                System.out.println(e.getMessage());
+                System.exit(1);
         }
-         Main main = new Main(parser);
+
     }
     
     public Main(ArgParser args) {
@@ -67,17 +69,20 @@ ArgParser parser = new ArgParser();
         
         return output.toString();
     }
+    
     public String getR(int n, int m){
         int out; 
         out = abs(n)%m;
         return Integer.toBinaryString(out);
     }
+    
     public String getSign(int n){
         Integer.signum(n);
         int s = 0;
         if (n>=0){ s ++; }
         return Integer.toString(s);
     }
+    
     public String getNumber(int n, int m){
         String str = getSign(n) + getQ(n, m) + getR(n, m);
         return str;
