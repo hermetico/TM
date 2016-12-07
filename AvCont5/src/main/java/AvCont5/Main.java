@@ -52,6 +52,7 @@ ArgParser parser = new ArgParser();
             out = getNumber(number,m);
             
             System.out.print(number + "\t");
+            System.out.print(out + "\t");
             System.out.println(out.length());
             
         }
