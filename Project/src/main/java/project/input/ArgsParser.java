@@ -12,7 +12,7 @@ import static java.lang.Integer.parseInt;
 import java.util.List;
 import project.validators.ConvolutionalFilterTypeValidator;
 import project.validators.NumericValidator;
-import project.validators.TileValueValidator;
+
 
 
 public class ArgsParser {
@@ -41,7 +41,7 @@ public class ArgsParser {
     @Parameter(names = {"--averaging"}, description = "Apply average filter", validateWith = NumericValidator.class)
     private int avgValue;
     
-    @Parameter(names = "--nTiles", arity = 2, description = "Number of tiles: nTiles<x y> or pixels per tile: ntiles<x y>p", validateWith=TileValueValidator.class)
+    @Parameter(names = "--nTiles", arity = 2, description = "Number of tiles: nTiles <Tiles x> <Tiles y> or pixels per tile: <num>px <num>py")
     private List<String> numTiles;
      
     @Parameter(names = {"--seekRange"}, description = "max displacement in matching tile search", validateWith = NumericValidator.class)
@@ -64,6 +64,13 @@ public class ArgsParser {
     @Parameter(names = {"--help","-h"}, description = "help", help = true)
     public boolean help;
     
+    // parsed tile values set local variables
+    private int nTilesX;
+    private int nTilesY;
+    private int nPixelsPerTileX;
+    private int nPixelsPerTileY;
+    
+    
     // mode must be selected: option are encode and/or decode
     public void checkMode(){
         
@@ -72,29 +79,12 @@ public class ArgsParser {
             throw new ParameterException("Must select encode options, -e and/or -d");
         }
     }
-    public void setTileValues(){
-        //check if number
-        int nTilesX;
-        int nTilesY;
-        int nPixelsX;
-        int nPixelsY;
-        String lastX;
-        String lastY;
-        
-        lastX = numTiles.get(0).substring(numTiles.get(0).length() - 1);
-        lastY = numTiles.get(1).substring(numTiles.get(1).length() - 1);
-        // Check if user enters number pixels per tile or tile number 
-        if (lastX.toUpperCase().equals("P")&&lastY.toUpperCase().equals("P")){
-            try{
-                nPixelsX = parseInt(numTiles.get(0).substring(0, numTiles.get(0).length() - 2));
-                nPixelsY = parseInt(numTiles.get(1).substring(0, numTiles.get(1).length() - 2));
-            }catch(NumberFormatException e){
-                throw new ParameterException("Wrong value: " + numTiles.get(0) +", " + numTiles.get(1));
-            }
-        }else{
-            nTilesX= parseInt(numTiles.get(0));
-            nTilesY= parseInt(numTiles.get(1));   
-        }
+    // return tiles list ( two strings )
+    public List<String> getTiles(){
+        return numTiles;
+    }
+    public boolean isEncodeEnabled(){
+        return encode;
     }
     
     public String getInputFile(){

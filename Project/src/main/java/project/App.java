@@ -16,9 +16,8 @@ import project.settings.Setup;
 import project.settings.Types.FileType;
 
 public class App {
-    Tracer tr = Tracer.getInstance();
     
-        
+    Tracer tr = Tracer.getInstance();   
     public App(Setup setup){
         
         run(setup);
@@ -33,11 +32,11 @@ public class App {
             //TODO Processor debe recibir una interfaz de datos
             // con algun metodo get o algun iterator
         }
+        // TODO hay que pasar una imagen al menos a setup para obtener altura 
+        // y anchura de la imagen. Se necesita para ajustar los tiles
         FilterFactory flFactory = new FilterFactory();
         ProcessorFactory prFactory = new ProcessorFactory();
-        
-        
-        
+              
         Filter fl = flFactory.createFilter(setup);
         Processor pr = prFactory.createProcessor(setup, fl);
         
