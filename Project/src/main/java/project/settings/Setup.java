@@ -40,9 +40,13 @@ public class Setup {
     private int nPixelsPerTileX = 0;
     private int nPixelsPerTileY = 0;
     // frame image width and height
-    private int width;  
-    private int height;
     
+    // TODO -- Hardcoded, must get this values from input
+    private int width = 320;  
+    private int height = 240;
+    // TODO Padded values must be set when tile values are parsed
+    private int padded_width = 0;
+    private int padded_height = 0;
     public Setup(ArgsParser parser){
         
         checkFilters(parser);
@@ -51,7 +55,7 @@ public class Setup {
         
         //check and set tile values
         if (parser.isEncodeEnabled()){ 
-            setTileValues(parser);
+            getTileValues(parser);
         }
         
         if(parser.getOutputFile() != null){
@@ -111,8 +115,8 @@ public class Setup {
         //TODO
     }
     
-    // get x and y tiles, or pixels per tile, and set local values
-    private void setTileValues(ArgsParser parser){
+    // Get x and y tiles, or pixels per tile
+    private void getTileValues(ArgsParser parser){
 
         String first;
         String last;
@@ -122,44 +126,68 @@ public class Setup {
         
         // if we have x and y number of tiles try to parse
         try{
-            nTilesX= parseInt(tiles.get(0));
-            nTilesY= parseInt(tiles.get(1));
-            
-         }catch(NumberFormatException e){
-             
-            //Parse was not possible. try to parse x and y pixels by tile. <num>px and <num>py
-            // p.e. 12px and 12py
-            //get last two characters of inpùt string ( px or py )
-            first = tiles.get(0).substring(tiles.get(0).length() - 2);
-            last = tiles.get(1).substring(tiles.get(1).length() - 2);
-            
-            try{                 
-                 
-                temp1 = parseInt(tiles.get(0).substring(0, tiles.get(0).length() - 2));
-                temp2 = parseInt(tiles.get(1).substring(0, tiles.get(1).length() - 2));
+            nTilesX = parseInt(tiles.get(0));
+            nTilesY = parseInt(tiles.get(1));
+        }catch(NumberFormatException e){           
+           //Parse was not possible. try to parse x and y pixels by tile. <num>px and <num>py
 
-                // input order not matter so <num>py could be at position 1 and <num>px at possition 1
-                if (first.toUpperCase().equals("PX")&&last.toUpperCase().equals("PY")){
+           try{                 
+               // get substring without two last characters (px or py) and parse
+               temp1 = parseInt(tiles.get(0).substring(0, tiles.get(0).length() - 2));
+               temp2 = parseInt(tiles.get(1).substring(0, tiles.get(1).length() - 2));
+               //get last two characters of input string ( px or py )
+               first = tiles.get(0).substring(tiles.get(0).length() - 2);
+               last = tiles.get(1).substring(tiles.get(1).length() - 2);
+               // <num>px,<num>py may have been entered in reverse order, must check this
+               if (first.toUpperCase().equals("PX")&&last.toUpperCase().equals("PY")){
+                   nPixelsPerTileX = temp1;
+                   nPixelsPerTileY = temp2;
+               }else if (first.toUpperCase().equals("PY")&&last.toUpperCase().equals("PX")){
+                    nPixelsPerTileX = temp2;
+                    nPixelsPerTileY = temp1;
+                }else{
+                    // last two characters are not px and py!!
+                    throw new ParameterException("Wrong value: " + tiles.get(0) +", " + tiles.get(1));
+                }
 
-                    nPixelsPerTileX = temp1;
-                    nPixelsPerTileY = temp2;
-
-                }else if (first.toUpperCase().equals("PY")&&last.toUpperCase().equals("PX")){
-                     
-                     nPixelsPerTileX = temp2;
-                     nPixelsPerTileY = temp1;
-                     
-                 }else{
-                     // last two characters are not px and py!!
-                     throw new ParameterException("Wrong value: " + tiles.get(0) +", " + tiles.get(1));
-                 }   
-             }catch(NumberFormatException e1){
-                 // input value without two last charactesrs are not integer!!
-                 throw new ParameterException("Wrong value: " + tiles.get(0) +", " + tiles.get(1));
-             }
-         }
-
+           }catch(NumberFormatException e1){
+                // input value without two last charactesrs are not integer!!
+                throw new ParameterException("Wrong value: " + tiles.get(0) +", " + tiles.get(1));
+           }
+           // check if values in range 
+           checkRange(nPixelsPerTileX, 1, width);
+           checkRange(nPixelsPerTileY, 1, height);
+           // we know how many pixels has a tile so we can compute total number of tiles
+           setNumberOfTiles(nPixelsPerTileX, nPixelsPerTileY);
+        }
+        // check if values in range
+        checkRange(nTilesX, 1, width);
+        checkRange(nTilesY, 1, height);
+        // now we have number of tiles in x or y coord so we can set how many pixels define a tile
+        setPixelsPerTile(nTilesX, nTilesY);
     }
+    //define Number of tiles just from tile width and height ( and padded image dimensions )
+    private void setNumberOfTiles(int X, int Y){
+        
+        nTilesX = X/padded_width;
+        nTilesY = Y/padded_height;
+        
+    }
+    // define pixels per tile just from tile number
+    private void setPixelsPerTile(int X, int Y){
+        //TODO
+        
+    }    
+        
+    private void checkRange(int value, int low, int high){
+        if (value < low || value > high) {
+                throw new ParameterException("Wrong value: " + value + "(Valid range:" + low + "-" + high + ")");
+            }   
+    }
+    
+    // TODO Compute left-rigth-top-bottom padding from tile values
+
+
 
     public FilterType getFilter() {
         return filter;
