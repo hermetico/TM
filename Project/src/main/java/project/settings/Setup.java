@@ -6,9 +6,12 @@
 package project.settings;
 
 import com.beust.jcommander.ParameterException;
+import java.awt.image.BufferedImage;
 import static java.lang.Integer.parseInt;
 import java.util.List;
+import java.util.zip.ZipEntry;
 import project.input.ArgsParser;
+import project.input.Unzip;
 import project.settings.Types.FileType;
 import project.settings.Types.FilterType;
 
@@ -34,24 +37,25 @@ public class Setup {
     private int averagingValue = 0;
     private int seekRange = 0;
     private int GOP = 0;
-    private int quality = 0;  
+    private int quality = 0;
+    // number of tiles of padded image, x -> width  y -> height
     private int nTilesX = 0;
     private int nTilesY = 0;
+    // pixels per tile 
     private int nPixelsPerTileX = 0;
     private int nPixelsPerTileY = 0;
-    // frame image width and height
     
-    // TODO -- Hardcoded, must get this values from input
-    private int width = 320;  
-    private int height = 240;
-    // TODO Padded values must be set when tile values are parsed
+    // frame image width and height
+    private int width = 0;  
+    private int height = 0;
+    // padded frame image dimensions
     private int padded_width = 0;
     private int padded_height = 0;
+    // pad needed to get padded image from original one
     private int pad_left = 0;
     private int pad_rigth = 0;
     private int pad_top = 0;
-    private int pad_bottom = 0
-            ;
+    private int pad_bottom = 0;
     public Setup(ArgsParser parser){
         
         checkFilters(parser);
@@ -60,13 +64,12 @@ public class Setup {
         
         //check and set tile values
         if (parser.isEncodeEnabled()){ 
-            getTileValues(parser);
-        }
-        
+            setDimensions();
+            getTileValues(parser);           
+        }     
         if(parser.getOutputFile() != null){
             checkOutputFile(parser.getOutputFile());
-        }
-        
+        }      
     }
     
     private void checkFilters(ArgsParser parser){
@@ -120,6 +123,15 @@ public class Setup {
         //TODO
     }
     
+    // Read zip file, load images and get width and height from first image
+    private void setDimensions(){
+ 
+        Unzip zp = new Unzip(inputFilePath);
+        List<ZipEntry> entries = zp.getEntries();
+        BufferedImage img = zp.unzipImageEntry(entries.get(0));
+        width = img.getWidth();
+        height = img.getHeight();
+    }
     // Get x and y tiles, or pixels per tile
     private void getTileValues(ArgsParser parser){
 
@@ -131,8 +143,16 @@ public class Setup {
         
         // if we have x and y number of tiles try to parse
         try{
+            
             nTilesX = parseInt(tiles.get(0));
             nTilesY = parseInt(tiles.get(1));
+            // check if values in range
+            checkRange(nTilesX, 1, width);
+            checkRange(nTilesY, 1, height);
+            // image width and heigth must be exact multiple of tile number so we need to pad original image
+            setPadFrame(nTilesX, nTilesY);
+            // now we have number of tiles in x or y coord so we can set how many pixels define a tile
+            setPixelsPerTile(nTilesX, nTilesY);
         }catch(NumberFormatException e){           
            //Parse was not possible. try to parse x and y pixels by tile. <num>px and <num>py
 
@@ -140,9 +160,11 @@ public class Setup {
                // get substring without two last characters (px or py) and parse
                temp1 = parseInt(tiles.get(0).substring(0, tiles.get(0).length() - 2));
                temp2 = parseInt(tiles.get(1).substring(0, tiles.get(1).length() - 2));
+               
                //get last two characters of input string ( px or py )
                first = tiles.get(0).substring(tiles.get(0).length() - 2);
                last = tiles.get(1).substring(tiles.get(1).length() - 2);
+               
                // <num>px,<num>py may have been entered in reverse order, must check this
                if (first.toUpperCase().equals("PX")&&last.toUpperCase().equals("PY")){
                    nPixelsPerTileX = temp1;
@@ -162,17 +184,12 @@ public class Setup {
            // check if values in range 
            checkRange(nPixelsPerTileX, 1, width);
            checkRange(nPixelsPerTileY, 1, height);
-           setPadFrame(nTilesX, nTilesY);
+           setPadFrame(nPixelsPerTileX, nPixelsPerTileY);
            // we know how many pixels has a tile so we can compute total number of tiles
            setNumberOfTiles(nPixelsPerTileX, nPixelsPerTileY);
         }
-        // check if values in range
-        checkRange(nTilesX, 1, width);
-        checkRange(nTilesY, 1, height);
-        // image width and heigth must be exact multiple of tile number so we need to pad original image
-        setPadFrame(nTilesX, nTilesY);
-        // now we have number of tiles in x or y coord so we can set how many pixels define a tile
-        setPixelsPerTile(nTilesX, nTilesY);
+        
+        
     }
     
     //define Number of tiles just from tile width and height ( and padded image dimensions )

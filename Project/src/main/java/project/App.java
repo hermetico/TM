@@ -32,8 +32,7 @@ public class App {
             //TODO Processor debe recibir una interfaz de datos
             // con algun metodo get o algun iterator
         }
-        // TODO hay que pasar una imagen al menos a setup para obtener altura 
-        // y anchura de la imagen. Se necesita para ajustar los tiles
+        
         FilterFactory flFactory = new FilterFactory();
         ProcessorFactory prFactory = new ProcessorFactory();
               
@@ -56,11 +55,5 @@ public class App {
                 zipper.zipData(pr.getBuffer(), setup.getOutputFilePath(), setup.getOutputFile());
             }
         }
-
-         
-        
-
-    }
-    
-    
+    }        
 }

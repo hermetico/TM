@@ -42,6 +42,8 @@ public class Main {
         // do rest of checks from the parser
         // TODO
         
+        
+        
         // Creates a setup for the app
         Setup setup = new Setup(parser);
         
