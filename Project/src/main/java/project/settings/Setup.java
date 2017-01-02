@@ -47,6 +47,11 @@ public class Setup {
     // TODO Padded values must be set when tile values are parsed
     private int padded_width = 0;
     private int padded_height = 0;
+    private int pad_left = 0;
+    private int pad_rigth = 0;
+    private int pad_top = 0;
+    private int pad_bottom = 0
+            ;
     public Setup(ArgsParser parser){
         
         checkFilters(parser);
@@ -143,8 +148,8 @@ public class Setup {
                    nPixelsPerTileX = temp1;
                    nPixelsPerTileY = temp2;
                }else if (first.toUpperCase().equals("PY")&&last.toUpperCase().equals("PX")){
-                    nPixelsPerTileX = temp2;
-                    nPixelsPerTileY = temp1;
+                   nPixelsPerTileX = temp2;
+                   nPixelsPerTileY = temp1;
                 }else{
                     // last two characters are not px and py!!
                     throw new ParameterException("Wrong value: " + tiles.get(0) +", " + tiles.get(1));
@@ -157,26 +162,29 @@ public class Setup {
            // check if values in range 
            checkRange(nPixelsPerTileX, 1, width);
            checkRange(nPixelsPerTileY, 1, height);
+           setPadFrame(nTilesX, nTilesY);
            // we know how many pixels has a tile so we can compute total number of tiles
            setNumberOfTiles(nPixelsPerTileX, nPixelsPerTileY);
         }
         // check if values in range
         checkRange(nTilesX, 1, width);
         checkRange(nTilesY, 1, height);
+        // image width and heigth must be exact multiple of tile number so we need to pad original image
+        setPadFrame(nTilesX, nTilesY);
         // now we have number of tiles in x or y coord so we can set how many pixels define a tile
         setPixelsPerTile(nTilesX, nTilesY);
     }
+    
     //define Number of tiles just from tile width and height ( and padded image dimensions )
-    private void setNumberOfTiles(int X, int Y){
-        
-        nTilesX = X/padded_width;
-        nTilesY = Y/padded_height;
-        
+    private void setNumberOfTiles(int x, int y){  
+        nTilesX = x/padded_width;
+        nTilesY = y/padded_height;     
     }
+    
     // define pixels per tile just from tile number
-    private void setPixelsPerTile(int X, int Y){
-        //TODO
-        
+    private void setPixelsPerTile(int x, int y){
+       nPixelsPerTileX = padded_width/x;
+       nPixelsPerTileY = padded_height/y;
     }    
         
     private void checkRange(int value, int low, int high){
@@ -185,9 +193,17 @@ public class Setup {
             }   
     }
     
-    // TODO Compute left-rigth-top-bottom padding from tile values
-
-
+    private void setPadFrame(int x, int y){
+        // compute multiple of input nearest to width or height
+        padded_width = (width/x + 1) * x;
+        padded_height = (height/y + 1) * y;
+        // left, rigth, top and bottom are the pixels we need 
+        // to add to the original image.  
+        pad_left = (padded_width - width)/2;
+        pad_rigth = (padded_width - width) - pad_left;
+        pad_top = (padded_height - height)/2;
+        pad_bottom = (padded_height - height) - pad_top;     
+    }
 
     public FilterType getFilter() {
         return filter;
