@@ -21,6 +21,7 @@ public class Processor{
     protected Unzip zp;
     protected List<ZipEntry> entries;
     protected Buffer<BufferedImage> buffer;
+    protected Buffer<BufferedImage> compressedBuffer; //compressed output stream 
     protected Counters counters;
     protected Player player;
     
@@ -32,6 +33,7 @@ public class Processor{
         zp = new Unzip(path);
         entries = readZipData();
         buffer = new Buffer<BufferedImage>(entries.size());
+        compressedBuffer = new Buffer<BufferedImage>(entries.size());
         this.player = null;
         
     }
