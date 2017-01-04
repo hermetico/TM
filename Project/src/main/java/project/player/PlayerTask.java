@@ -27,6 +27,7 @@ public class PlayerTask extends TimerTask  {
         this.counters = counters;
         this.player = player;
         this.times = buffer.getSize();
+        this.window.setVisible(true);
         cf = Configuration.getInstance();
             
     }
