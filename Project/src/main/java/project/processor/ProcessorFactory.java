@@ -6,21 +6,26 @@
 package project.processor;
 
 
+import project.encoder.Encoder;
 import project.misc.Tracer;
 import project.processor.filters.Filter;
 import project.settings.Setup;
 
 public class ProcessorFactory {
     Tracer tr = Tracer.getInstance();
-    public Processor createProcessor(Setup setup, Filter filter){
+    public Processor createProcessor(Setup setup, Filter filter, Encoder encoder){
         
+
         if(filter == null){
-            tr.trace("Creating normal processor");
-            return  new Processor(setup.getInputFilePath());
+            tr.trace("Creating processor with encoder");
+            //return  new Processor(setup.getInputFilePath());
+            return  new FilterProcessor(setup.getInputFilePath(), encoder);
         }
         
-        tr.trace("Creating normal processor with filter");
-        return  new FilterProcessor(setup.getInputFilePath(), filter);
+        
+        
+        tr.trace("Creating processor with filter and encoder");
+        return  new FilterProcessor(setup.getInputFilePath(), filter, encoder);
     }
     
 }
