@@ -155,6 +155,7 @@ public class Setup {
             setPixelsPerTile(nTilesX, nTilesY);
         }catch(NumberFormatException e){           
            //Parse was not possible. try to parse x and y pixels by tile. <num>px and <num>py
+           
 
            try{                 
                // get substring without two last characters (px or py) and parse
@@ -187,6 +188,8 @@ public class Setup {
            setPadFrame(nPixelsPerTileX, nPixelsPerTileY);
            // we know how many pixels has a tile so we can compute total number of tiles
            setNumberOfTiles(nPixelsPerTileX, nPixelsPerTileY);
+        }catch(NullPointerException e){
+            throw new ParameterException("You are encoding and we need to know the --nTile paremeter, check it out!");
         }
         
         
