@@ -10,8 +10,10 @@ import java.awt.image.BufferedImage;
 import static java.lang.Integer.parseInt;
 import java.util.List;
 import java.util.zip.ZipEntry;
+
 import project.input.ArgsParser;
 import project.input.Unzip;
+import project.misc.Tracer;
 import project.settings.Types.FileType;
 import project.settings.Types.FilterType;
 
@@ -56,6 +58,10 @@ public class Setup {
     private int pad_rigth = 0;
     private int pad_top = 0;
     private int pad_bottom = 0;
+    
+    private Configuration cfg = Configuration.getInstance();
+    private Tracer tr = Tracer.getInstance();
+    
     public Setup(ArgsParser parser){
         
         checkFilters(parser);
@@ -69,7 +75,9 @@ public class Setup {
         }     
         if(parser.getOutputFile() != null){
             checkOutputFile(parser.getOutputFile());
-        }      
+        }
+        
+        setupLoopMode(parser.isLoop());
     }
     
     private void checkFilters(ArgsParser parser){
@@ -307,5 +315,10 @@ public class Setup {
     }
     public int getYPixelsPerTile() {
         return nPixelsPerTileY;
+    }
+    private void setupLoopMode(boolean loop){
+        cfg.LOOP_PLAY = loop;
+        cfg.EXIT_ON_CLOSE_WINDOW = loop;
+        if (loop) tr.trace("Loop mode enabled");
     }
 }

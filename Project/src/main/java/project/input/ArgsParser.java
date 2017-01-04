@@ -56,6 +56,9 @@ public class ArgsParser {
     @Parameter(names = {"--batch", "-b"}, description = "batch mode")
     private boolean batch = false ;
     
+    @Parameter(names = {"--loop"}, description = "Loop mode for player")
+    private boolean loop = false ;
+    
     @Parameter(names = {"--conv"}, 
             description = "Apply convolutional filter, valid tipes: prewitt_x, prewitt_y, sobel_x, sobel_y, laplacian, unsharp, sharpen, blur, emboss",
             validateWith = ConvolutionalFilterTypeValidator.class)
@@ -146,4 +149,10 @@ public class ArgsParser {
     public String getConvolutionalFilterType(){
         return type;
     }
+
+    public boolean isLoop() {
+        return loop;
+    }
+    
+    
 }
