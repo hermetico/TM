@@ -12,18 +12,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.*;
 import javax.imageio.ImageIO;
+import project.encoder.EncodedImage;
 public class Zip {
     
-    public void zipData(Buffer<BufferedImage> buffer, String path, FileType fileType){
+    public void zipData(Buffer<EncodedImage> buffer, String path){
         
             path += "." + FileType.ZIP.toString();
         try {
             ZipOutputStream zout = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(path)));
             
             for(int i = 0; i < buffer.getSize(); i++){
-                BufferedImage image = buffer.getIndex(i);
-                InputStream in = toInputStream(image, fileType);
-                zout.putNextEntry(new ZipEntry(i + "." + fileType.toString()));
+                EncodedImage eImage = buffer.getIndex(i);
+                BufferedImage image = eImage.getImage();
+                FileType type = eImage.getFileType();
+                InputStream in = toInputStream(image, type);
+                zout.putNextEntry(new ZipEntry(i + "." + type.toString()));
                 
                 // pump data from file into zip file
 		byte[] buf = new byte[1024];
