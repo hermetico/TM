@@ -29,7 +29,7 @@ public class Player {
     private Player(){
         window = new BaseWindow();
         // center window
-        window.setLocationRelativeTo(null);
+        //window.setLocationRelativeTo(null);
         timer  = new Timer();
         playerCounters = new FPSCounters();
     }
@@ -63,5 +63,9 @@ public class Player {
         tr.trace("Exiting");
         playerCounters.flushCounters();
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
+    }
+    
+    public void flush(){
+        playerCounters.flushCounters();
     }
 }
