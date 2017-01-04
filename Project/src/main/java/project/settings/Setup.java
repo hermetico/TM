@@ -189,7 +189,7 @@ public class Setup {
            // we know how many pixels has a tile so we can compute total number of tiles
            setNumberOfTiles(nPixelsPerTileX, nPixelsPerTileY);
         }catch(NullPointerException e){
-            throw new ParameterException("You are encoding and we need to know the --nTile paremeter, check it out!");
+            throw new ParameterException("You are encoding and we need to know the --nTiles paremeter, check it out!");
         }
         
         
