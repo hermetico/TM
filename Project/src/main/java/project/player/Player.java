@@ -20,23 +20,30 @@ import java.util.TimerTask;
 public class Player {
     private Configuration config = Configuration.getInstance();
     private Tracer tr = Tracer.getInstance();
-    private  BaseWindow window;
+    private BaseWindow window;
     private Timer timer;
-    private FPSCounters playerCounters;
+    private FPSCounters playerCounters = null;
     private Buffer buffer;
     private int FPS;
     
     private Player(){
         window = new BaseWindow();
-        // center window
-        //window.setLocationRelativeTo(null);
         timer  = new Timer();
-        playerCounters = new FPSCounters();
+    }
+    private Player(boolean counters){
+        this();
+        
     }
     
     public Player(int fps){
         this();
         this.FPS = fps;
+    }
+    
+    public Player(int fps, boolean counters){
+        this();
+        this.FPS = fps;
+        if(counters) playerCounters = new FPSCounters();
     }
     
     public void setBuffer(Buffer buffer){
@@ -61,11 +68,18 @@ public class Player {
     public void close(){
         this.stop();
         tr.trace("Exiting");
-        playerCounters.flushCounters();
+        if(playerCounters!= null) playerCounters.flushCounters();
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
     
     public void flush(){
-        playerCounters.flushCounters();
+        if(playerCounters != null) playerCounters.flushCounters();
+    }
+    
+
+    public void playLoopCustom(TimerTask customTask){
+        timer.scheduleAtFixedRate(
+                (TimerTask) customTask, 
+                config.FIRST_DELAY, Parsers.fpsToMillisDelay(FPS));
     }
 }

@@ -10,6 +10,7 @@ import project.player.window.BaseWindow;
 import project.processor.Buffer;
 import java.awt.image.BufferedImage;
 import java.util.TimerTask;
+import project.encoder.EncodedImage;
 import project.settings.Configuration;
 
 
@@ -40,12 +41,12 @@ public class PlayerTask extends TimerTask  {
             else resetPlayer();
         }
         
-        BufferedImage img = (BufferedImage) buffer.get();
+        EncodedImage eImage = (EncodedImage) buffer.get();
         
-        if(img != null){
-            window.draw(img);
+        if(eImage != null){
+            window.draw(eImage.getImage());
             times--;
-            counters.addTimestamp();
+            if(counters != null) counters.addTimestamp();
         }
             
         
