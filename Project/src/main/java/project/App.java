@@ -33,26 +33,39 @@ public class App {
             // con algun metodo get o algun iterator
         }
         
-        FilterFactory flFactory = new FilterFactory();
-        ProcessorFactory prFactory = new ProcessorFactory();
-              
-        Filter fl = flFactory.createFilter(setup);
-        Processor pr = prFactory.createProcessor(setup, fl);
         
-        if(!setup.isBatchMode()){
-            tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
-            pr.setPlayer(new Player(setup.getFPS()));
-        }
+        // Encoding reads from a zip full of jpegs
+        if(setup.isEncoding()){
+
+            FilterFactory flFactory = new FilterFactory();
+            ProcessorFactory prFactory = new ProcessorFactory();
+            //Encoder encoder = new Encoder();
+
+            Filter fl = flFactory.createFilter(setup);
+            Processor pr = prFactory.createProcessor(setup, fl);
+
+            if(!setup.isBatchMode()){
+                tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
+                pr.setPlayer(new Player(setup.getFPS()));
+            }
+
+
+            tr.trace("Starting processor");
+            pr.processData();
+
             
-        tr.trace("Starting processor");
-        pr.processData();
-        
-        // TODO check this
-        if(setup.isStoring()){
-            if(setup.getOutputContainer() == FileType.ZIP){
-                Zip zipper = new Zip();
-                tr.trace("Zipping data");
-                zipper.zipData(pr.getBuffer(), setup.getOutputFilePath(), setup.getOutputFile());
+
+            // Starting encoder
+            if(setup.isEncoding()){
+                tr.trace("Starting Encoder");
+            }
+            // TODO check this
+            if(setup.isStoring()){
+                if(setup.getOutputContainer() == FileType.ZIP){
+                    Zip zipper = new Zip();
+                    tr.trace("Zipping data");
+                    zipper.zipData(pr.getBuffer(), setup.getOutputFilePath(), setup.getOutputFile());
+                }
             }
         }
     }        
