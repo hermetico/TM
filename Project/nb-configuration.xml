@@ -8,11 +8,12 @@ Without this configuration present, some functionality in the IDE may be limited
 -->
     <config-data xmlns="http://www.netbeans.org/ns/maven-config-data/1">
         <configurations>
+            <configuration id="average" profiles=""/>
             <configuration id="binarization" profiles=""/>
             <configuration id="convolutional sobel_x" profiles=""/>
             <configuration id="negative" profiles=""/>
             <configuration id="negative batch" profiles=""/>
-            <configuration id="average" profiles=""/>
+            <configuration id="no-filter" profiles=""/>
         </configurations>
     </config-data>
 </project-shared-configuration>
