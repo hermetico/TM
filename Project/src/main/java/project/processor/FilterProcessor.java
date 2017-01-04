@@ -17,10 +17,11 @@ import project.player.Player;
 public class FilterProcessor extends Processor{
     
     private Filter filter;
-
+    protected Buffer<BufferedImage> compressedBuffer; //compressed output stream 
     public FilterProcessor(String path, Filter filter) {
         super(path);
         this.filter = filter;
+        compressedBuffer = new Buffer<BufferedImage>(entries.size());
         
     }
     
@@ -28,6 +29,7 @@ public class FilterProcessor extends Processor{
         this(path, filter);
         this.player = player;
         this.player.setBuffer(buffer);
+        compressedBuffer = new Buffer<BufferedImage>(entries.size());
         
     }
     
