@@ -5,6 +5,7 @@
  */
 package project;
 
+import project.encoder.Encoder;
 import project.misc.Tracer;
 import project.output.Zip;
 import project.player.Player;
@@ -42,11 +43,15 @@ public class App {
             //Encoder encoder = new Encoder();
 
             Filter fl = flFactory.createFilter(setup);
-            Processor pr = prFactory.createProcessor(setup, fl);
+            Encoder enc = new Encoder(setup);
+            Processor pr = prFactory.createProcessor(setup, fl, enc);
 
+            
+            
             if(!setup.isBatchMode()){
                 tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
                 pr.setPlayer(new Player(setup.getFPS()));
+                enc.setPlayer(new Player(setup.getFPS(), true));
             }
 
 
@@ -58,13 +63,14 @@ public class App {
             // Starting encoder
             if(setup.isEncoding()){
                 tr.trace("Starting Encoder");
+                
             }
             // TODO check this
             if(setup.isStoring()){
                 if(setup.getOutputContainer() == FileType.ZIP){
                     Zip zipper = new Zip();
                     tr.trace("Zipping data");
-                    zipper.zipData(pr.getBuffer(), setup.getOutputFilePath(), setup.getOutputFile());
+                    zipper.zipData(pr.getBuffer(), setup.getOutputFilePath());
                 }
             }
         }
