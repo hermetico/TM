@@ -35,7 +35,10 @@ public class PlayerTask extends TimerTask  {
     @Override
     public void run() {
         
-        if(times == 0) player.close();
+        if(times == 0){
+            if(!cf.LOOP_PLAY) player.close();
+            else resetPlayer();
+        }
         
         BufferedImage img = (BufferedImage) buffer.get();
         
@@ -46,6 +49,12 @@ public class PlayerTask extends TimerTask  {
         }
             
         
+    }
+    
+    private void resetPlayer(){
+        player.flush();
+        buffer.resetGet();
+        times = buffer.getBufferedElements();
     }
     
     

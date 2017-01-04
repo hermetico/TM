@@ -64,4 +64,8 @@ public class Player {
         playerCounters.flushCounters();
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
+    
+    public void flush(){
+        playerCounters.flushCounters();
+    }
 }

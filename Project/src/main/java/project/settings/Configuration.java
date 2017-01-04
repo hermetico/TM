@@ -9,12 +9,13 @@ public class Configuration {
     private static Configuration INSTANCE = new Configuration();
     
     //booleans
-    public final boolean TRACE = false;
+    public final boolean TRACE = true;
     public final boolean SORT_INPUT_BY_NAME = true;
-    public final boolean EXIT_ON_CLOSE_WINDOW = false;
+    
     public final boolean PROCESSING_COUNTERS = false;
     public final boolean LIVE_COUNTERS = false;
-    public final boolean LOOP_PLAY = false;
+    public final boolean LOOP_PLAY = true;
+    public final boolean EXIT_ON_CLOSE_WINDOW = LOOP_PLAY;
     
     //ints
     public final long FIRST_DELAY = 200;
