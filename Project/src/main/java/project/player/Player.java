@@ -29,7 +29,7 @@ public class Player {
     private Player(){
         window = new BaseWindow();
         // center window
-        window.setLocationRelativeTo(null);
+        //window.setLocationRelativeTo(null);
         timer  = new Timer();
         playerCounters = new FPSCounters();
     }
