@@ -2,6 +2,8 @@ package project.encoder;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import java.util.ArrayList;
+import java.util.List;
 import project.counters.Counters;
 import project.input.Unzip;
 import project.misc.Tracer;
@@ -47,4 +49,23 @@ public class Encoder {
         EncodedImage ei = new ImageI(encoded);
         buffer.add(ei);
     }
+    
+    private List<Tile> teselate(BufferedImage img)
+    {
+        /*
+       int index = 0;
+       List<Tile> list = new ArrayList<Tile>();
+        for (int x = 0; x < setup.padded_width ; x+setup.pixelspertilex){
+            for(int y = 0; y > setup.padded_height; y+setup.pixelspertiley){
+                BufferedImage subImg = img.SubImage(x,y, setup.tileWidth, setup.tileHeight);
+                Tile current = new Tile(x,y,index, subImg);
+                index++;
+                list.add(current);
+            }
+        }
+       return list;
+    */
+        return new ArrayList<Tile>();
+    }
+    
 }
