@@ -10,9 +10,27 @@ package project.encoder;
  */
 public class DVector {
     
-    public int reference;
-    public int x;
-    public int y;
-    public DVector(){}
+    private int reference;
+    private int x;
+    private int y;
+
+    public DVector(int reference, int x, int y) {
+        this.reference = reference;
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getReference() {
+        return reference;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+    
     
 }
