@@ -8,6 +8,8 @@ package project.input;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import java.util.List;
 import project.validators.ConvolutionalFilterTypeValidator;
@@ -42,16 +44,16 @@ public class ArgsParser {
     private int avgValue;
     
     @Parameter(names = "--nTiles", arity = 2, description = "Number of tiles: nTiles <Tiles x> <Tiles y> or pixels per tile: <num>px <num>py")
-    private List<String> numTiles;
+    private List<String> numTiles = new ArrayList(Arrays.asList("16px", "16px"));
      
     @Parameter(names = {"--seekRange"}, description = "max displacement in matching tile search", validateWith = NumericValidator.class)
-    private int seekRange = 0;
+    private int seekRange = 32;
     
     @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = NumericValidator.class)
-    private int GOP = 0;
+    private int GOP = 10;
     
     @Parameter(names = {"--quality"}, description = "quality factor determine when two tiles match ")
-    private int quality = 0;
+    private int quality = 1;
     
     @Parameter(names = {"--batch", "-b"}, description = "batch mode")
     private boolean batch = false ;
