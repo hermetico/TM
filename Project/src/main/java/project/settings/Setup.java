@@ -66,6 +66,8 @@ public class Setup {
         
         checkFilters(parser);
         checkMode(parser);
+        checkEncoding(parser);
+        checkDecoding(parser);
         checkInputFile(parser.getInputFile());
         
         //check and set tile values
@@ -124,11 +126,11 @@ public class Setup {
         }
     }
     private void checkEncoding(ArgsParser parser){
-        //TODO
+        this.encoding = parser.isEncodeEnabled();
     }
     
     private void checkDecoding(ArgsParser parser){
-        //TODO
+        this.decoding = parser.isDecodeEnabled();
     }
     
     // Read zip file, load images and get width and height from first image

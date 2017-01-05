@@ -153,6 +153,10 @@ public class ArgsParser {
     public boolean isLoop() {
         return loop;
     }
+
+    public boolean isDecodeEnabled() {
+        return decode;
+    }
     
     
 }

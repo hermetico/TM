@@ -17,7 +17,9 @@ public class Types{
         PNG("png"),
         GIF("gif"), 
         BMP("bmp"), 
-        ZIP("zip")
+        ZIP("zip"),
+        I("i"),
+        P("p")
         ;
         private final String fileType;
         private static final Map<String,FileType> ENUM_MAP;
@@ -129,5 +131,7 @@ public class Types{
         
 
     }
+    
+    
     
 }

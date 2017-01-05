@@ -14,16 +14,17 @@ import project.player.Player;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.zip.ZipEntry;
+import project.encoder.EncodedImage;
 
-public class Processor{
+public abstract class Processor{
     protected Configuration cf;
     protected Tracer tr;
     protected Unzip zp;
     protected List<ZipEntry> entries;
-    protected Buffer<BufferedImage> buffer;
-    
+    protected Buffer<EncodedImage> buffer;
     protected Counters counters;
-    protected Player player;
+    protected Player player = null;
+    
     
     
     public Processor(String path) {
@@ -32,9 +33,7 @@ public class Processor{
         counters = new Counters();
         zp = new Unzip(path);
         entries = readZipData();
-        buffer = new Buffer<BufferedImage>(entries.size());
-        
-        this.player = null;
+        buffer = new Buffer<EncodedImage>(entries.size());
         
     }
     
@@ -62,11 +61,14 @@ public class Processor{
     }
     
 
-    public Buffer<BufferedImage> getBuffer(){
+    public Buffer<EncodedImage> getBuffer(){
         return buffer;
     }
     
-    public void processData() {
+
+    public abstract void processData();
+    /*{
+
         // starts the player if there is any set up
         if(player != null){ 
             tr.trace("Starting player");
@@ -83,6 +85,8 @@ public class Processor{
         }
         if(cf.PROCESSING_COUNTERS)
             counters.flushCounters("Encoding", "fps");
-    }
+
+    }*/
+
     
 }

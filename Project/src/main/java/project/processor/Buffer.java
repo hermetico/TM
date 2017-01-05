@@ -13,12 +13,14 @@ public class Buffer <T>{
     private int end;
     private int init;
     private int bufferedElements;
+    private int sizeBufferedElements;
     
     public Buffer(int size){
         buffer = (T[]) new Object[size];
         init = 0;
         end = 0;
         bufferedElements = 0;
+        sizeBufferedElements = 0;
         this.size = size;
     }
     
@@ -34,6 +36,7 @@ public class Buffer <T>{
     public synchronized void add(T t){
         buffer[end++] = t;
         bufferedElements++;
+        sizeBufferedElements++;
     }
     
     public synchronized int getBufferedElements(){
@@ -55,5 +58,18 @@ public class Buffer <T>{
     public synchronized void resetGet(){
         init = 0;
         bufferedElements = end;
+    }
+    
+    //// Extended functionalities
+    /**
+     * Returns T based on the counter, if counter is less than sizeBufferedElements
+     * This allows to interact from different instances with the same buffer independently
+     * @param counter
+     * @return 
+     */
+    public synchronized T get(int counter){
+        if (counter >= sizeBufferedElements) return null;
+        T t = buffer[counter];
+        return t;
     }
 }
