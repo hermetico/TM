@@ -12,35 +12,18 @@ public class Tile {
     private int y;
     private int width;
     private int height;
-    private boolean erasable = false;
-    private int index=0;
-    private BufferedImage img;
+    private int index;
+    
+    private BufferedImage content;
+    
 
-    public Tile(int x, int y, int width, int height, BufferedImage img){
+    public Tile(int x, int y, int width, int height, BufferedImage fullImage){
         this.x = x;
         this.y = y;
         this.width = width;
-        this.height= height;
-        this.img = img;
+        this.height = height;
+        this.content = fullImage.getSubimage(x, y, width, height);
     }
-
-    public Tile(int x, int y, BufferedImage img){
-        this.x = x;
-        this.y = y;
-        //this.width = setup.nPixelsPerTileX;
-        //this.height = setup.nPixelsPerTileY;
-        this.img = img;
-    }
-
-    public Tile(int x, int y, int index, BufferedImage img){
-        this.x = x;
-        this.y = y;
-        //this.width = setup.nPixelsPerTileX;
-        //this.height = setup.nPixelsPerTileY;
-        this.index = index;
-        this.img = img;
-    }
-
 
     public int getX(){ return x; }
 

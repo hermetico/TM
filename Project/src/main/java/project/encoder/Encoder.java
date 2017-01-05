@@ -69,7 +69,7 @@ public class Encoder {
             encoded = new ImageI(ImageUtils.deepCopy(image));
             previousFrame = ImageUtils.deepCopy(image);
         }else{ // frames P
-            // teselate previous frame
+            // tessellate previous frame
             
             // for each tesela
                 //search and compare

@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 import java.util.List;
+import project.encoder.Tile;
 
 public class ImageUtils {
 
@@ -16,14 +17,13 @@ public class ImageUtils {
         return new BufferedImage(image.getColorModel(), (WritableRaster) image.getData(), image.isAlphaPremultiplied(), null);
     }
     
-    public static List<BufferedImage> teselate(BufferedImage image, int tHeight, int tWidth){
+    public static List<Tile> tessellate(BufferedImage image, int tHeight, int tWidth){
         int iHeight = image.getHeight();
         int iWidth = image.getWidth();
-        List<BufferedImage> teselas = new ArrayList<BufferedImage>();
+        List<Tile> teselas = new ArrayList<Tile>();
         for(int j = 0; j < iHeight;  j += tHeight){
             for(int i = 0; i > iWidth; i += tWidth){
-                BufferedImage tesela = image.getSubimage(i,j,tWidth, tHeight);
-                //Tile current = new Tile(x,y,index, subImg);
+                Tile tesela = new Tile(i,j,tWidth, tHeight, image);
                 teselas.add(tesela);
             }
         }
