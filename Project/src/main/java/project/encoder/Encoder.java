@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import project.counters.Counters;
 import project.input.Unzip;
+import project.misc.ImageUtils;
 import project.misc.Tracer;
 import project.player.Player;
 import project.processor.Buffer;
@@ -15,18 +16,37 @@ import project.settings.Setup;
 public class Encoder {
     protected Configuration cf;
     protected Tracer tr;
-    protected Unzip zp;
-
-    protected Buffer<EncodedImage> buffer;
-    protected Counters counters;
-    protected Player player = null;
     protected Setup setup;
+    protected Player player = null;
+    
+    
+    protected Buffer<EncodedImage> buffer;
+    protected BufferedImage previousFrame;
+    
+    protected int GOP = 0;
+    protected int quality = 0;
+    protected int tWidth = 0;
+    protected int tHeight = 0;
+    protected int seekRange = 0;
+    
+    protected int frames = 0;
+    
 
     public Encoder(Setup setup) {
         cf = Configuration.getInstance();
         tr =  Tracer.getInstance();
-        counters = new Counters();
+        this.setup(setup);
+    }
+    
+    private void setup(Setup setup){
         this.setup = setup;
+        
+        this.GOP = setup.getGOP();
+        this.quality = setup.getQuality();
+        this.seekRange = setup.getSeekRange();
+        this.tHeight = setup.getYPixelsPerTile();
+        this.tWidth = setup.getXPixelsPerTile();
+        
     }
 
     public void setPlayer(Player player){
@@ -38,34 +58,30 @@ public class Encoder {
         this.buffer = new Buffer<EncodedImage>(bufferSize);
     
     }
+    
     public void startUpEncoderPlayer(){
         if(player != null) this.player.playLoop();
     }
-    public void encode(BufferedImage image){
-        
-        // let's do a copy of the image
-        BufferedImage encoded = new BufferedImage(image.getColorModel(), (WritableRaster) image.getData(), image.isAlphaPremultiplied(), null);
-        // assume all images are I
-        EncodedImage ei = new ImageI(encoded);
-        buffer.add(ei);
-    }
     
-    private List<Tile> teselate(BufferedImage img)
-    {
-        /*
-       int index = 0;
-       List<Tile> list = new ArrayList<Tile>();
-        for (int x = 0; x < setup.padded_width ; x+setup.pixelspertilex){
-            for(int y = 0; y > setup.padded_height; y+setup.pixelspertiley){
-                BufferedImage subImg = img.SubImage(x,y, setup.tileWidth, setup.tileHeight);
-                Tile current = new Tile(x,y,index, subImg);
-                index++;
-                list.add(current);
-            }
+    public void encode(BufferedImage image){
+        EncodedImage encoded;
+        if(frames % GOP == 0){ // frames I
+            encoded = new ImageI(ImageUtils.deepCopy(image));
+            previousFrame = ImageUtils.deepCopy(image);
+        }else{ // frames P
+            // teselate previous frame
+            
+            // for each tesela
+                //search and compare
+            
+                // if result is positive
+                    // get vector
+                    // substract tesela
+                    
+            // TODO change to P
+            encoded = new ImageI(ImageUtils.deepCopy(image));
         }
-       return list;
-    */
-        return new ArrayList<Tile>();
+        buffer.add(encoded);
     }
     
 }
