@@ -21,8 +21,9 @@ public class SAD implements Comparer{
         BufferedImage d = candidate.getContent();
         
         for (int y = 0; y < wanted.getWidth(); y++) {
-            for (int x = 0; x < wanted.getHeight(); x++) {
-
+            System.out.println("Here (SAD line 24):" + y);
+            for (int x = 0; x < wanted.getHeight() ; x++) {
+                 
                 Color pixelB = new Color(b.getRGB(x, y));
                 Color pixelD = new Color(d.getRGB(x, y));
                 double channels = Math.abs(pixelB.getRed() - pixelD.getRed())

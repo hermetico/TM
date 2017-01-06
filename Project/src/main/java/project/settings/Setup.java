@@ -205,20 +205,20 @@ public class Setup {
         }catch(NullPointerException e){
             throw new ParameterException("You are encoding and we need to know the --nTiles paremeter, check it out!");
         }
-    
+        
     }
     
     //define Number of tiles just from tile width and height ( and padded image dimensions )
     private void setNumberOfTiles(int x, int y){  
         
-        nTilesX = padded_width/10;
-        nTilesY = padded_height/10;     
+        nTilesX = width/x;
+        nTilesY = height/y;     
     }
     
     // define pixels per tile just from tile number
     private void setPixelsPerTile(int x, int y){
-       nPixelsPerTileX = padded_width/x;
-       nPixelsPerTileY = padded_height/y;
+       nPixelsPerTileX = width/x;
+       nPixelsPerTileY = height/y;
     }    
         
     private void checkRange(int value, int low, int high){
@@ -330,10 +330,10 @@ public class Setup {
     */
     //TODO sustituir por las de arriba cuando funcionen
     public int getXPixelsPerTile() {
-        return nTilesX;
+        return nPixelsPerTileX;
     }
     public int getYPixelsPerTile() {
-        return nTilesY;
+        return  nPixelsPerTileY;
     }
     
     

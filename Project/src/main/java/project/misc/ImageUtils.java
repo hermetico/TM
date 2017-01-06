@@ -26,10 +26,12 @@ public class ImageUtils {
         int index = 0;
         int col = 0;
         int row = 0;
+        BufferedImage data;
         for(int j = 0; j  + tHeight <= iHeight;  j += tHeight){
             col = 0;
             for(int i = 0; i + tWidth <= iWidth; i += tWidth){
-                Tile tesela = new Tile(i,j,tWidth, tHeight, image, index, col, row);
+                data = image.getSubimage(i, j, tWidth, tHeight);
+                Tile tesela = new Tile(i,j,tWidth, tHeight, data, index, col, row);
                 teselas.add(tesela);
                 index++;
                 col++;
