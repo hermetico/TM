@@ -7,7 +7,7 @@ import java.util.List;
 import project.counters.Counters;
 import project.encoder.compare.Comparer;
 import project.encoder.compare.SAD;
-import project.encoder.search.FullSearch;
+import project.encoder.search.FullTileSearch;
 import project.encoder.search.Searcher;
 import project.input.Unzip;
 import project.misc.ImageUtils;
@@ -59,7 +59,7 @@ public class Encoder {
         this.tWidth = setup.getXTiles();
         
         //TODO check setup to instantaite comparer and searcher
-        searcher = (Searcher) new FullSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new SAD());
+        searcher = (Searcher) new FullTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new SAD());
         
     }
 
@@ -99,12 +99,17 @@ public class Encoder {
                 if(match != null){
                     // the vector is made with
                     int reference = match.getIndex();
-                    int x = match.getX() - wanted.getX();
-                    int y = match.getY() - wanted.getY();
-                    vectors.add(new DVector(reference, x, y));
+                    int x = wanted.getX() - match.getX();
+                    int y = wanted.getY() - match.getY();
+                    
+                    DVector displacement = new DVector(reference, x, y);
+                    
                     
                     // substract tesela
-                    ImageUtils.substractTile(nImage, match, wanted);
+                    ImageUtils.substractTile(nImage, match, displacement);
+                    
+                    // adds vector
+                    vectors.add(displacement);
                 }
             }
                 

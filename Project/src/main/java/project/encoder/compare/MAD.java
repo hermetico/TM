@@ -15,16 +15,16 @@ import project.encoder.Tile;
 public class MAD implements Comparer{
 
     @Override
-    public double compare(Tile base, Tile destination) {
+    public double compare(Tile wanted, Tile candidate) {
         double correlation = 0.;
-        BufferedImage b = base.getContent();
-        BufferedImage d = destination.getContent();
+        BufferedImage b = wanted.getContent();
+        BufferedImage d = candidate.getContent();
         
-        for (int x = 0; x < base.getWidth(); x++) {
-            for (int y = 0; y < base.getHeight(); y++) {
+        for (int y = 0; y < wanted.getWidth(); y++) {
+            for (int x = 0; x < wanted.getHeight(); x++) {
 
                 Color pixelB = new Color(b.getRGB(x, y));
-                Color pixelD = new Color(b.getRGB(x, y));
+                Color pixelD = new Color(d.getRGB(x, y));
                 double channels = Math.abs(pixelB.getRed() - pixelD.getRed())
                                 + Math.abs(pixelB.getGreen() - pixelD.getGreen())
                                 + Math.abs(pixelB.getBlue() - pixelD.getBlue());
@@ -33,7 +33,7 @@ public class MAD implements Comparer{
                 correlation += channels;
             }
         }
-        return correlation / base.getWidth() * base.getHeight();
+        return correlation / wanted.getWidth() * wanted.getHeight();
     }
     
 }

@@ -6,6 +6,7 @@
 package project.encoder.search;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.IllegalFormatWidthException;
 import java.util.List;
 import project.encoder.Tile;
@@ -17,11 +18,11 @@ import project.misc.ImageUtils;
  * if the result is better than the quality
  * @author hermetico
  */
-public class FullSearch extends Searcher{
+public class FullTileSearch extends Searcher{
     List<Tile> candidates;
     BufferedImage frame;
     
-    public FullSearch(int seekRange, int tWidth, int tHeight, int quality, Comparer comparer) {
+    public FullTileSearch(int seekRange, int tWidth, int tHeight, int quality, Comparer comparer) {
         super(seekRange,tWidth, tHeight, quality, comparer);
     }
 
@@ -41,28 +42,38 @@ public class FullSearch extends Searcher{
      * @return 
      */
     public Tile getMatch(Tile wanted){
-        Tile bestCandidate = null;
-        double bestCorrelation = 0;
         
+        List<Tile> lastCandidates = new ArrayList<Tile>();
         int col = wanted.getCol();
         int row = wanted.getRow();
         
+
+        // keeps only the candidates within bounds
         for(Tile candidate: candidates){
+            int cCol = candidate.getCol();
+            int cRow = candidate.getRow();
             
-            int tCol = candidate.getCol();
-            int tRow = candidate.getRow();
-            
-            if( (Math.abs(row - tRow) <= seekRange ) &&
-                (Math.abs(col - tCol) <= seekRange)){
-
-                double candidateCorrelation = bestCorrelation = comparer.compare(wanted, candidate);
-
-                if(bestCandidate == null || candidateCorrelation < bestCorrelation){
-                    bestCandidate = candidate;
-                    bestCorrelation = candidateCorrelation;
-                }
-                
+            // checks if is within bounds
+            if( (Math.abs(row - cRow) <= seekRange ) &&
+                (Math.abs(col - cCol) <= seekRange)){
+                lastCandidates.add(candidate);
             }
+        }
+
+        
+        Tile bestCandidate = null;
+        double bestCorrelation = 0;
+
+        // loops through the last candidates to get the best one
+        for(Tile candidate: lastCandidates){
+            
+            double candidateCorrelation = comparer.compare(wanted, candidate);
+
+            if(bestCandidate == null || candidateCorrelation < bestCorrelation){
+                bestCandidate = candidate;
+                bestCorrelation = candidateCorrelation;
+            }
+
         }
         if (bestCorrelation < correlation){
             //tr.trace("New match from origin index " + wanted.getIndex() +" to previous " + bestCandidate.getIndex() +" with correlation " + bestCorrelation);

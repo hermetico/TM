@@ -20,8 +20,8 @@ public class SAD implements Comparer{
         BufferedImage b = wanted.getContent();
         BufferedImage d = candidate.getContent();
         
-        for (int x = 0; x < wanted.getWidth(); x++) {
-            for (int y = 0; y < wanted.getHeight(); y++) {
+        for (int y = 0; y < wanted.getWidth(); y++) {
+            for (int x = 0; x < wanted.getHeight(); x++) {
 
                 Color pixelB = new Color(b.getRGB(x, y));
                 Color pixelD = new Color(d.getRGB(x, y));

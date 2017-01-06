@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 import java.util.List;
+import project.encoder.DVector;
 import project.encoder.Tile;
 
 public class ImageUtils {
@@ -26,36 +27,44 @@ public class ImageUtils {
         int col = 0;
         int row = 0;
         for(int j = 0; j  + tHeight <= iHeight;  j += tHeight){
-            row++;
             col = 0;
             for(int i = 0; i + tWidth <= iWidth; i += tWidth){
-                index++;
-                col++;
                 Tile tesela = new Tile(i,j,tWidth, tHeight, image, index, col, row);
                 teselas.add(tesela);
+                index++;
+                col++;
             }
+            row++;
         }
        return teselas;
     }
     
-    public static void substractTile(BufferedImage image, Tile match, Tile wanted){
+    public static void substractTile(BufferedImage image, Tile match, DVector displacement){
         Color imagePixel, tilePixel;
         int r, g, b;
         BufferedImage tileImage = match.getContent();
-        for(int i = 0; i < match.getWidth(); i++){
-            for (int j = 0; j < match.getHeight(); j++){
+        
+        for(int y = 0; y < match.getWidth(); y++){ // tesela y coords
+            for (int x = 0; x < match.getHeight(); x++){ // tesela x coords
                 
-                imagePixel = new Color(image.getRGB(wanted.getX() + i, wanted.getY() + j));
-                tilePixel = new Color(tileImage.getRGB(i,j));
+                // image coords
+                int imageX = match.getX() + x + displacement.getX();
+                int imageY = match.getY() + y + displacement.getY();
+                
+                imagePixel = new Color(image.getRGB(imageX, imageY));
+                tilePixel = new Color(tileImage.getRGB(x, y));
+                
                 r = imagePixel.getRed() - tilePixel.getRed();
                 g = imagePixel.getGreen() - tilePixel.getGreen();
                 b = imagePixel.getBlue() - tilePixel.getBlue();
 
+                // checks no value is below 0
                 if(r < 0) r = 0;
                 if(g < 0) g = 0;
                 if(b < 0) b = 0;
-                //image.setRGB(wanted.getX() + i, wanted.getY() + j, new Color(0,255,0).getRGB());
-                image.setRGB(wanted.getX() + i, wanted.getY() + j, new Color(r,g,b).getRGB());
+                
+                //image.setRGB(imageX, imageY, new Color(0,255,0).getRGB());
+                image.setRGB(imageX, imageY, new Color(r,g,b).getRGB());
             }
         }
         
