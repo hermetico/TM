@@ -31,7 +31,7 @@ public class ImageUtils {
             col = 0;
             for(int i = 0; i + tWidth <= iWidth; i += tWidth){
                 data = image.getSubimage(i, j, tWidth, tHeight);
-                Tile tesela = new Tile(i,j,tWidth, tHeight, data, index, col, row);
+                Tile tesela = new Tile(i,j, data, index, col, row);
                 teselas.add(tesela);
                 index++;
                 col++;
