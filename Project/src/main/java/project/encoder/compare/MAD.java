@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import project.encoder.Tile;
 
 /**
- * Mean of absolute differences implementation
+ * //TODO hacer otra
  */
 public class MAD implements Comparer{
 

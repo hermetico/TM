@@ -33,7 +33,7 @@ public class SAD implements Comparer{
                 correlation += channels;
             }
         }
-        return correlation;
+        return correlation / wanted.getWidth() * wanted.getHeight();
     }
     
 }
