@@ -19,7 +19,10 @@ public class Types{
         BMP("bmp"), 
         ZIP("zip"),
         I("i"),
-        P("p")
+        P("p"), 
+        VEC("vec"), /* vectors*/
+        LEF("lef"),  /*LOL encoding format*/
+        META("dat") /* metadata file */
         ;
         private final String fileType;
         private static final Map<String,FileType> ENUM_MAP;

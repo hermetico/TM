@@ -14,6 +14,7 @@ Without this configuration present, some functionality in the IDE may be limited
             <configuration id="negative" profiles=""/>
             <configuration id="negative batch" profiles=""/>
             <configuration id="no-filter" profiles=""/>
+            <configuration id="no-filter-batch" profiles=""/>
         </configurations>
     </config-data>
 </project-shared-configuration>

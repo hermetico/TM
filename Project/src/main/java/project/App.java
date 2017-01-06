@@ -58,21 +58,22 @@ public class App {
             tr.trace("Starting processor");
             pr.processData();
 
+            // always storing
             
-
-            // Starting encoder
-            if(setup.isEncoding()){
-                tr.trace("Starting Encoder");
-                
-            }
-            // TODO check this
+            Zip zipper = new Zip();
+            tr.trace("Zipping data");
+            zipper.zipEncodedData(setup, enc.getBuffer(), setup.getOutputFilePath());
+            
+        }else{
+            // decoding or anything else
+            /*
             if(setup.isStoring()){
                 if(setup.getOutputContainer() == FileType.ZIP){
                     Zip zipper = new Zip();
                     tr.trace("Zipping data");
                     zipper.zipData(pr.getBuffer(), setup.getOutputFilePath());
                 }
-            }
+            }*/
         }
     }        
 }

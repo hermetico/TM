@@ -5,6 +5,8 @@
  */
 package project.settings;
 
+import project.settings.Types.FileType;
+
 public class Configuration {
     private static Configuration INSTANCE = new Configuration();
     
@@ -20,7 +22,9 @@ public class Configuration {
     //ints
     public final long FIRST_DELAY = 200;
     
-            
+    public final FileType CODEC_EXTENSION = FileType.ZIP;
+    
+    public final String MEDATATA_FILE = "metadata."  + FileType.META.toString();
 	
     private Configuration() {};
  

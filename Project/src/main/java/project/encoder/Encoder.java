@@ -51,13 +51,10 @@ public class Encoder {
         this.GOP = setup.getGOP();
         this.quality = setup.getQuality();
         this.seekRange = setup.getSeekRange();
-        // TODO FIX
+
         this.tHeight = setup.getYPixelsPerTile();
         this.tWidth = setup.getXPixelsPerTile();
-        
-        this.tHeight = setup.getYTiles();
-        this.tWidth = setup.getXTiles();
-        
+
         //TODO check setup to instantaite comparer and searcher
         searcher = (Searcher) new FullTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new SAD());
         
@@ -75,6 +72,10 @@ public class Encoder {
     
     public void startUpEncoderPlayer(){
         if(player != null) this.player.playLoop();
+    }
+    
+    public Buffer<EncodedImage> getBuffer(){
+        return buffer;
     }
     
     public void encode(BufferedImage image){
@@ -113,9 +114,10 @@ public class Encoder {
                 }
             }
                 
-            tr.trace("Total of " + vectors.size() + " vectors");
+            //tr.trace("Total of " + vectors.size() + " vectors");
             encoded = new ImageP(ImageUtils.deepCopy(nImage), vectors);
         }
+        
         frames++;
         previousFrame = ImageUtils.deepCopy(image);
         buffer.add(encoded);
