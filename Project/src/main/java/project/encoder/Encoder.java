@@ -5,6 +5,10 @@ import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 import java.util.List;
 import project.counters.Counters;
+import project.encoder.compare.Comparer;
+import project.encoder.compare.SAD;
+import project.encoder.search.FullSearch;
+import project.encoder.search.Searcher;
 import project.input.Unzip;
 import project.misc.ImageUtils;
 import project.misc.Tracer;
@@ -23,6 +27,8 @@ public class Encoder {
     protected Buffer<EncodedImage> buffer;
     protected BufferedImage previousFrame;
     
+    protected Searcher searcher;
+    
     protected int GOP = 0;
     protected int quality = 0;
     protected int tWidth = 0;
@@ -30,6 +36,7 @@ public class Encoder {
     protected int seekRange = 0;
     
     protected int frames = 0;
+    
     
 
     public Encoder(Setup setup) {
@@ -44,8 +51,15 @@ public class Encoder {
         this.GOP = setup.getGOP();
         this.quality = setup.getQuality();
         this.seekRange = setup.getSeekRange();
+        // TODO FIX
         this.tHeight = setup.getYPixelsPerTile();
         this.tWidth = setup.getXPixelsPerTile();
+        
+        this.tHeight = setup.getYTiles();
+        this.tWidth = setup.getXTiles();
+        
+        //TODO check setup to instantaite comparer and searcher
+        searcher = (Searcher) new FullSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new SAD());
         
     }
 
@@ -65,22 +79,40 @@ public class Encoder {
     
     public void encode(BufferedImage image){
         EncodedImage encoded;
+        
         if(frames % GOP == 0){ // frames I
             encoded = new ImageI(ImageUtils.deepCopy(image));
-            previousFrame = ImageUtils.deepCopy(image);
         }else{ // frames P
-            // tessellate previous frame
+        
+            // As the project description indicates, we are going to implement
+            // a DCT algorithm
+            BufferedImage nImage = ImageUtils.deepCopy(image);
+            List<Tile> teselas = ImageUtils.tessellate(nImage, tHeight, tWidth);
+            searcher.resetFrame(previousFrame);
             
-            // for each tesela
-                //search and compare
-            
-                // if result is positive
-                    // get vector
-                    // substract tesela
+            List<DVector> vectors = new ArrayList<DVector>();
+            // for each tesela of the image
+            for(Tile wanted : teselas){
+                // search and compare with the tesselas of the previous frame
+                Tile match = searcher.getMatch(wanted);
+                
+                if(match != null){
+                    // the vector is made with
+                    int reference = match.getIndex();
+                    int x = match.getX() - wanted.getX();
+                    int y = match.getY() - wanted.getY();
+                    vectors.add(new DVector(reference, x, y));
                     
-            // TODO change to P
-            encoded = new ImageI(ImageUtils.deepCopy(image));
+                    // substract tesela
+                    ImageUtils.substractTile(nImage, match, wanted);
+                }
+            }
+                
+            tr.trace("Total of " + vectors.size() + " vectors");
+            encoded = new ImageP(ImageUtils.deepCopy(nImage), vectors);
         }
+        frames++;
+        previousFrame = ImageUtils.deepCopy(image);
         buffer.add(encoded);
     }
     

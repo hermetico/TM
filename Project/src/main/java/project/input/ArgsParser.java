@@ -47,7 +47,7 @@ public class ArgsParser {
     private List<String> numTiles = new ArrayList(Arrays.asList("16px", "16px"));
      
     @Parameter(names = {"--seekRange"}, description = "max displacement in matching tile search", validateWith = NumericValidator.class)
-    private int seekRange = 32;
+    private int seekRange = 4;
     
     @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = NumericValidator.class)
     private int GOP = 10;

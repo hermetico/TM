@@ -5,8 +5,19 @@
  */
 package project.encoder;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
+import project.settings.Types;
 
 public class ImageP extends EncodedImage{
         List<DVector> vectors;
+        
+    private ImageP(){
+        this.fileType = Types.FileType.P;
+    }
+    public ImageP(BufferedImage image, List<DVector> vectors){
+        this();
+        this.image = image;
+        this.vectors = vectors;
+    }
 }

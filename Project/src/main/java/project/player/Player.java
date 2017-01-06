@@ -35,15 +35,33 @@ public class Player {
         
     }
     
+    
     public Player(int fps){
         this();
         this.FPS = fps;
+    }
+    
+    public Player(int fps, String title){
+        this();
+        this.FPS = fps;
+        window.setTitle(title);
     }
     
     public Player(int fps, boolean counters){
         this();
         this.FPS = fps;
         if(counters) playerCounters = new FPSCounters();
+    }
+    
+    public Player(int fps, boolean counters, String title){
+        this();
+        this.FPS = fps;
+        if(counters) playerCounters = new FPSCounters();
+        window.setTitle(title);
+    }
+    
+    public void setTitle(String title){
+        this.window.setTitle(title);
     }
     
     public void setBuffer(Buffer buffer){

@@ -7,32 +7,29 @@ package project.encoder.search;
 
 import java.awt.image.BufferedImage;
 import project.encoder.Tile;
+import project.encoder.compare.Comparer;
+import project.misc.Tracer;
 
 public abstract class Searcher {
-    private int seekRange;
-    private int iWidth;
-    private int iHeight;
-    private int tWidth;
-    private int tHeight;
+    protected Tracer tr = Tracer.getInstance();;
+    protected int seekRange;
+    protected int tWidth;
+    protected int tHeight;
     
-    private BufferedImage currentFrame;
-    private int xCoord;
-    private int yCoord;
+    protected double correlation;
     
-    public Searcher(int seekRange, int iWidth, int iHeight, int tWidth, int tHeight){
+    protected Comparer comparer;
+    
+    public Searcher(int seekRange,int tWidth, int tHeight, int quality, Comparer comparer){
         this.seekRange = seekRange;
-        this.iWidth = iWidth;
-        this.iHeight = iHeight;
         this.tWidth = tWidth;
         this.tHeight = tHeight;
+        this.comparer = comparer;
+        //TODO
+        this.correlation = (double) quality;
     }
     
-    public Tile next(){
-        return new Tile(xCoord, yCoord, tWidth, tHeight, currentFrame);
-    }
-    
-    public abstract void reset(int xCoord, int yCoord, BufferedImage currentFrame);
-    public abstract boolean anyMore();
-    public abstract void displace();
+    public abstract void resetFrame(BufferedImage frame);
+    public abstract Tile getMatch(Tile tessella);
     
 }

@@ -79,6 +79,9 @@ public class Setup {
             checkOutputFile(parser.getOutputFile());
         }
         
+        this.GOP = parser.getGOP();
+        this.seekRange = parser.getSeekRange();
+        this.quality = parser.getQuality();
         setupLoopMode(parser.isLoop());
     }
     

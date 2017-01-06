@@ -5,9 +5,8 @@
  */
 package project.encoder.compare;
 
-import java.awt.image.BufferedImage;
 import project.encoder.Tile;
 
 public interface Comparer {
-    boolean compare(Tile tesela, BufferedImage image, int xOffset, int yOffset, int quality);
+    double compare(Tile base, Tile destination);
 }

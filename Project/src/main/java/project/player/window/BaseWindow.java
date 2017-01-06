@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 
 public class BaseWindow extends JFrame{
@@ -34,6 +35,11 @@ public class BaseWindow extends JFrame{
     public void draw(BufferedImage img){
         label.setIcon(new ImageIcon(img));
         this.setSize(img.getWidth(), img.getHeight());
+    }
+    
+    @Override
+    public void setTitle(String title){
+        super.setTitle(title);
     }
     
     private void addListeners(){
