@@ -169,7 +169,7 @@ public class Setup {
         }catch(NumberFormatException e){           
            //Parse was not possible. try to parse x and y pixels by tile. <num>px and <num>py
            
-
+           
            try{                 
                // get substring without two last characters (px or py) and parse
                temp1 = parseInt(tiles.get(0).substring(0, tiles.get(0).length() - 2));
@@ -190,34 +190,35 @@ public class Setup {
                     // last two characters are not px and py!!
                     throw new ParameterException("Wrong value: " + tiles.get(0) +", " + tiles.get(1));
                 }
+               // check if values in range 
+                checkRange(nPixelsPerTileX, 1, width);
+                checkRange(nPixelsPerTileY, 1, height);
+                setPadFrame(nPixelsPerTileX, nPixelsPerTileY);
+                // we know how many pixels has a tile so we can compute total number of tiles
+                setNumberOfTiles(nPixelsPerTileX, nPixelsPerTileY);
+               
 
            }catch(NumberFormatException e1){
                 // input value without two last charactesrs are not integer!!
                 throw new ParameterException("Wrong value: " + tiles.get(0) +", " + tiles.get(1));
            }
-           // check if values in range 
-           checkRange(nPixelsPerTileX, 1, width);
-           checkRange(nPixelsPerTileY, 1, height);
-           setPadFrame(nPixelsPerTileX, nPixelsPerTileY);
-           // we know how many pixels has a tile so we can compute total number of tiles
-           setNumberOfTiles(nPixelsPerTileX, nPixelsPerTileY);
         }catch(NullPointerException e){
             throw new ParameterException("You are encoding and we need to know the --nTiles paremeter, check it out!");
         }
-        
         
     }
     
     //define Number of tiles just from tile width and height ( and padded image dimensions )
     private void setNumberOfTiles(int x, int y){  
-        nTilesX = x/padded_width;
-        nTilesY = y/padded_height;     
+        
+        nTilesX = width/x;
+        nTilesY = height/y;     
     }
     
     // define pixels per tile just from tile number
     private void setPixelsPerTile(int x, int y){
-       nPixelsPerTileX = padded_width/x;
-       nPixelsPerTileY = padded_height/y;
+       nPixelsPerTileX = width/x;
+       nPixelsPerTileY = height/y;
     }    
         
     private void checkRange(int value, int low, int high){
@@ -329,10 +330,10 @@ public class Setup {
     */
     //TODO sustituir por las de arriba cuando funcionen
     public int getXPixelsPerTile() {
-        return nTilesX;
+        return nPixelsPerTileX;
     }
     public int getYPixelsPerTile() {
-        return nTilesY;
+        return  nPixelsPerTileY;
     }
     
     

@@ -19,15 +19,15 @@ public class Tile {
     private BufferedImage content;
     
 
-    public Tile(int x, int y, int width, int height, BufferedImage fullImage, int index, int col, int row){
+    public Tile(int x, int y, BufferedImage data, int index, int col, int row){
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
-        this.content = fullImage.getSubimage(x, y, width, height);
+        
+        this.content = data;
         this.index = index;
         this.col = col;
         this.row = row;
+        
     }
 
     public int getX() {
@@ -39,11 +39,11 @@ public class Tile {
     }
 
     public int getWidth() {
-        return width;
+        return content.getWidth();
     }
 
     public int getHeight() {
-        return height;
+        return content.getHeight();
     }
 
     public int getIndex() {

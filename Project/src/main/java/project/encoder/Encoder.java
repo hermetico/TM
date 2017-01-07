@@ -51,10 +51,9 @@ public class Encoder {
         this.GOP = setup.getGOP();
         this.quality = setup.getQuality();
         this.seekRange = setup.getSeekRange();
-
-        this.tHeight = setup.getYPixelsPerTile();
+        this.tHeight = setup.getYPixelsPerTile();     
         this.tWidth = setup.getXPixelsPerTile();
-
+        
         //TODO check setup to instantaite comparer and searcher
         searcher = (Searcher) new FullTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new SAD());
         
@@ -94,6 +93,7 @@ public class Encoder {
             List<DVector> vectors = new ArrayList<DVector>();
             // for each tesela of the image
             for(Tile wanted : teselas){
+                
                 // search and compare with the tesselas of the previous frame
                 Tile match = searcher.getMatch(wanted);
                 

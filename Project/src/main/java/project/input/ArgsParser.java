@@ -49,6 +49,12 @@ public class ArgsParser {
     @Parameter(names = {"--seekRange"}, description = "max displacement in matching tile search", validateWith = NumericValidator.class)
     private int seekRange = 4;
     
+    @Parameter(names = {"--fastSearch"}, description = "If tile that match our quality criteria is found search it stopped .")
+    private boolean fastSearch = false;
+    
+    @Parameter(names = {"--tileSearch"}, description = "search of best matching tile is done tile by tile over seek range, normal mode search pixel by pixel")
+    private boolean tileSearch = false;
+    
     @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = NumericValidator.class)
     private int GOP = 10;
     
@@ -106,6 +112,7 @@ public class ArgsParser {
     public int getBinValue(){
         return binValue;
     }
+    
     public boolean isBinarizeFilterEnabled(){
         boolean enabled;
         if (binValue!=0){ enabled = true; }
@@ -124,6 +131,12 @@ public class ArgsParser {
             enabled = false;
         }
         return enabled;
+    }
+    private boolean isTileSearchEnabled(){
+        return tileSearch;
+    }
+    private boolean isFastSearchEnabled(){
+        return fastSearch;
     }
     // Average value computed
     public int getAvgValue(){
