@@ -54,8 +54,10 @@ public class FullTileSearch extends Searcher{
             int cRow = candidate.getRow();
             
             // checks if is within bounds
-            if( (Math.abs(row - cRow) <= seekRange ) &&
-                (Math.abs(col - cCol) <= seekRange)){
+            if( row - cRow <= seekRange &&
+                col - cCol <= seekRange &&
+                row - cRow <= 0 &&
+                col - cCol <= 0){
                 lastCandidates.add(candidate);
             }
         }
@@ -78,7 +80,6 @@ public class FullTileSearch extends Searcher{
 
         
         if (bestCorrelation < correlation){
-            //tr.trace("New match from origin index " + wanted.getIndex() +" to previous " + bestCandidate.getIndex() +" with correlation " + bestCorrelation);
             return bestCandidate;
         }
         // if the result is worse than the specified correlation, returns null

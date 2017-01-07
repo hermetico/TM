@@ -60,6 +60,8 @@ public class Setup {
     private int pad_top = 0;
     private int pad_bottom = 0;
     
+    private boolean fast_search = false;
+    private boolean pixel_search = false;
     private Configuration cfg = Configuration.getInstance();
     private Tracer tr = Tracer.getInstance();
     
@@ -84,6 +86,9 @@ public class Setup {
         this.seekRange = parser.getSeekRange();
         this.quality = parser.getQuality();
         setupLoopMode(parser.isLoop());
+        
+        this.pixel_search = parser.isPixelSearchEnabled();
+        this.fast_search = parser.isFastSearchEnabled();
     }
     
     private void checkFilters(ArgsParser parser){
@@ -319,24 +324,19 @@ public class Setup {
     public int getYTiles() {
         return nTilesY;
     }
-    /*
-    No estan devolviendo el valor esperado, cuando inserto px 
-    la funcion que lo devuelve correctamente es getXTiles
-    
-    Las sobreescribo temporalmente
-    public int getXPixelsPerTile() {
-        return nPixelsPerTileX;
-    }
-    public int getYPixelsPerTile() {
-        return nPixelsPerTileY;
-    }
-    */
-    //TODO sustituir por las de arriba cuando funcionen
     public int getXPixelsPerTile() {
         return nPixelsPerTileX;
     }
     public int getYPixelsPerTile() {
         return  nPixelsPerTileY;
+    }
+
+    public boolean isFast_search() {
+        return fast_search;
+    }
+
+    public boolean isPixel_search() {
+        return pixel_search;
     }
     
     

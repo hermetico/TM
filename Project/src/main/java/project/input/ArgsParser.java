@@ -52,8 +52,8 @@ public class ArgsParser {
     @Parameter(names = {"--fastSearch"}, description = "If tile that match our quality criteria is found search it stopped .")
     private boolean fastSearch = false;
     
-    @Parameter(names = {"--tileSearch"}, description = "search of best matching tile is done tile by tile over seek range, normal mode search pixel by pixel")
-    private boolean tileSearch = false;
+    @Parameter(names = {"--pixelSearch"}, description = "Search of best matching tile pixel by pixel, normal mode is tiletile by tile")
+    private boolean pixelSearch = false;
     
     @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = NumericValidator.class)
     private int GOP = 10;
@@ -132,10 +132,10 @@ public class ArgsParser {
         }
         return enabled;
     }
-    private boolean isTileSearchEnabled(){
-        return tileSearch;
+    public boolean isPixelSearchEnabled(){
+        return pixelSearch;
     }
-    private boolean isFastSearchEnabled(){
+    public boolean isFastSearchEnabled(){
         return fastSearch;
     }
     // Average value computed
