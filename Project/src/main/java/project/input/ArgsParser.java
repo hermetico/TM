@@ -58,8 +58,8 @@ public class ArgsParser {
     @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = NumericValidator.class)
     private int GOP = 10;
     
-    @Parameter(names = {"--quality"}, description = "quality factor determine when two tiles match ")
-    private int quality = 1;
+    @Parameter(names = {"--quality"}, description = "quality factor determine when two tiles match, Quality levels : 1, 2, 3, 4, 5")
+    private int quality = 5;
     
     @Parameter(names = {"--batch", "-b"}, description = "batch mode")
     private boolean batch = false ;
