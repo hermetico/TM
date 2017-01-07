@@ -9,14 +9,12 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import project.encoder.Tile;
 
-/**
- * //TODO hacer otra
- */
-public class MAD implements Comparer{
 
+public class MAD implements Comparer{
+    
     @Override
     public double compare(Tile wanted, Tile candidate) {
-        double correlation = 0.;
+        int difference = 0;
         BufferedImage b = wanted.getContent();
         BufferedImage d = candidate.getContent();
         
@@ -25,15 +23,18 @@ public class MAD implements Comparer{
 
                 Color pixelB = new Color(b.getRGB(x, y));
                 Color pixelD = new Color(d.getRGB(x, y));
-                double channels = Math.abs(pixelB.getRed() - pixelD.getRed())
-                                + Math.abs(pixelB.getGreen() - pixelD.getGreen())
-                                + Math.abs(pixelB.getBlue() - pixelD.getBlue());
-                // we have 3 channels so we do the mean here
-                channels /= 3.0;
-                correlation += channels;
+                difference += Math.abs(pixelB.getRed() - pixelD.getRed())
+                            + Math.abs(pixelB.getGreen() - pixelD.getGreen())
+                            + Math.abs(pixelB.getBlue() - pixelD.getBlue());            
             }
         }
-        return correlation / wanted.getWidth() * wanted.getHeight();
+        int channels = 3;
+        //get total number of pixels
+        int pixelsOnTile = wanted.getWidth() * wanted.getHeight() * channels;
+        // get mean absolute difference by pixel 
+        int MAD = difference / pixelsOnTile;
+        // normalize to 0-1 range
+        double result = (double)MAD/255.0;
+        return result;
     }
-    
 }

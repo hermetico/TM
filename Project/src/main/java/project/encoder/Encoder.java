@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import project.counters.Counters;
 import project.encoder.compare.Comparer;
-import project.encoder.compare.SAD;
+import project.encoder.compare.MAD;
 import project.encoder.search.FullTileSearch;
 import project.encoder.search.Searcher;
 import project.input.Unzip;
@@ -55,7 +55,7 @@ public class Encoder {
         this.tWidth = setup.getXPixelsPerTile();
         
         //TODO check setup to instantaite comparer and searcher
-        searcher = (Searcher) new FullTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new SAD());
+        searcher = (Searcher) new FullTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new MAD());
         
     }
 

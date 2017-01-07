@@ -23,6 +23,7 @@ public class SSD implements Comparer{
 
                 Color pixelB = new Color(b.getRGB(x, y));
                 Color pixelD = new Color(d.getRGB(x, y));
+                // These are squared differences
                 difference += (pixelB.getRed() - pixelD.getRed()) * (pixelB.getRed() - pixelD.getRed())
                             + (pixelB.getGreen() - pixelD.getGreen()) * (pixelB.getGreen() - pixelD.getGreen())
                             + (pixelB.getBlue() - pixelD.getBlue()) * (pixelB.getBlue() - pixelD.getBlue());            
