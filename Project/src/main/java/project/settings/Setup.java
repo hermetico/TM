@@ -81,7 +81,7 @@ public class Setup {
         if(parser.getOutputFile() != null){
             checkOutputFile(parser.getOutputFile());
         }
-        
+        this.outputFilePath += "." + cfg.CODEC_EXTENSION.toString();
         this.GOP = parser.getGOP();
         this.seekRange = parser.getSeekRange();
         this.quality = parser.getQuality();
@@ -344,5 +344,9 @@ public class Setup {
         cfg.LOOP_PLAY = loop;
         cfg.EXIT_ON_CLOSE_WINDOW = loop;
         if (loop) tr.trace("Loop mode enabled");
+    }
+    
+    public void updateFilePath(String name){
+        this.inputFilePath = name;
     }
 }

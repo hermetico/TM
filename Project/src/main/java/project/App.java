@@ -36,7 +36,7 @@ public class App {
         
         
         // Encoding reads from a zip full of jpegs
-        if(setup.isEncoding()){
+        if(setup.isEncoding() && !setup.isDecoding()){
 
             FilterFactory flFactory = new FilterFactory();
             ProcessorFactory prFactory = new ProcessorFactory();
@@ -64,22 +64,43 @@ public class App {
             tr.trace("Zipping data");
             zipper.zipEncodedData(setup, enc.getBuffer(), setup.getOutputFilePath());
             
-        }else if(setup.isDecoding()){
+        }else if(setup.isDecoding() && !setup.isEncoding()){
             ProcessorFactory prFactory = new ProcessorFactory();
             
             Processor pr = prFactory.createDecoderProcessor(setup);
             pr.processData();
             
         }else{
-            // decoding or anything else
-            /*
-            if(setup.isStoring()){
-                if(setup.getOutputContainer() == FileType.ZIP){
-                    Zip zipper = new Zip();
-                    tr.trace("Zipping data");
-                    zipper.zipData(pr.getBuffer(), setup.getOutputFilePath());
-                }
-            }*/
+            FilterFactory flFactory = new FilterFactory();
+            ProcessorFactory prFactory = new ProcessorFactory();
+            //Encoder encoder = new Encoder();
+
+            Filter fl = flFactory.createFilter(setup);
+            Encoder enc = new Encoder(setup);
+            Processor pr = prFactory.createProcessor(setup, fl, enc);
+
+            
+            
+
+            tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
+            pr.setPlayer(new Player(setup.getFPS(), "Original"));
+            enc.setPlayer(new Player(setup.getFPS(), "Encoded"));
+
+            tr.trace("Starting processor");
+            pr.processData();
+
+            // always storing
+            
+            Zip zipper = new Zip();
+            tr.trace("Zipping data");
+            zipper.zipEncodedData(setup, enc.getBuffer(), setup.getOutputFilePath());
+            
+            // HACK
+            setup.updateFilePath(setup.getOutputFilePath());
+            
+            pr = prFactory.createDecoderProcessor(setup);
+            pr.processData();
+            
         }
     }        
 }

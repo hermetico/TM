@@ -7,17 +7,14 @@ package project.processor;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.zip.ZipEntry;
 import project.decoder.Decoder;
 import project.encoder.DVector;
-import project.encoder.Encoder;
 import project.encoder.ImageJPG;
 import project.input.entries.Entry;
 import project.input.entries.PEntry;
 import project.player.Player;
 import project.processor.filters.Filter;
 import project.settings.Metadata;
-import project.settings.Types;
 import project.settings.Types.FileType;
 
 public class FilterDecoderProcessor extends Processor{

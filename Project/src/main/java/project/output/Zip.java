@@ -57,7 +57,6 @@ public class Zip {
     
     public void zipEncodedData(Setup setup, Buffer<EncodedImage> buffer, String path){
         
-            path += "." + cf.CODEC_EXTENSION.toString();
         try {
             InputStream stream;
             

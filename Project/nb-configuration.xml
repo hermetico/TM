@@ -11,11 +11,12 @@ Without this configuration present, some functionality in the IDE may be limited
             <configuration id="average" profiles=""/>
             <configuration id="binarization" profiles=""/>
             <configuration id="convolutional sobel_x" profiles=""/>
+            <configuration id="decode" profiles=""/>
             <configuration id="negative" profiles=""/>
             <configuration id="negative batch" profiles=""/>
             <configuration id="no-filter" profiles=""/>
             <configuration id="no-filter-batch" profiles=""/>
-            <configuration id="decode" profiles=""/>
+            <configuration id="encode-decode" profiles=""/>
         </configurations>
     </config-data>
 </project-shared-configuration>
