@@ -26,17 +26,18 @@ public abstract class Searcher {
         this.tHeight = tHeight;
         this.comparer = comparer;
         
-        
-        // We use quality 1 to 5 and correlation go from 0 (exact match) to 1 (maximal difference)
+        // We use quality 1 to 7 and correlation go from 0 (exact match) to 1 (maximal difference)
         // So using the formula: range = 0.15 - quality/40 will set this values:
-        // Quality 1 => correlation < 0.125
-        // Quality 2 => correlation < 0.1
-        // Quality 3 => correlation < 0.075
-        // Quality 4 => correlation < 0.05
-        // Quality 5 => correlation < 0.025
+        // Quality 1 => correlation < 0.13
+        // Quality 2 => correlation < 0.11
+        // Quality 3 => correlation < 0.09
+        // Quality 4 => correlation < 0.07
+        // Quality 5 => correlation < 0.05
+        // Quality 6 => correlation < 0.03
+        // Quality 7 => correlation < 0.01
         //correlation greater than this values means not matching tiles       
-                        
-        this.correlation = 0.15 - ( (double) quality / 40.0);
+               
+        this.correlation = 0.15 - ( (double) quality / 50.0);
         
     }
     
