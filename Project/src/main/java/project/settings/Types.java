@@ -59,7 +59,29 @@ public class Types{
             return ENUM_MAP.containsKey(type.toLowerCase());
         }
         
+        public static boolean isIFrame(FileType other){
+            return other == FileType.JPG
+                    || other == FileType.BMP
+                    || other == FileType.GIF
+                    || other == FileType.I
+                    || other == FileType.PNG;
+        }
         
+        public static boolean isPFrame(FileType other){
+            return other == FileType.P;
+        }
+        
+        public static boolean isIFrame(String filetype){
+            return FileType.isIFrame(FileType.get(filetype));
+        }
+        
+        public static boolean isPFrame(String filetype){
+            return FileType.isPFrame(FileType.get(filetype));
+        }
+        
+        public static boolean isAcceptedFrame(FileType type){
+            return FileType.isIFrame(type) || FileType.isPFrame(type);
+        }
         
         @Override
         public String toString(){

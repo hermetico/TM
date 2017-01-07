@@ -13,6 +13,7 @@ import java.util.zip.ZipEntry;
 
 import project.input.ArgsParser;
 import project.input.Unzip;
+import project.input.entries.Entry;
 import project.misc.Tracer;
 import project.settings.Types.FileType;
 import project.settings.Types.FilterType;
@@ -138,10 +139,9 @@ public class Setup {
     
     // Read zip file, load images and get width and height from first image
     private void setDimensions(){
- 
         Unzip zp = new Unzip(inputFilePath);
-        List<ZipEntry> entries = zp.getEntries();
-        BufferedImage img = zp.unzipImageEntry(entries.get(0));
+
+        BufferedImage img = zp.unzipImageEntry(zp.getEntries().get(0).getContent());
         width = img.getWidth();
         height = img.getHeight();
     }

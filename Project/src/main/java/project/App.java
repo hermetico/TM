@@ -64,6 +64,12 @@ public class App {
             tr.trace("Zipping data");
             zipper.zipEncodedData(setup, enc.getBuffer(), setup.getOutputFilePath());
             
+        }else if(setup.isDecoding()){
+            ProcessorFactory prFactory = new ProcessorFactory();
+            
+            Processor pr = prFactory.createDecoderProcessor(setup);
+            pr.processData();
+            
         }else{
             // decoding or anything else
             /*

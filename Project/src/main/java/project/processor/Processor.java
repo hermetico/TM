@@ -15,12 +15,13 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import project.encoder.EncodedImage;
+import project.input.entries.Entry;
 
 public abstract class Processor{
     protected Configuration cf;
     protected Tracer tr;
     protected Unzip zp;
-    protected List<ZipEntry> entries;
+    protected List<Entry> entries;
     protected Buffer<EncodedImage> buffer;
     protected Counters counters;
     protected Player player = null;
@@ -32,7 +33,7 @@ public abstract class Processor{
         tr =  Tracer.getInstance();
         counters = new Counters();
         zp = new Unzip(path);
-        entries = readZipData();
+        entries = zp.getEntries();
         buffer = new Buffer<EncodedImage>(entries.size());
         
     }
@@ -47,17 +48,6 @@ public abstract class Processor{
     public void setPlayer(Player player){
         this.player = player;
         this.player.setBuffer(buffer);
-    }
-    
-    private List<ZipEntry> readZipData(){
-        List<ZipEntry> entries = zp.getEntries();
-        
-        if(cf.SORT_INPUT_BY_NAME){
-            tr.trace("Sorting input data by name");
-            entries = Sorter.sortEntriesByName(entries);
-        }
-        return entries;
-        
     }
     
 

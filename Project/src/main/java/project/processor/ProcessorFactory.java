@@ -8,11 +8,14 @@ package project.processor;
 
 import project.encoder.Encoder;
 import project.misc.Tracer;
+import project.player.Player;
 import project.processor.filters.Filter;
+import project.processor.filters.FilterFactory;
 import project.settings.Setup;
 
 public class ProcessorFactory {
     Tracer tr = Tracer.getInstance();
+    FilterFactory flFactory = new FilterFactory();
     public Processor createProcessor(Setup setup, Filter filter, Encoder encoder){
         
 
@@ -26,6 +29,16 @@ public class ProcessorFactory {
         
         tr.trace("Creating processor with filter and encoder");
         return  new FilterProcessor(setup.getInputFilePath(), filter, encoder);
+    }
+    
+    public Processor createDecoderProcessor(Setup setup){
+        Filter fl = flFactory.createFilter(setup);
+        if(setup.isBatchMode()){
+            return new FilterDecoderProcessor(setup.getInputFilePath(), fl);
+            
+        }
+        return new FilterDecoderProcessor(setup.getInputFilePath(), new Player(setup.getFPS(), "Decoded"), fl);
+        
     }
     
 }

@@ -25,7 +25,8 @@ public class Configuration {
     public final FileType CODEC_EXTENSION = FileType.ZIP;
     
     public final String MEDATATA_FILE = "metadata."  + FileType.META.toString();
-	
+    public final char DATA_SEPARATOR = ',';
+    public final char END_LINE = '\n';
     private Configuration() {};
  
     public static Configuration getInstance() {

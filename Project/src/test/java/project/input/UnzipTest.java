@@ -40,21 +40,6 @@ public class UnzipTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of getEntries method, of class Unzip.
-     */
-    @Test
-    public void testGetEntries() {
-        System.out.println("getEntries");
-        Unzip instance = new Unzip("Cubo.zip");
-        List<ZipEntry> entries = instance.getEntries();
-        //assertEquals(expResult, result);
-        assertFalse(entries.isEmpty());
-        //for(ZipEntry entry: entries){
-        //    System.out.println(entry.getName());
-        //}
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
+
     
 }
