@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.*;
@@ -114,23 +115,33 @@ public class Zip {
         return null;
     }
     
-    public InputStream metadataToInputStream(Setup setup){
+    public InputStream metadataToInputStream(Setup setup) throws IOException{
         
-        StringBuilder metadata = new StringBuilder();
+        Properties metadata = new Properties();
         
         // so far we only need tile size
         // tile size
-        metadata.append(setup.getXPixelsPerTile() + "," + setup.getYPixelsPerTile() + "\n");
+
+
+        metadata.setProperty("tWidth", Integer.toString(setup.getXPixelsPerTile()));
+        metadata.setProperty("tHeight", Integer.toString(setup.getYPixelsPerTile()));
         
-        return new ByteArrayInputStream(metadata.toString().getBytes(StandardCharsets.UTF_8));
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        metadata.store(output, null);
+        return new ByteArrayInputStream(output.toByteArray());
     }
     
     public InputStream vectorsToInputStream(List<DVector> vectors){
         StringBuilder result = new StringBuilder();
-        
+        String separator = String.valueOf(cf.DATA_SEPARATOR);
         for(DVector vector : vectors)
         {
-            result.append(vector.getReference() + "," + vector.getX() + "," + vector.getY() + "\n");
+            result.append(vector.getReference() 
+                    + separator 
+                    + vector.getX() 
+                    + separator 
+                    + vector.getY() 
+                    + String.valueOf(cf.END_LINE));
         }
         return new ByteArrayInputStream(result.toString().getBytes(StandardCharsets.UTF_8));
     

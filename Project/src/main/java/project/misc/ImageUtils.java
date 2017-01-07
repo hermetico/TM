@@ -65,10 +65,40 @@ public class ImageUtils {
                 if(g < 0) g = 0;
                 if(b < 0) b = 0;
                 
-                //image.setRGB(imageX, imageY, new Color(0,255,0).getRGB());
+                //image.setRGB(imageX, imageY, new Color(0,0,0).getRGB());
                 image.setRGB(imageX, imageY, new Color(r,g,b).getRGB());
             }
         }
-        
     }
+    
+    public static void addTile(BufferedImage image, Tile match, DVector displacement){
+        Color imagePixel, tilePixel;
+        int r, g, b;
+        BufferedImage tileImage = match.getContent();
+        
+        for(int y = 0; y < match.getWidth(); y++){ // tesela y coords
+            for (int x = 0; x < match.getHeight(); x++){ // tesela x coords
+                
+                // image coords
+                int imageX = match.getX() + x + displacement.getX();
+                int imageY = match.getY() + y + displacement.getY();
+                
+                imagePixel = new Color(image.getRGB(imageX, imageY));
+                tilePixel = new Color(tileImage.getRGB(x, y));
+                
+                r = imagePixel.getRed() + tilePixel.getRed();
+                g = imagePixel.getGreen() + tilePixel.getGreen();
+                b = imagePixel.getBlue() + tilePixel.getBlue();
+
+                // checks no value is above 255
+                if(r > 255) r = 255;
+                if(g > 255) g = 255;
+                if(b > 255) b = 255;
+                
+                image.setRGB(imageX, imageY, new Color(r,g,b).getRGB());
+            }
+        }
+    }
+    
+
 }

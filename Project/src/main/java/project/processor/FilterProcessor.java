@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.zip.ZipEntry;
 import project.encoder.Encoder;
 import project.encoder.ImageJPG;
+import project.input.entries.Entry;
 import project.player.Player;
 
 /**
@@ -23,6 +24,7 @@ public class FilterProcessor extends Processor{
 
     public FilterProcessor(String path){
         super(path);
+        
     }
             
     public FilterProcessor(String path, Filter filter) {
@@ -75,13 +77,11 @@ public class FilterProcessor extends Processor{
             }
             
         }
-        
 
-        int index = 0;
-        for(ZipEntry entry: entries){
+        for(Entry entry: entries){
             
             BufferedImage img, paddedImg, compressed;
-            img = zp.unzipImageEntry(entry);
+            img = zp.unzipImageEntry(entry.getContent());
             
             // applies filter
             if(filter != null) 
@@ -93,27 +93,6 @@ public class FilterProcessor extends Processor{
             if(encoder != null) 
                 encoder.encode(img);
             
-            
-            
-            /*
-            //TODO -- get padding from setup 
-            paddedImg = filter.addPadding(img, 0, 0, 0, 0);
-            if (index == 0){
-                compressedBuffer.add(img);   
-            }else{
-                compressed = compressImg(paddedImg);
-                compressed = filter.removePadding(compressed, index);
-                //remove padding
-                // TODO -- get values from setup
-                //compressed = compressed.getSubimage(left, top, width, height);
-                compressed = compressed.getSubimage(0, 0, 320, 240);
-                compressedBuffer.add(compressed); 
-                index++;
-                // save reference frame every 5 frames; hardcoded, must be set as variable value
-                index = index % 5;
-  
-            }
-            */
             if(cf.PROCESSING_COUNTERS)
                 counters.addTimestamp();
         }
@@ -121,8 +100,4 @@ public class FilterProcessor extends Processor{
             counters.flushCounters("Encoding", "fps");
     }
     
-    private BufferedImage compressImg(BufferedImage img){
-    // Not implemented yet, number of tiles required ( from setup )
-    return img;
-    }
 }

@@ -75,6 +75,7 @@ public class FullTileSearch extends Searcher{
             }
 
         }
+        
         if (bestCorrelation < correlation){
             //tr.trace("New match from origin index " + wanted.getIndex() +" to previous " + bestCandidate.getIndex() +" with correlation " + bestCorrelation);
             return bestCandidate;
