@@ -82,14 +82,6 @@ public class ArgsParser {
     private int nPixelsPerTileY;
     
     
-    // mode must be selected: option are encode and/or decode
-    public void checkMode(){
-        
-        if(!encode&&!decode){
-            System.out.println();
-            throw new ParameterException("Must select encode options, -e and/or -d");
-        }
-    }
     // return tiles list ( two strings )
     public List<String> getTiles(){
         return numTiles;

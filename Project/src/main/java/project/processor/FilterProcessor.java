@@ -54,7 +54,6 @@ public class FilterProcessor extends Processor{
         
     }
     
-    
     public FilterProcessor(String path, Filter filter, Player player, Encoder encoder){
         this(path, filter);
         this.player = player;

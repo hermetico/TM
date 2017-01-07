@@ -35,14 +35,7 @@ public class Main {
                System.err.println("Try --help or -h for help");
                System.exit(1);
         }
-        // checks if encode and/or decode mode is selected
-        parser.checkMode();
-        
-        
-        // do rest of checks from the parser
-        // TODO
-        
-        
+       
         
         // Creates a setup for the app
         Setup setup = new Setup(parser);

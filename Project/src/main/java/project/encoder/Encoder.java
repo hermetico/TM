@@ -15,6 +15,8 @@ import project.misc.ImageUtils;
 import project.misc.Tracer;
 import project.player.Player;
 import project.processor.Buffer;
+import project.processor.filters.Average;
+import project.processor.filters.Filter;
 import project.settings.Configuration;
 import project.settings.Setup;
 
@@ -37,12 +39,14 @@ public class Encoder {
     protected int seekRange = 0;
     
     protected int frames = 0;
+    private Filter average;
     
     
 
     public Encoder(Setup setup) {
         cf = Configuration.getInstance();
         tr =  Tracer.getInstance();
+        average = new Average(4);
         this.setup(setup);
     }
     
@@ -112,13 +116,14 @@ public class Encoder {
                     
                     // substract tesela
                     ImageUtils.substractTile(nImage, match, displacement);
-                    
+                    average.apply(nImage);
                     // adds vector
                     vectors.add(displacement);
                 }
             }
                 
             //tr.trace("Total of " + vectors.size() + " vectors");
+            
             encoded = new ImageP(ImageUtils.deepCopy(nImage), vectors);
         }
         

@@ -22,12 +22,12 @@ public class ProcessorFactory {
         if(filter == null){
             tr.trace("Creating processor with encoder");
             //return  new Processor(setup.getInputFilePath());
+            if(encoder == null)return  new FilterProcessor(setup.getInputFilePath());
+            
             return  new FilterProcessor(setup.getInputFilePath(), encoder);
         }
-        
-        
-        
         tr.trace("Creating processor with filter and encoder");
+        if(encoder == null)return  new FilterProcessor(setup.getInputFilePath(), filter);
         return  new FilterProcessor(setup.getInputFilePath(), filter, encoder);
     }
     

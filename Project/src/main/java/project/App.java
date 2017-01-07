@@ -70,7 +70,7 @@ public class App {
             Processor pr = prFactory.createDecoderProcessor(setup);
             pr.processData();
             
-        }else{
+        }else if(setup.isDecoding() && setup.isEncoding()){
             FilterFactory flFactory = new FilterFactory();
             ProcessorFactory prFactory = new ProcessorFactory();
             //Encoder encoder = new Encoder();
@@ -101,6 +101,16 @@ public class App {
             pr = prFactory.createDecoderProcessor(setup);
             pr.processData();
             
+        }else{
+            tr.trace("Player mode enabled");
+            FilterFactory flFactory = new FilterFactory();
+            ProcessorFactory prFactory = new ProcessorFactory();
+
+            Filter fl = flFactory.createFilter(setup);
+            Processor pr = prFactory.createProcessor(setup, fl, null);
+            tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
+            pr.setPlayer(new Player(setup.getFPS(), true, "Original"));
+            pr.processData();
         }
     }        
 }

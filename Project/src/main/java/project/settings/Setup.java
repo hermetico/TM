@@ -9,11 +9,11 @@ import com.beust.jcommander.ParameterException;
 import java.awt.image.BufferedImage;
 import static java.lang.Integer.parseInt;
 import java.util.List;
-import java.util.zip.ZipEntry;
+
 
 import project.input.ArgsParser;
 import project.input.Unzip;
-import project.input.entries.Entry;
+
 import project.misc.Tracer;
 import project.settings.Types.FileType;
 import project.settings.Types.FilterType;
