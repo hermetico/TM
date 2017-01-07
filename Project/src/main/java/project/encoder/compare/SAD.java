@@ -16,7 +16,7 @@ public class SAD implements Comparer{
 
     @Override
     public double compare(Tile wanted, Tile candidate) {
-        double correlation = 0.;
+        double difference = 0.;
         BufferedImage b = wanted.getContent();
         BufferedImage d = candidate.getContent();
         
@@ -26,15 +26,12 @@ public class SAD implements Comparer{
                  
                 Color pixelB = new Color(b.getRGB(x, y));
                 Color pixelD = new Color(d.getRGB(x, y));
-                double channels = Math.abs(pixelB.getRed() - pixelD.getRed())
+                difference += Math.abs(pixelB.getRed() - pixelD.getRed())
                                 + Math.abs(pixelB.getGreen() - pixelD.getGreen())
                                 + Math.abs(pixelB.getBlue() - pixelD.getBlue());
-                // we have 3 channels so we do the mean here
-                channels /= 3.0;
-                correlation += channels;
             }
         }
-        return correlation / wanted.getWidth() * wanted.getHeight();
+        return difference / (wanted.getWidth() * wanted.getHeight() * 3);
     }
-    
+
 }
