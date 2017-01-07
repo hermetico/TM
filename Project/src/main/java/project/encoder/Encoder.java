@@ -7,6 +7,7 @@ import java.util.List;
 import project.counters.Counters;
 import project.encoder.compare.Comparer;
 import project.encoder.compare.MAD;
+import project.encoder.search.FastTileSearch;
 import project.encoder.search.FullTileSearch;
 import project.encoder.search.Searcher;
 import project.input.Unzip;
@@ -54,8 +55,11 @@ public class Encoder {
         this.tHeight = setup.getYPixelsPerTile();     
         this.tWidth = setup.getXPixelsPerTile();
         
-        //TODO check setup to instantaite comparer and searcher
-        searcher = (Searcher) new FullTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new MAD());
+        if(setup.isFast_search()){
+            searcher = (Searcher) new FastTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new MAD());
+        }else{
+            searcher = (Searcher) new FullTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new MAD());
+        }
         
     }
 
