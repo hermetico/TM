@@ -39,11 +39,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-<<<<<<< HEAD
-                <exec.args>-classpath %classpath project.Main -e -i Cubo.zip --nTiles 8px 8px --fps 29  --quality 5 --seekRange 10 -o encoded</exec.args>
-=======
                 <exec.args>-classpath %classpath project.Main -e -i Cubo.zip --nTiles 4px 4px --fps 29  --quality 5 --seekRange 20 -o encoded --GOP 5</exec.args>
->>>>>>> a9651b372f0ea9bb2d0ff728da3619de5c577e26
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
