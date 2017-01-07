@@ -22,7 +22,8 @@ public class Tile {
     public Tile(int x, int y, BufferedImage data, int index, int col, int row){
         this.x = x;
         this.y = y;
-        
+        this.width = data.getWidth();
+        this.height= data.getHeight();
         this.content = data;
         this.index = index;
         this.col = col;

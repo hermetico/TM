@@ -21,7 +21,6 @@ public class SAD implements Comparer{
         BufferedImage d = candidate.getContent();
         
         for (int y = 0; y < wanted.getWidth(); y++) {
-            System.out.println("Here (SAD line 24):" + y);
             for (int x = 0; x < wanted.getHeight() ; x++) {
                  
                 Color pixelB = new Color(b.getRGB(x, y));

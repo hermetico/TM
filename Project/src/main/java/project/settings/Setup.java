@@ -171,31 +171,34 @@ public class Setup {
            
            
            try{                 
-               // get substring without two last characters (px or py) and parse
-               temp1 = parseInt(tiles.get(0).substring(0, tiles.get(0).length() - 2));
-               temp2 = parseInt(tiles.get(1).substring(0, tiles.get(1).length() - 2));
-               
-               //get last two characters of input string ( px or py )
-               first = tiles.get(0).substring(tiles.get(0).length() - 2);
-               last = tiles.get(1).substring(tiles.get(1).length() - 2);
-               
-               // <num>px,<num>py may have been entered in reverse order, must check this
-               if (first.toUpperCase().equals("PX")&&last.toUpperCase().equals("PY")){
-                   nPixelsPerTileX = temp1;
-                   nPixelsPerTileY = temp2;
-               }else if (first.toUpperCase().equals("PY")&&last.toUpperCase().equals("PX")){
+                // get substring without two last characters (px or py) and parse
+                temp1 = parseInt(tiles.get(0).substring(0, tiles.get(0).length() - 2));
+                temp2 = parseInt(tiles.get(1).substring(0, tiles.get(1).length() - 2));
+
+                //get last two characters of input string ( px or py )
+                first = tiles.get(0).substring(tiles.get(0).length() - 2);
+                last = tiles.get(1).substring(tiles.get(1).length() - 2);
+
+                // <num>px,<num>py may have been entered in reverse order, must check this
+                if (first.toUpperCase().equals("PX")&&last.toUpperCase().equals("PY")){
+                    nPixelsPerTileX = temp1;
+                    nPixelsPerTileY = temp2;
+                }else if (first.toUpperCase().equals("PY")&&last.toUpperCase().equals("PX")){
+                    nPixelsPerTileX = temp2;
+                    nPixelsPerTileY = temp1;
+                }else if (first.toLowerCase().equals("px") && last.toLowerCase().equals("px")){ // X * Y px
                    nPixelsPerTileX = temp2;
                    nPixelsPerTileY = temp1;
                 }else{
-                    // last two characters are not px and py!!
-                    throw new ParameterException("Wrong value: " + tiles.get(0) +", " + tiles.get(1));
-                }
-               // check if values in range 
-                checkRange(nPixelsPerTileX, 1, width);
-                checkRange(nPixelsPerTileY, 1, height);
-                setPadFrame(nPixelsPerTileX, nPixelsPerTileY);
-                // we know how many pixels has a tile so we can compute total number of tiles
-                setNumberOfTiles(nPixelsPerTileX, nPixelsPerTileY);
+                     // last two characters are not px and py!!
+                     throw new ParameterException("Wrong value: " + tiles.get(0) +", " + tiles.get(1));
+                 }
+                // check if values in range 
+                 checkRange(nPixelsPerTileX, 1, width);
+                 checkRange(nPixelsPerTileY, 1, height);
+                 setPadFrame(nPixelsPerTileX, nPixelsPerTileY);
+                 // we know how many pixels has a tile so we can compute total number of tiles
+                 setNumberOfTiles(nPixelsPerTileX, nPixelsPerTileY);
                
 
            }catch(NumberFormatException e1){
