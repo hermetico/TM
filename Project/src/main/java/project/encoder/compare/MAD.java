@@ -28,11 +28,13 @@ public class MAD implements Comparer{
                             + Math.abs(pixelB.getBlue() - pixelD.getBlue());            
             }
         }
+        
         int channels = 3;
         //get total number of pixels
         int pixelsOnTile = wanted.getWidth() * wanted.getHeight() * channels;
+        
         // get mean absolute difference by pixel 
-        int MAD = difference / pixelsOnTile;
+        double MAD = (double)difference / pixelsOnTile;
         // normalize to 0-1 range
         double result = (double)MAD/255.0;
         return result;

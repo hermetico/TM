@@ -33,7 +33,7 @@ public class SSD implements Comparer{
         //get total number of pixels
         int pixelsOnTile = wanted.getWidth() * wanted.getHeight() * channels;
         // get mean absolute difference by pixel 
-        int SSD = difference / pixelsOnTile;
+        double SSD = (double)difference / pixelsOnTile;
         // normalize to 0 -1 range
         double result = (double)SSD/255.0;
         return result;
