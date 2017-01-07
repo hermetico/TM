@@ -75,8 +75,16 @@ public class FullTileSearch extends Searcher{
             }
 
         }
-        
-        if (bestCorrelation < correlation){
+        // We use quality 1 to 5 and correlation go from 0 (exact match) to 1 (maximal difference)
+        // So using the formula: range = 0.5 - quality/10 will set this values:
+        // Quality 1 => correlation < 0.5
+        // Quality 2 => correlation < 0.4
+        // Quality 3 => correlation < 0.3
+        // Quality 4 => correlation < 0.2
+        // Quality 5 => correaltion < 0.1
+        //correlation greater than this values means not matching tiles 
+        double NormalizedValue = 0.5 - (double)correlation/10;   
+        if (bestCorrelation < NormalizedValue){
             //tr.trace("New match from origin index " + wanted.getIndex() +" to previous " + bestCandidate.getIndex() +" with correlation " + bestCorrelation);
             return bestCandidate;
         }
