@@ -1,22 +1,18 @@
 package project.encoder;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 import java.util.List;
-import project.counters.Counters;
 import project.encoder.compare.Comparer;
 import project.encoder.compare.MAD;
 import project.encoder.search.FastTileSearch;
+import project.encoder.search.FullPixelSearch;
 import project.encoder.search.FullTileSearch;
 import project.encoder.search.Searcher;
-import project.input.Unzip;
 import project.misc.ImageUtils;
 import project.misc.Tracer;
 import project.player.Player;
 import project.processor.Buffer;
-import project.processor.filters.Average;
-import project.processor.filters.Filter;
 import project.settings.Configuration;
 import project.settings.Setup;
 
@@ -60,9 +56,17 @@ public class Encoder {
         this.tWidth = setup.getXPixelsPerTile();
         
         if(setup.isFast_search()){
+            tr.trace("Using Fast search encoding");
             searcher = (Searcher) new FastTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new MAD());
         }else{
-            searcher = (Searcher) new FullTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new MAD());
+            tr.trace("Using Full search encoding");
+            if(setup.isPixel_search()){
+                tr.trace("Using Pixel search encoding");
+                searcher = (Searcher) new FullPixelSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new MAD());
+            }else{
+                tr.trace("Using Tile search encoding");
+                searcher = (Searcher) new FullTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new MAD());
+            }
         }
         
     }
@@ -95,15 +99,15 @@ public class Encoder {
             // As the project description indicates, we are going to implement
             // a DCT algorithm
             BufferedImage nImage = ImageUtils.deepCopy(image);
-            List<Tile> teselas = ImageUtils.tessellate(nImage, tHeight, tWidth);
-            searcher.resetFrame(previousFrame);
+            List<Tile> teselas = ImageUtils.tessellate(previousFrame, tHeight, tWidth);
+            //searcher.resetFrame(previousFrame);
             
             List<DVector> vectors = new ArrayList<DVector>();
             // for each tesela of the image
             for(Tile wanted : teselas){
                 
                 // search and compare with the tesselas of the previous frame
-                Tile match = searcher.getMatch(wanted);
+                Tile match = searcher.getMatch(wanted, nImage);
                 
                 if(match != null){
                     // the vector is made with
@@ -112,7 +116,6 @@ public class Encoder {
                     int y = wanted.getY() - match.getY();
                     
                     DVector displacement = new DVector(reference, x, y);
-                    
                     
                     // substract tesela
                     ImageUtils.substractTile(nImage, match, displacement);

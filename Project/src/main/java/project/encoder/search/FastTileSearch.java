@@ -6,28 +6,15 @@
 package project.encoder.search;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
 import project.encoder.Tile;
 import project.encoder.compare.Comparer;
 import project.misc.ImageUtils;
 
 public class FastTileSearch extends Searcher{
-    List<Tile> candidates;
-    BufferedImage frame;
     
     public FastTileSearch(int seekRange, int tWidth, int tHeight, int quality, Comparer comparer) {
         super(seekRange,tWidth, tHeight, quality, comparer);
-    }
-
-    /**
-     * Resets the current frame in order to tessellate it
-     * @param currentFrame 
-     */
-    @Override
-    public void resetFrame(BufferedImage frame) {
-        this.frame = frame;
-        this.candidates = ImageUtils.tessellate(frame, tHeight, tWidth);
     }
 
     /**
@@ -35,8 +22,8 @@ public class FastTileSearch extends Searcher{
      * @param wanted
      * @return 
      */
-    public Tile getMatch(Tile wanted){
-        
+    public Tile getMatch(Tile wanted, BufferedImage candidateImage){
+        List<Tile> candidates = ImageUtils.tessellate(candidateImage, tHeight, tWidth);
         int col = wanted.getCol();
         int row = wanted.getRow();
 

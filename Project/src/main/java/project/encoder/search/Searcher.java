@@ -41,7 +41,6 @@ public abstract class Searcher {
         
     }
     
-    public abstract void resetFrame(BufferedImage frame);
-    public abstract Tile getMatch(Tile tessella);
+    public abstract Tile getMatch(Tile tessella, BufferedImage candidateImage);
     
 }

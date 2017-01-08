@@ -22,6 +22,7 @@ public class BaseWindow extends JFrame{
     JPanel contentPanel;
     JLabel label;
     ImageIcon image;
+    Boolean sized = false;
     
     public BaseWindow(){
         contentPanel = new JPanel();
@@ -33,8 +34,13 @@ public class BaseWindow extends JFrame{
     }
 
     public void draw(BufferedImage img){
+        if(!sized){
+            this.setSize(img.getWidth(), img.getHeight());
+            label.setSize(img.getWidth(), img.getHeight());
+            sized = true;
+        }
         label.setIcon(new ImageIcon(img));
-        this.setSize(img.getWidth(), img.getHeight());
+        
     }
     
     @Override

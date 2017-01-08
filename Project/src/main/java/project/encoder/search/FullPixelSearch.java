@@ -12,13 +12,9 @@ import project.encoder.Tile;
 import project.encoder.compare.Comparer;
 import project.misc.ImageUtils;
 
-/**
- * Search among all the possible candidates and returns the best
- * if the result is better than the quality
- */
-public class FullTileSearch extends Searcher{
+public class FullPixelSearch extends Searcher{
     
-    public FullTileSearch(int seekRange, int tWidth, int tHeight, int quality, Comparer comparer) {
+    public FullPixelSearch(int seekRange, int tWidth, int tHeight, int quality, Comparer comparer) {
         super(seekRange,tWidth, tHeight, quality, comparer);
     }
 
@@ -29,27 +25,30 @@ public class FullTileSearch extends Searcher{
      */
     public Tile getMatch(Tile wanted, BufferedImage candidateImage){
         
-        List<Tile> candidates = ImageUtils.tessellate(candidateImage, tHeight, tWidth);
         List<Tile> lastCandidates = new ArrayList<Tile>();
-        int col = wanted.getCol();
-        int row = wanted.getRow();
+        int wX = wanted.getX();
+        int wY = wanted.getY();
         
+        int minX = 0, minY = 0, maxX = candidateImage.getWidth(), maxY = candidateImage.getHeight();
+        int cInitX, cInitY, cEndX, cEndY;
 
         // keeps only the candidates within bounds
-        for(Tile candidate: candidates){
-            int cCol = candidate.getCol();
-            int cRow = candidate.getRow();
-            
-            // checks if is within bounds
-            if( row - cRow <= seekRange &&
-                col - cCol <= seekRange &&
-                row - cRow <= 0 &&
-                col - cCol <= 0){
-                lastCandidates.add(candidate);
+        for (int y = -this.seekRange; y <= this.seekRange; y++){
+            for (int x = -this.seekRange; x <= this.seekRange; x++){
+                
+                cInitX = wX + x;
+                cInitY = wY + y;
+                cEndX = cInitX + tWidth;
+                cEndY = cInitY + tHeight;
+                
+                if( cInitX > minX && cInitY > minY && 
+                    cEndX < maxX && cEndY < maxY){
+                   Tile candidate = new Tile(wanted.getX(),wanted.getY(), candidateImage.getSubimage(cInitX, cInitY, tWidth, tHeight), wanted.getIndex(), -1, -1);
+                   lastCandidates.add(candidate);
+                }
             }
         }
 
-        
         Tile bestCandidate = null;
         double bestCorrelation = 0;
 
