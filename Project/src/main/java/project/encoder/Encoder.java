@@ -39,14 +39,14 @@ public class Encoder {
     protected int seekRange = 0;
     
     protected int frames = 0;
-    private Filter average;
+    //private Filter average;
     
     
 
     public Encoder(Setup setup) {
         cf = Configuration.getInstance();
         tr =  Tracer.getInstance();
-        average = new Average(4);
+        //average = new Average(4);
         this.setup(setup);
     }
     
@@ -116,7 +116,7 @@ public class Encoder {
                     
                     // substract tesela
                     ImageUtils.substractTile(nImage, match, displacement);
-                    average.apply(nImage);
+                    //average.apply(nImage);
                     // adds vector
                     vectors.add(displacement);
                 }
