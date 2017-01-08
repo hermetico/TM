@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import project.encoder.Tile;
 import project.encoder.compare.Comparer;
-import project.misc.ImageUtils;
 
 public class FullPixelSearch extends Searcher{
     
@@ -43,7 +42,7 @@ public class FullPixelSearch extends Searcher{
                 
                 if( cInitX > minX && cInitY > minY && 
                     cEndX < maxX && cEndY < maxY){
-                   Tile candidate = new Tile(wanted.getX(),wanted.getY(), candidateImage.getSubimage(cInitX, cInitY, tWidth, tHeight), wanted.getIndex(), -1, -1);
+                   Tile candidate = new Tile(cInitX, cInitY, candidateImage.getSubimage(cInitX, cInitY, tWidth, tHeight), wanted.getIndex(), -1, -1);
                    lastCandidates.add(candidate);
                 }
             }

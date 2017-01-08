@@ -111,14 +111,15 @@ public class Encoder {
                 
                 if(match != null){
                     // the vector is made with
-                    int reference = match.getIndex();
-                    int x = wanted.getX() - match.getX();
-                    int y = wanted.getY() - match.getY();
-                    
+                    int reference = wanted.getIndex();
+                    //int x = wanted.getX() - match.getX();
+                    //int y = wanted.getY() - match.getY();
+                    int x = match.getX() - wanted.getX();
+                    int y = match.getY() - wanted.getY();
                     DVector displacement = new DVector(reference, x, y);
                     
                     // substract tesela
-                    ImageUtils.substractTile(nImage, match, displacement);
+                    ImageUtils.substractTile(nImage, match, wanted, displacement);
                     //average.apply(nImage);
                     // adds vector
                     vectors.add(displacement);

@@ -95,7 +95,7 @@ public class App {
             tr.trace("Zipping data");
             zipper.zipEncodedData(setup, enc.getBuffer(), setup.getOutputFilePath());
             
-            // HACK
+            tr.trace("Starting decoder");
             setup.updateFilePath(setup.getOutputFilePath());
             
             pr = prFactory.createDecoderProcessor(setup);

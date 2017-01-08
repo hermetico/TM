@@ -41,7 +41,7 @@ public class ImageUtils {
        return teselas;
     }
     
-    public static void substractTile(BufferedImage image, Tile match, DVector displacement){
+    public static void substractTile(BufferedImage image, Tile match, Tile wanted, DVector displacement){
         Color imagePixel, tilePixel;
         int r, g, b;
         BufferedImage tileImage = match.getContent();
@@ -50,8 +50,8 @@ public class ImageUtils {
             for (int x = 0; x < match.getHeight(); x++){ // tesela x coords
                 
                 // image coords
-                int imageX = match.getX() + x + displacement.getX();
-                int imageY = match.getY() + y + displacement.getY();
+                int imageX = wanted.getX() + x + displacement.getX();
+                int imageY = wanted.getY() + y + displacement.getY();
                 
                 imagePixel = new Color(image.getRGB(imageX, imageY));
                 tilePixel = new Color(tileImage.getRGB(x, y));
@@ -64,9 +64,10 @@ public class ImageUtils {
                 if(r < 0) r = 0;
                 if(g < 0) g = 0;
                 if(b < 0) b = 0;
+
                 
-                image.setRGB(imageX, imageY, new Color(0,0,0).getRGB());
-                //image.setRGB(imageX, imageY, new Color(r,g,b).getRGB());
+                //image.setRGB(imageX, imageY, new Color(0,0,0).getRGB());
+                image.setRGB(imageX, imageY, new Color(r,g,b).getRGB());
             }
         }
     }
@@ -94,6 +95,8 @@ public class ImageUtils {
                 if(r > 255) r = 255;
                 if(g > 255) g = 255;
                 if(b > 255) b = 255;
+
+                
                 
                 image.setRGB(imageX, imageY, new Color(r,g,b).getRGB());
             }
