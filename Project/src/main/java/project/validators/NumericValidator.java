@@ -44,10 +44,7 @@ public class NumericValidator implements IParameterValidator{
             if (val<1 || val> 100 ){
                 throw new ParameterException(name + " valid range is 1-100: " + value + " not allowed");
             }
-        }else if (name.equals("--quality")){
-            if (val<1 || val> 10 ){
-                throw new ParameterException(name + " valid range is 1-10: " + value + "not allowed");
-            }
+        
         }    
         
                 

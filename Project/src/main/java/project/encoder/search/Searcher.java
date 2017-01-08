@@ -35,6 +35,7 @@ public abstract class Searcher {
         // Quality 5 => correlation < 0.05
         // Quality 6 => correlation < 0.03
         // Quality 7 => correlation < 0.01
+        // Quality 8 => correlation < -0.01, Only for testing purposes ( no tile match )
         //correlation greater than this values means not matching tiles       
                
         this.correlation = 0.15 - ( (double) quality / 50.0);

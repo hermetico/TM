@@ -13,6 +13,7 @@ import java.util.Arrays;
 
 import java.util.List;
 import project.validators.ConvolutionalFilterTypeValidator;
+import project.validators.LevelValidator;
 import project.validators.NumericValidator;
 
 
@@ -58,8 +59,8 @@ public class ArgsParser {
     @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = NumericValidator.class)
     private int GOP = 10;
     
-    @Parameter(names = {"--quality"}, description = "quality factor determine when two tiles match, Quality levels : 1, 2, 3, 4, 5, 6, 7 ( the higher the best ) ")
-    private int quality = 5;
+    @Parameter(names = {"--quality"}, description = "quality factor determine when two tiles match, Quality levels : 1, 2, 3, 4, 5, 6, 7 ( the higher the best, def: 5 ) ", validateWith= LevelValidator.class)
+    private String quality = "5" ;
     
     @Parameter(names = {"--batch", "-b"}, description = "batch mode")
     private boolean batch = false ;
@@ -75,6 +76,9 @@ public class ArgsParser {
     @Parameter(names = {"--help","-h"}, description = "help", help = true)
     public boolean help;
     
+    @Parameter(names = {"--ssd"}, description = "Compute tile differencees using mean sum of square differences method. Default method: MAD (mean absolute differences)")
+    private boolean ssd = false ;
+    
     // parsed tile values set local variables
     private int nTilesX;
     private int nTilesY;
@@ -83,27 +87,19 @@ public class ArgsParser {
     
     
     // return tiles list ( two strings )
-    public List<String> getTiles(){
-        return numTiles;
-    }
-    public boolean isEncodeEnabled(){
-        return encode;
-    }
+    public List<String> getTiles(){ return numTiles; }
     
-    public String getInputFile(){
-        return inputFile;
-    }
+    public boolean isEncodeEnabled(){ return encode; }
+    
+    public String getInputFile(){ return inputFile; }
+    
     public String getOutputFile(){
         return outputFile;
     }
     
-    public int getFps(){
-        return fps;
-    }
+    public int getFps(){ return fps; }
     // treshold value to binarize
-    public int getBinValue(){
-        return binValue;
-    }
+    public int getBinValue(){ return binValue; }
     
     public boolean isBinarizeFilterEnabled(){
         boolean enabled;
@@ -111,9 +107,8 @@ public class ArgsParser {
         else{ enabled = false; }
         return enabled;
     }
-    public boolean isNegativeFilterEnabled(){
-        return negative;
-    }
+    public boolean isNegativeFilterEnabled(){ return negative; }
+    
     public boolean isAverageFilterEnabled(){
         boolean enabled;
         if (avgValue!=0){
@@ -124,28 +119,21 @@ public class ArgsParser {
         }
         return enabled;
     }
-    public boolean isPixelSearchEnabled(){
-        return pixelSearch;
-    }
-    public boolean isFastSearchEnabled(){
-        return fastSearch;
-    }
+    public boolean isPixelSearchEnabled(){ return pixelSearch; }
+    
+    public boolean isFastSearchEnabled(){ return fastSearch; }
+    
     // Average value computed
-    public int getAvgValue(){
-        return avgValue;
-    }
-    public int getSeekRange(){
-        return seekRange;
-    }
-    public int getGOP(){
-        return GOP;
-    }
-    public int getQuality(){
-        return quality;
-    }
-    public boolean isBatchModeEnabled(){
-        return batch;
-    }
+    public int getAvgValue(){ return avgValue; }
+    
+    public int getSeekRange(){ return seekRange; }
+    
+    public int getGOP(){ return GOP; }
+    
+    public int getQuality(){ return Integer.parseInt(quality); }
+    
+    public boolean isBatchModeEnabled(){ return batch; }
+    
     public boolean isConvolutionalFilterEnabled(){
         boolean enabled = false;
         if(type!=null){
@@ -153,17 +141,12 @@ public class ArgsParser {
         }
         return enabled;
     }
-    public String getConvolutionalFilterType(){
-        return type;
-    }
+    public String getConvolutionalFilterType(){ return type; }
 
-    public boolean isLoop() {
-        return loop;
-    }
+    public boolean isLoop() { return loop; }
 
-    public boolean isDecodeEnabled() {
-        return decode;
-    }
+    public boolean isDecodeEnabled() { return decode; }
     
+    public boolean isSSDEnabled() { return ssd; }
     
 }

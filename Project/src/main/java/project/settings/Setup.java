@@ -9,6 +9,9 @@ import com.beust.jcommander.ParameterException;
 import java.awt.image.BufferedImage;
 import static java.lang.Integer.parseInt;
 import java.util.List;
+import project.encoder.compare.Comparer;
+import project.encoder.compare.MAD;
+import project.encoder.compare.SSD;
 
 
 import project.input.ArgsParser;
@@ -65,6 +68,8 @@ public class Setup {
     private Configuration cfg = Configuration.getInstance();
     private Tracer tr = Tracer.getInstance();
     
+    private Comparer comparer;
+   
     public Setup(ArgsParser parser){
         
         checkFilters(parser);
@@ -76,7 +81,14 @@ public class Setup {
         //check and set tile values
         if (parser.isEncodeEnabled()){ 
             setDimensions();
-            getTileValues(parser);           
+            getTileValues(parser);
+            
+            // select compare method
+            if(parser.isSSDEnabled()){
+                comparer = new SSD();
+            }else{
+                comparer = new MAD();
+            }
         }     
         if(parser.getOutputFile() != null){
             checkOutputFile(parser.getOutputFile());
@@ -339,6 +351,14 @@ public class Setup {
         return pixel_search;
     }
     
+    public Comparer getComparer(){
+        if (comparer instanceof MAD){
+            tr.trace("MAD comparer enabled");
+        }else if (comparer instanceof SSD){
+            tr.trace("SSD comparer enabled");
+        }
+        return comparer; 
+    }
     
     private void setupLoopMode(boolean loop){
         cfg.LOOP_PLAY = loop;

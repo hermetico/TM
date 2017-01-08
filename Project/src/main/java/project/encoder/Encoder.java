@@ -35,6 +35,7 @@ public class Encoder {
     protected int seekRange = 0;
     
     protected int frames = 0;
+    protected Comparer comparer;
     //private Filter average;
     
     
@@ -54,18 +55,19 @@ public class Encoder {
         this.seekRange = setup.getSeekRange();
         this.tHeight = setup.getYPixelsPerTile();     
         this.tWidth = setup.getXPixelsPerTile();
+        this.comparer = setup.getComparer();
         
         if(setup.isFast_search()){
             tr.trace("Using Fast search encoding");
-            searcher = (Searcher) new FastTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new MAD());
+            searcher = (Searcher) new FastTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, this.comparer);
         }else{
             tr.trace("Using Full search encoding");
             if(setup.isPixel_search()){
                 tr.trace("Using Pixel search encoding");
-                searcher = (Searcher) new FullPixelSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new MAD());
+                searcher = (Searcher) new FullPixelSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, this.comparer);
             }else{
                 tr.trace("Using Tile search encoding");
-                searcher = (Searcher) new FullTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, (Comparer) new MAD());
+                searcher = (Searcher) new FullTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, this.comparer);
             }
         }
         
