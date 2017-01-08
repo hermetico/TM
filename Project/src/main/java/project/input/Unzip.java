@@ -48,7 +48,8 @@ public class Unzip {
         
         String fileName;
         try{
-            zf = new ZipFile(new File(this.path));
+            File f = new File(this.path);
+            zf = new ZipFile(f);
             Enumeration<? extends ZipEntry> entries = zf.entries();
             while(entries.hasMoreElements()){
                     ZipEntry entry = entries.nextElement();

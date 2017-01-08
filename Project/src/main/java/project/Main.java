@@ -11,6 +11,7 @@ import static java.lang.System.exit;
 import project.input.ArgsParser;
 import project.misc.Tracer;
 import project.settings.Setup;
+import project.statistics.Statistics;
 
 
 
@@ -39,9 +40,10 @@ public class Main {
         
         // Creates a setup for the app
         Setup setup = new Setup(parser);
-        
+        // Statistics generate compression results
+        Statistics stats = new Statistics(setup);
         App app = new App(setup);
-                
+        stats.getResults();
     }
     
 }
