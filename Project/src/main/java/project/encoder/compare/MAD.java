@@ -14,15 +14,18 @@ public class MAD implements Comparer{
     
     @Override
     public double compare(Tile wanted, Tile candidate) {
+        return compare(wanted.getContent(), candidate.getContent());
+    }
+
+    @Override
+    public double compare(BufferedImage wanted, BufferedImage candidate) {
         int difference = 0;
-        BufferedImage b = wanted.getContent();
-        BufferedImage d = candidate.getContent();
         
         for (int y = 0; y < wanted.getWidth(); y++) {
             for (int x = 0; x < wanted.getHeight(); x++) {
 
-                Color pixelB = new Color(b.getRGB(x, y));
-                Color pixelD = new Color(d.getRGB(x, y));
+                Color pixelB = new Color(wanted.getRGB(x, y));
+                Color pixelD = new Color(candidate.getRGB(x, y));
                 difference += Math.abs(pixelB.getRed() - pixelD.getRed())
                             + Math.abs(pixelB.getGreen() - pixelD.getGreen())
                             + Math.abs(pixelB.getBlue() - pixelD.getBlue());            
@@ -39,4 +42,6 @@ public class MAD implements Comparer{
         double result = (double)MAD/255.0;
         return result;
     }
+    
+
 }

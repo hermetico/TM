@@ -5,8 +5,10 @@
  */
 package project.encoder.compare;
 
+import java.awt.image.BufferedImage;
 import project.encoder.Tile;
 
 public interface Comparer {
-    double compare(Tile base, Tile destination);
+    double compare(BufferedImage wanted, BufferedImage candidate);
+    double compare(Tile wanted, Tile candidate);
 }

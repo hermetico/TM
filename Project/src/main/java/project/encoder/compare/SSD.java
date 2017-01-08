@@ -14,15 +14,17 @@ public class SSD implements Comparer{
     
     @Override
     public double compare(Tile wanted, Tile candidate) {
+        return compare(wanted.getContent(), candidate.getContent());
+    }
+
+    @Override
+    public double compare(BufferedImage wanted, BufferedImage candidate) {
         int difference = 0;
-        BufferedImage b = wanted.getContent();
-        BufferedImage d = candidate.getContent();
-        
         for (int y = 0; y < wanted.getWidth(); y++) {
             for (int x = 0; x < wanted.getHeight(); x++) {
 
-                Color pixelB = new Color(b.getRGB(x, y));
-                Color pixelD = new Color(d.getRGB(x, y));
+                Color pixelB = new Color(wanted.getRGB(x, y));
+                Color pixelD = new Color(candidate.getRGB(x, y));
                 // These are squared differences
                 difference += (pixelB.getRed() - pixelD.getRed()) * (pixelB.getRed() - pixelD.getRed())
                             + (pixelB.getGreen() - pixelD.getGreen()) * (pixelB.getGreen() - pixelD.getGreen())
