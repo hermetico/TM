@@ -101,27 +101,27 @@ public class Encoder {
             // As the project description indicates, we are going to implement
             // a DCT algorithm
             BufferedImage nImage = ImageUtils.deepCopy(image);
-            List<Tile> teselas = ImageUtils.tessellate(previousFrame, tHeight, tWidth);
-            //searcher.resetFrame(previousFrame);
+            List<Tile> teselas = ImageUtils.tessellate(nImage, tHeight, tWidth);
+
             
             List<DVector> vectors = new ArrayList<DVector>();
             // for each tesela of the image
             for(Tile wanted : teselas){
                 
-                // search and compare with the tesselas of the previous frame
-                Tile match = searcher.getMatch(wanted, nImage);
-                
+                // search and compare with the tiles of the previous frame
+                Tile match = searcher.getMatch(wanted, previousFrame);
+                 
+
                 if(match != null){
                     // the vector is made with
                     int reference = wanted.getIndex();
-                    //int x = wanted.getX() - match.getX();
-                    //int y = wanted.getY() - match.getY();
                     int x = match.getX() - wanted.getX();
                     int y = match.getY() - wanted.getY();
+                    
                     DVector displacement = new DVector(reference, x, y);
                     
                     // substract tesela
-                    ImageUtils.substractTile(nImage, match, wanted, displacement);
+                    ImageUtils.substractWantedTile(nImage, match, wanted);
                     //average.apply(nImage);
                     // adds vector
                     vectors.add(displacement);

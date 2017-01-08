@@ -41,6 +41,14 @@ public class ImageUtils {
        return teselas;
     }
     
+    /**
+     * This functions substracts the match tile from the image based on the position of 
+     * the wanted tile and a displacement vector
+     * @param image
+     * @param match
+     * @param wanted
+     * @param displacement 
+     */
     public static void substractTile(BufferedImage image, Tile match, Tile wanted, DVector displacement){
         Color imagePixel, tilePixel;
         int r, g, b;
@@ -72,6 +80,51 @@ public class ImageUtils {
         }
     }
     
+    /**
+     * This function substracts the match tile from the image based on the position 
+     * of the wanted tile
+     * @param image
+     * @param match
+     * @param wanted 
+     */
+    public static void substractWantedTile(BufferedImage image, Tile match, Tile wanted){
+        Color imagePixel, tilePixel;
+        int r, g, b;
+        BufferedImage tileImage = match.getContent();
+        
+        for(int y = 0; y < match.getWidth(); y++){ // tesela y coords
+            for (int x = 0; x < match.getHeight(); x++){ // tesela x coords
+                
+                // image coords
+                int imageX = wanted.getX() + x;
+                int imageY = wanted.getY() + y;
+                
+                imagePixel = new Color(image.getRGB(imageX, imageY));
+                tilePixel = new Color(tileImage.getRGB(x, y));
+                
+                r = imagePixel.getRed() - tilePixel.getRed();
+                g = imagePixel.getGreen() - tilePixel.getGreen();
+                b = imagePixel.getBlue() - tilePixel.getBlue();
+
+                // checks no value is below 0
+                if(r < 0) r = 0;
+                if(g < 0) g = 0;
+                if(b < 0) b = 0;
+
+                
+                image.setRGB(imageX, imageY, new Color(r,g,b).getRGB());
+            }
+        }
+    }
+    
+    
+    /**
+     * This functions add the match tile into the image based in the position
+     * of the match tile and a displacement
+     * @param image
+     * @param match
+     * @param displacement 
+     */
     public static void addTile(BufferedImage image, Tile match, DVector displacement){
         Color imagePixel, tilePixel;
         int r, g, b;
@@ -83,6 +136,43 @@ public class ImageUtils {
                 // image coords
                 int imageX = match.getX() + x + displacement.getX();
                 int imageY = match.getY() + y + displacement.getY();
+                
+                imagePixel = new Color(image.getRGB(imageX, imageY));
+                tilePixel = new Color(tileImage.getRGB(x, y));
+                
+                r = imagePixel.getRed() + tilePixel.getRed();
+                g = imagePixel.getGreen() + tilePixel.getGreen();
+                b = imagePixel.getBlue() + tilePixel.getBlue();
+
+                // checks no value is above 255
+                if(r > 255) r = 255;
+                if(g > 255) g = 255;
+                if(b > 255) b = 255;
+
+                
+                
+                image.setRGB(imageX, imageY, new Color(r,g,b).getRGB());
+            }
+        }
+    }
+    
+    /**
+     * Adds the tileImage onto the image based on x, y coordinates
+     * @param image
+     * @param subimage
+     * @param x
+     * @param y 
+     */
+    public static void addSubimage(BufferedImage image, BufferedImage tileImage, int iX, int iY){
+        Color imagePixel, tilePixel;
+        int r, g, b;
+ 
+        for(int y = 0; y < tileImage.getWidth(); y++){ // tesela y coords
+            for (int x = 0; x < tileImage.getHeight(); x++){ // tesela x coords
+                
+                // image coords
+                int imageX = x + iX;
+                int imageY = y + iY;
                 
                 imagePixel = new Color(image.getRGB(imageX, imageY));
                 tilePixel = new Color(tileImage.getRGB(x, y));

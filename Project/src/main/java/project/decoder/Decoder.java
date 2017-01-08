@@ -17,9 +17,11 @@ import project.settings.Metadata;
 public class Decoder {
     protected Configuration cf;
     protected Tracer tr;
-    protected List<Tile> previousTiles = null;
+    protected BufferedImage previousFrame = null;
     protected int tWidth = 0;
     protected int tHeight = 0;
+    protected List<Tile> sampleFrameTiles = null;
+    
     
     public Decoder(Metadata data){
         this.tWidth = data.tWidth;
@@ -28,13 +30,26 @@ public class Decoder {
     
     
     public void updatePreviousFrame(BufferedImage image){
-        previousTiles = ImageUtils.tessellate(image, tHeight, tWidth);
+        previousFrame = image;
+        if (sampleFrameTiles == null){
+            // tessellates a frame to get coordinates from the beginning
+            sampleFrameTiles = ImageUtils.tessellate(image, tHeight, tWidth);
+        }
     }
     
     
     public BufferedImage decode(BufferedImage frame, List<DVector> vectors){
         for(DVector vector: vectors){
-            ImageUtils.addTile(frame, previousTiles.get(vector.getReference()), vector);
+            // gets wanted position within the frame from the tile based on the reference
+            Tile wantedTile = sampleFrameTiles.get(vector.getReference());
+            
+            // position of the wanted tile in the image
+            int x = wantedTile.getX() + vector.getX();
+            int y = wantedTile.getY() + vector.getY();
+            BufferedImage wantedSubimage = previousFrame.getSubimage(x, y, tWidth, tWidth);
+            
+            // adds the subimage
+            ImageUtils.addSubimage(frame, wantedSubimage, wantedTile.getX(), wantedTile.getY());
         }
         return frame;
     }
