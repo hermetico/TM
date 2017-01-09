@@ -127,6 +127,7 @@ public class Encoder {
                     //ImageUtils.substractWantedTile(nImage, match, wanted);
                     ImageUtils.toColorWantedTile(nImage, wanted, meanColor);
                     //ImageUtils.toMeanWantedTile(nImage, wanted);
+                    //ImageUtils.deblockingFilter(nImage, wanted, 9);
                     //average.apply(nImage);
                     // adds vector
                     vectors.add(displacement);

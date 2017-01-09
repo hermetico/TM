@@ -152,6 +152,7 @@ public class ImageUtils {
         
     }
     
+
     public static Color getMeanColor(BufferedImage image){
         int meanR = 0, meanG = 0, meanB = 0;
         Color pixel;
@@ -197,7 +198,104 @@ public class ImageUtils {
         
     }
     
+    public static void deblockingFilter(BufferedImage image, Tile position, int filterSide){
+        int radius = filterSide / 2;
+        for(int y = 0; y < position.getHeight(); y++){ // tesela y coords
+            for (int x = 0; x < position.getWidth(); x++){ // tesela x coords
+                // image coords
+                int imageX = position.getX() + x;
+                int imageY = position.getY() + y;
+                
+                // checks limits
+                if(imageX < image.getWidth() - radius
+                   && imageY < image.getHeight() - radius
+                   && imageX > radius && imageY > radius){
+                    image.setRGB(imageX, imageY,getMeanFilter(image, imageX, imageY, filterSide).getRGB());
+                }
+                
+            }
+        }        
+    }
     
+    public static void deblockingBorderFilter(BufferedImage image, Tile position, int filterSide){
+        int radius = filterSide / 2;
+        int x, y, imageX, imageY;
+        for(y = 0; y < position.getHeight(); y++){
+            // left border
+            x = 0;
+                // image coords
+                imageX = position.getX() + x;
+                imageY = position.getY() + y;
+                
+                // checks limits
+                if(imageX < image.getWidth() - radius
+                   && imageY < image.getHeight() - radius
+                   && imageX > radius && imageY > radius){
+                    image.setRGB(imageX, imageY,getMeanFilter(image, imageX, imageY, filterSide).getRGB());
+                }
+            // right border
+            x = position.getWidth();
+                // image coords
+                imageX = position.getX() + x;
+                // checks limits
+                if(imageX < image.getWidth() - radius
+                   && imageY < image.getHeight() - radius
+                   && imageX > radius && imageY > radius){
+                    image.setRGB(imageX, imageY,getMeanFilter(image, imageX, imageY, filterSide).getRGB());
+                }
+        }
+        for (x = 0; x < position.getWidth(); x++){ 
+            // top border
+            y = 0;    
+                imageX = position.getX() + x;
+                imageY = position.getY() + y;
+                
+                // checks limits
+                if(imageX < image.getWidth() - radius
+                   && imageY < image.getHeight() - radius
+                   && imageX > radius && imageY > radius){
+                    image.setRGB(imageX, imageY,getMeanFilter(image, imageX, imageY, filterSide).getRGB());
+                }
+                        
+            y = position.getHeight(); // bottom border    
+                imageX = position.getX() + x;
+
+                
+                // checks limits
+                if(imageX < image.getWidth() - radius
+                   && imageY < image.getHeight() - radius
+                   && imageX > radius && imageY > radius){
+                    image.setRGB(imageX, imageY,getMeanFilter(image, imageX, imageY, filterSide).getRGB());
+                }
+                
+            }
+               
+    }
+    
+    private static Color getMeanFilter(BufferedImage image, int x, int y, int filterSide){
+        double meanR = 0, meanG = 0, meanB = 0;
+        int size = filterSide * filterSide;
+        int radius = filterSide / 2;
+        meanR = 0;
+        meanG = 0;
+        meanB = 0;
+        
+        Color pixel;
+        for(int j = -radius; j < radius; j++){
+            for(int i = -radius; i < radius; i++){
+                pixel = new Color(image.getRGB(x + i,  y + j));
+                meanR += pixel.getRed(); 
+                meanG += pixel.getGreen();
+                meanB += pixel.getBlue();
+            }
+        }
+
+        meanR /= size;
+        meanG /= size;
+        meanB /= size;
+        return new Color((int)meanR,(int)meanG,(int)meanB);
+    
+    }
     /**
      * This functions adds the match tile into the image based in the position
      * of the match tile and a displacement
