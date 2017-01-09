@@ -27,13 +27,13 @@ public class App {
    
     public void run(Setup setup){
         
-        // Statistics generate compression results
-        Statistics stats = new Statistics(setup);       
+    
         
         ProcessorFactory prFactory = new ProcessorFactory();
         Processor pr,pr1;
         if(setup.isEncoding()){
-            
+            // Statistics generate compression results
+            Statistics stats = new Statistics(setup);   
             FilterFactory flFactory = new FilterFactory();
             
             Filter fl = flFactory.createFilter(setup);

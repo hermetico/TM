@@ -51,6 +51,7 @@ public class Decoder {
             // adds the subimage
             ImageUtils.replaceSubimage(frame, wantedSubimage, wantedTile.getX(), wantedTile.getY());
         }
+        
         return frame;
     }
     
