@@ -7,85 +7,92 @@ package project.statistics;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 import javax.imageio.ImageIO;
-import project.encoder.EncodedImage;
-import project.input.Unzip;
-import project.input.entries.Entry;
 import project.misc.Tracer;
-import project.output.Zip;
-import project.processor.Buffer;
 import project.settings.Setup;
-import project.settings.Types;
 
 
 public class Statistics {
-    private long sourceLength;
-    private long targetLength;
-    private File fSource;
-    private File fTarget;
-    private Setup setup;
+    private long sourceLength = 0;
+    private long sourceCompressedLength = 0;
+    private long targetLength = 0;
+    
+    private Setup setup; 
     
     Tracer tr = Tracer.getInstance();
     
     public Statistics(Setup setup){
         this.setup = setup;
-        fSource = new File(setup.getInputFilePath());
-        sourceLength = fSource.length();
-        input2JPG();
+             
+        sourceLength = getSize(setup.getInputFilePath());      
+        source2JPG();
+        sourceCompressedLength = getSize(compressedFileName(setup.getInputFilePath(),"_jpg.zip"));
+        
     }
     public void getResults(){
-        setTargetSize();
-        tr.trace("Source size: " + sourceLength);
+        targetLength = getSize(setup.getOutputFilePath());
+        tr.trace("Source uncompressed size: " + sourceLength);
+        tr.trace("Source compressed size(jpg): " + sourceCompressedLength );
         tr.trace("Target size: " + targetLength);
-        long percent = 100 * (sourceLength - targetLength)/sourceLength;
-        
-        tr.trace("Compression ratio improvement: " + percent);
-        // Warning, compare with uncompressed input file. 
-        // TODO: save inputfile as jpg before compute results to load jpeg compressed input
+        double percentUncompressed = round(100.0 * (sourceLength - targetLength)/sourceLength, 2);
+        double percentCompressed = round(100.0 * ( sourceCompressedLength - targetLength)/sourceLength, 2);
+        tr.trace("Improvement over uncompressed file: " + percentUncompressed + "%");
+        tr.trace("Improvement over compressed file(jpg): " + percentCompressed + "%");
+       
     }
-    public void setTargetSize(){
+    
+    private long getSize(String fileName){
+        File f = new File(fileName);
+        return f.length(); 
         
-        fTarget = new File(setup.getOutputFilePath());
-        targetLength = fTarget.length(); 
     }
-    public void saveJPGinputFile() throws IOException {
-        
-           
-    }
-    public void input2JPG() {
+    private void source2JPG() {
         String path = setup.getInputFilePath();
         try {
             
-            ZipFile zipFile = new ZipFile(path);
-            File zipOut = new File(path + "_jpg.zip");
+            ZipFile zipFile = new ZipFile(path);           
+            File zipOut = new File(compressedFileName(path,"_jpg.zip"));
             ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipOut));
             
             Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while(entries.hasMoreElements()){
                 ZipEntry entry = entries.nextElement();
-                String fileName = entry.getName();
+                String fileName = entry.getName();             
                 InputStream stream = zipFile.getInputStream(entry);
                 BufferedImage img = ImageIO.read(stream);
-                ZipEntry e = new ZipEntry(fileName);
+                ZipEntry e = new ZipEntry(compressedFileName(fileName, ".jpg"));
                 out.putNextEntry(e);
                 ImageIO.write(img, "jpg", out);
-                
             }
+            out.closeEntry();
+            out.close();
         } catch (IOException ex) {
             Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     
+    // read name.ext and tail and returns name.tail
+    private String compressedFileName(String fileName, String tail){
+        String str = fileName.substring(0, fileName.lastIndexOf("."));
+        return str + tail;
+    }
+    public static double round(double value, int places) {
+    if (places < 0) throw new IllegalArgumentException();
+
+    BigDecimal bd = new BigDecimal(value);
+    bd = bd.setScale(places, RoundingMode.HALF_UP);
+    return bd.doubleValue();
+}
 }
 
