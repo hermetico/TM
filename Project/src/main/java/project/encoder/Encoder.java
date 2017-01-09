@@ -121,7 +121,8 @@ public class Encoder {
                     DVector displacement = new DVector(reference, x, y);
                     
                     // substract tesela
-                    ImageUtils.substractWantedTile(nImage, match, wanted);
+                    //ImageUtils.substractWantedTile(nImage, match, wanted);
+                    ImageUtils.toMeanWantedTile(nImage, wanted);
                     //average.apply(nImage);
                     // adds vector
                     vectors.add(displacement);

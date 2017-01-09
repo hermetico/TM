@@ -49,7 +49,7 @@ public class Decoder {
             BufferedImage wantedSubimage = previousFrame.getSubimage(x, y, tWidth, tWidth);
             
             // adds the subimage
-            ImageUtils.addSubimage(frame, wantedSubimage, wantedTile.getX(), wantedTile.getY());
+            ImageUtils.replaceSubimage(frame, wantedSubimage, wantedTile.getX(), wantedTile.getY());
         }
         return frame;
     }

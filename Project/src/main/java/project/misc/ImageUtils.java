@@ -117,9 +117,44 @@ public class ImageUtils {
         }
     }
     
+     /**
+     * This function changes the tile to a mean color
+     * @param image
+     * @param match
+     * @param wanted 
+     */
+    public static void toMeanWantedTile(BufferedImage image, Tile wanted){
+        int meanR = 0, meanG = 0, meanB = 0;
+        Color pixel;
+        BufferedImage tileImage = wanted.getContent();
+        
+        for(int y = 0; y < wanted.getWidth(); y++){ // tesela y coords
+            for (int x = 0; x < wanted.getHeight(); x++){ // tesela x coords
+                pixel = new Color(tileImage.getRGB(x, y));
+                meanR += pixel.getRed(); 
+                meanG += pixel.getGreen();
+                meanB += pixel.getBlue();
+            }
+        }
+        int size = wanted.getWidth() * wanted.getHeight();
+        meanR /= size;
+        meanG /= size;
+        meanB /= size;
+        
+        for(int y = 0; y < wanted.getWidth(); y++){ // tesela y coords
+            for (int x = 0; x < wanted.getHeight(); x++){ // tesela x coords
+                // image coords
+                int imageX = wanted.getX() + x;
+                int imageY = wanted.getY() + y;
+                image.setRGB(imageX, imageY, new Color(meanR,meanG,meanB).getRGB());
+            }
+        }
+        
+    }
+    
     
     /**
-     * This functions add the match tile into the image based in the position
+     * This functions adds the match tile into the image based in the position
      * of the match tile and a displacement
      * @param image
      * @param match
@@ -189,6 +224,32 @@ public class ImageUtils {
                 
                 
                 image.setRGB(imageX, imageY, new Color(r,g,b).getRGB());
+            }
+        }
+    }
+    
+    
+     /**
+     * Composes the tileImage onto the image based on x, y coordinates
+     * @param image
+     * @param subimage
+     * @param x
+     * @param y 
+     */
+    public static void replaceSubimage(BufferedImage image, BufferedImage tileImage, int iX, int iY){
+        Color imagePixel, tilePixel;
+        int r, g, b;
+ 
+        for(int y = 0; y < tileImage.getWidth(); y++){ // tesela y coords
+            for (int x = 0; x < tileImage.getHeight(); x++){ // tesela x coords
+                
+                // image coords
+                int imageX = x + iX;
+                int imageY = y + iY;
+                
+                tilePixel = new Color(tileImage.getRGB(x, y));
+
+                image.setRGB(imageX, imageY, new Color(tilePixel.getRed(),tilePixel.getGreen(),tilePixel.getBlue()).getRGB());
             }
         }
     }
