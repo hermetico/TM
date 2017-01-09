@@ -26,6 +26,7 @@ import project.encoder.DVector;
 import project.input.entries.Entry;
 import project.input.entries.IEntry;
 import project.input.entries.PEntry;
+import project.misc.ByteUtils;
 import project.misc.Tracer;
 import project.settings.Configuration;
 import project.settings.Metadata;
@@ -38,6 +39,7 @@ public class Unzip {
     List<Entry> allEntries;
     Configuration cf = Configuration.getInstance();
     Tracer tr =  Tracer.getInstance();
+    ByteUtils byteUtils = new ByteUtils();
     public Unzip(String path){
         this.path = path;
     }
@@ -125,29 +127,13 @@ public class Unzip {
     
     public List<DVector> unzipVectorsEntry(ZipEntry entry){
 
-        try {
-            List<DVector> vectors = new ArrayList<DVector>();
-            InputStream data = unzipEntry(entry);
-            BufferedReader in = new BufferedReader(new InputStreamReader(data));
-            String separator = String.valueOf(cf.DATA_SEPARATOR);
-            String line = null;
-            
-            while((line = in.readLine()) != null) {
-                String[] values = line.split(separator);
-                
-                int reference = Integer.parseInt(values[0]);
-                int x = Integer.parseInt(values[1]);
-                int y = Integer.parseInt(values[2]);
-                
-                vectors.add(new DVector(reference, x, y));
-            }
-            
-            return vectors;
-            
-        } catch (IOException ex) {
-            Logger.getLogger(Unzip.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+
+    InputStream data = unzipEntry(entry);
+
+    List<DVector> vectors = byteUtils.inputStreamToVectors(data);
+
+    return vectors;
+
     }
     
     public void parseMetadata() throws IOException{

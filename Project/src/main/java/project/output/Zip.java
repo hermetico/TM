@@ -18,11 +18,13 @@ import javax.imageio.ImageIO;
 import project.encoder.DVector;
 import project.encoder.EncodedImage;
 import project.encoder.ImageP;
+import project.misc.ByteUtils;
 import project.settings.Configuration;
 import project.settings.Setup;
 public class Zip {
     
     Configuration cf = Configuration.getInstance();
+    ByteUtils byteUtils = new ByteUtils();
     
     public void zipData(Buffer<EncodedImage> buffer, String path){
         
@@ -131,19 +133,7 @@ public class Zip {
     }
     
     public InputStream vectorsToInputStream(List<DVector> vectors){
-        StringBuilder result = new StringBuilder();
-        String separator = String.valueOf(cf.DATA_SEPARATOR);
-        for(DVector vector : vectors)
-        {
-            result.append(vector.getReference() 
-                    + separator 
-                    + vector.getX() 
-                    + separator 
-                    + vector.getY() 
-                    + String.valueOf(cf.END_LINE));
-        }
-        return new ByteArrayInputStream(result.toString().getBytes(StandardCharsets.UTF_8));
-    
+        return byteUtils.vectorsToInputStream(vectors);
     }
     
     
