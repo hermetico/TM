@@ -22,6 +22,7 @@ public class ByteUtils {
     private final String BIG_ENDIAN = "be";
     private final String LITTLE_ENDIAN = "le";
     private final int INT_LENGTH = 4;
+    private final int SHORT_LENGTH = 2;
     
     public InputStream vectorsToInputStream(List<DVector> vectors)
     {
@@ -68,16 +69,16 @@ public class ByteUtils {
     }
     
     private int[] bytesToIntArray(byte[] bytes){
-        int[] numbers = new int[bytes.length / INT_LENGTH];
+        int[] numbers = new int[bytes.length / SHORT_LENGTH];
         
         for(int i = 0, j = 0; i < bytes.length; j++){
-            byte[] number = new byte[INT_LENGTH];
+            byte[] number = new byte[SHORT_LENGTH];
             number[0]  = bytes[i++];
             number[1]  = bytes[i++];
-            number[2]  = bytes[i++];
-            number[3]  = bytes[i++];
+            //number[2]  = bytes[i++];
+            //number[3]  = bytes[i++];
             
-            numbers[j] = bytesToInt32(number, BIG_ENDIAN);
+            numbers[j] = (int) bytesToShort16(number, BIG_ENDIAN);
             
         }
         return numbers;
@@ -85,9 +86,12 @@ public class ByteUtils {
     
     private void vectorToByte(List<Byte> buff, DVector vector){
         
-        write_int32(buff, vector.getReference());
-        write_int32(buff, vector.getX());
-        write_int32(buff, vector.getY());
+        //write_int32(buff, vector.getReference());
+        //write_int32(buff, vector.getX());
+        //write_int32(buff, vector.getY());
+        write_short16(buff, (short)vector.getReference());
+        write_short16(buff, (short)vector.getX());
+        write_short16(buff, (short)vector.getY());
         
     }
  
@@ -95,10 +99,38 @@ public class ByteUtils {
     {
         byte bytes[] = new byte[INT_LENGTH];
         int32ToBytes(number,bytes, BIG_ENDIAN);
+        // try with short
         for(int i = 0; i < INT_LENGTH; i++)
         {
             buff.add(bytes[i]);
         }
+    }
+    
+    public  void write_short16(List<Byte> buff,  short number)
+    {
+        byte bytes[] = new byte[SHORT_LENGTH];
+        short16ToBytes(number,bytes, BIG_ENDIAN);
+        // try with short
+        for(int i = 0; i < SHORT_LENGTH; i++)
+        {
+            buff.add(bytes[i]);
+        }
+    }
+    
+        
+    private int short16ToBytes(short number, byte bytes[], String endianess)
+    {
+        if(BIG_ENDIAN.equals(endianess.toLowerCase()))
+        {
+          bytes[0] = (byte)((number >> 8) & 0xFF);
+          bytes[1] = (byte)(number & 0xFF);
+        }
+        else
+        {
+          bytes[0] = (byte)(number & 0xFF);
+          bytes[1] = (byte)((number >> 8) & 0xFF);
+         }
+        return 4;
     }
     
     private int int32ToBytes(int number,byte bytes[], String endianess)
@@ -120,6 +152,9 @@ public class ByteUtils {
         return 4;
     }
  
+
+    
+    
     private int bytesToInt32(byte bytes[], String endianess)
     {
         int number;
@@ -136,5 +171,18 @@ public class ByteUtils {
         }
         return number;
     }
-   
+    private short bytesToShort16(byte bytes[], String endianess)
+    {
+        short number;
+
+        if(BIG_ENDIAN.equals(endianess.toLowerCase()))
+        {
+            number = (short) (((bytes[0] & 0xFF) << 8) | (bytes[1] & 0xFF));
+        }
+        else
+        {
+            number= (short) ((bytes[0] & 0xFF) | ((bytes[1] & 0xFF) << 8));
+        }
+        return number;
+    }
 }
