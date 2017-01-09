@@ -33,8 +33,57 @@ public class App {
             //TODO Processor debe recibir una interfaz de datos
             // con algun metodo get o algun iterator
         }
+
+        ProcessorFactory prFactory = new ProcessorFactory();
+        Processor pr,pr1;
+        if(setup.isEncoding()){
+            
+            FilterFactory flFactory = new FilterFactory();
+            
+            Filter fl = flFactory.createFilter(setup);
+            Encoder enc = new Encoder(setup);
+            pr = prFactory.createProcessor(setup, fl, enc);
+            
+            if(setup.isDecoding()|| !setup.isBatchMode()){
+                tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
+                pr.setPlayer(new Player(setup.getFPS(), "Original"));
+                enc.setPlayer(new Player(setup.getFPS(), true, "Encoded"));
+            }
+            
+            tr.trace("Starting processor");
+            pr.processData();
+            
+            Zip zipper = new Zip();
+            tr.trace("Zipping data");
+            zipper.zipEncodedData(setup, enc.getBuffer(), setup.getOutputFilePath());
+            
+            if(setup.isDecoding()){
+                tr.trace("Starting decoder");
+                setup.updateFilePath(setup.getOutputFilePath());
+            
+                pr1 = prFactory.createDecoderProcessor(setup);
+                pr1.processData();
+            }
+            
+        }else{
+            
+            if(setup.isDecoding()){
+                pr = prFactory.createDecoderProcessor(setup);
+                
+            }else{
+                tr.trace("Player mode enabled");
+                FilterFactory flFactory = new FilterFactory();
+                Filter fl = flFactory.createFilter(setup);
+                pr = prFactory.createProcessor(setup, fl, null);
+                tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
+                pr.setPlayer(new Player(setup.getFPS(), true, "Original"));
+               
+            }
+            pr.processData();
+        }
+             
         
-        
+      /*  
         // Encoding reads from a zip full of jpegs
         if(setup.isEncoding() && !setup.isDecoding()){
 
@@ -45,8 +94,6 @@ public class App {
             Filter fl = flFactory.createFilter(setup);
             Encoder enc = new Encoder(setup);
             Processor pr = prFactory.createProcessor(setup, fl, enc);
-
-            
             
             if(!setup.isBatchMode()){
                 tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
@@ -64,13 +111,7 @@ public class App {
             tr.trace("Zipping data");
             zipper.zipEncodedData(setup, enc.getBuffer(), setup.getOutputFilePath());
             
-        }else if(setup.isDecoding() && !setup.isEncoding()){
-            ProcessorFactory prFactory = new ProcessorFactory();
-            
-            Processor pr = prFactory.createDecoderProcessor(setup);
-            pr.processData();
-            
-        }else if(setup.isDecoding() && setup.isEncoding()){
+        }else if(setup.isEncoding() && setup.isDecoding()){
             FilterFactory flFactory = new FilterFactory();
             ProcessorFactory prFactory = new ProcessorFactory();
             //Encoder encoder = new Encoder();
@@ -78,9 +119,6 @@ public class App {
             Filter fl = flFactory.createFilter(setup);
             Encoder enc = new Encoder(setup);
             Processor pr = prFactory.createProcessor(setup, fl, enc);
-
-            
-            
 
             tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
             pr.setPlayer(new Player(setup.getFPS(), "Original"));
@@ -101,6 +139,12 @@ public class App {
             pr = prFactory.createDecoderProcessor(setup);
             pr.processData();
             
+        }else if(setup.isDecoding() && !setup.isEncoding()){
+            ProcessorFactory prFactory = new ProcessorFactory();
+            
+            Processor pr = prFactory.createDecoderProcessor(setup);
+            pr.processData();
+            
         }else{
             tr.trace("Player mode enabled");
             FilterFactory flFactory = new FilterFactory();
@@ -112,5 +156,6 @@ public class App {
             pr.setPlayer(new Player(setup.getFPS(), true, "Original"));
             pr.processData();
         }
+*/
     }        
 }
