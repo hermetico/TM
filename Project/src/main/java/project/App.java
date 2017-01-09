@@ -15,6 +15,7 @@ import project.processor.filters.Filter;
 import project.processor.filters.FilterFactory;
 import project.settings.Setup;
 import project.settings.Types.FileType;
+import project.statistics.Statistics;
 
 public class App {
     
@@ -23,17 +24,19 @@ public class App {
         
         run(setup);
     }
-    
-    
+   
     public void run(Setup setup){
         
+        // Statistics generate compression results
+        Statistics stats = new Statistics(setup);       
         
         // por ahora siempre sera si
         if(setup.getInputContainer() == FileType.ZIP){
             //TODO Processor debe recibir una interfaz de datos
             // con algun metodo get o algun iterator
         }
-
+        
+        
         ProcessorFactory prFactory = new ProcessorFactory();
         Processor pr,pr1;
         if(setup.isEncoding()){
@@ -48,8 +51,7 @@ public class App {
                 tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
                 pr.setPlayer(new Player(setup.getFPS(), "Original"));
                 enc.setPlayer(new Player(setup.getFPS(), true, "Encoded"));
-            }
-            
+            }           
             tr.trace("Starting processor");
             pr.processData();
             
@@ -64,26 +66,25 @@ public class App {
                 pr1 = prFactory.createDecoderProcessor(setup);
                 pr1.processData();
             }
-            
+            stats.getResults();
         }else{
             
             if(setup.isDecoding()){
-                pr = prFactory.createDecoderProcessor(setup);
-                
+                pr = prFactory.createDecoderProcessor(setup);          
             }else{
                 tr.trace("Player mode enabled");
                 FilterFactory flFactory = new FilterFactory();
                 Filter fl = flFactory.createFilter(setup);
                 pr = prFactory.createProcessor(setup, fl, null);
                 tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
-                pr.setPlayer(new Player(setup.getFPS(), true, "Original"));
-               
+                pr.setPlayer(new Player(setup.getFPS(), true, "Original"));              
             }
             pr.processData();
         }
+        /*
              
         
-      /*  
+       
         // Encoding reads from a zip full of jpegs
         if(setup.isEncoding() && !setup.isDecoding()){
 
@@ -157,5 +158,5 @@ public class App {
             pr.processData();
         }
 */
-    }        
+    }      
 }
