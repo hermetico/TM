@@ -40,26 +40,26 @@ public class App {
             Encoder enc = new Encoder(setup);
             pr = prFactory.createProcessor(setup, fl, enc);
             
-            if(setup.isDecoding()|| !setup.isBatchMode()){
+            if(!setup.isBatchMode()){
                 tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
                 pr.setPlayer(new Player(setup.getFPS(), "Original"));
                 enc.setPlayer(new Player(setup.getFPS(), true, "Encoded"));
             }           
             tr.trace("Starting processor");
+            stats.timeStart();// <--------------time start------------
             pr.processData();
-            
+            stats.timeEnd();  // <--------------time end--------------
             Zip zipper = new Zip();
             tr.trace("Zipping data");
             zipper.zipEncodedData(setup, enc.getBuffer(), setup.getOutputFilePath());
-            
+            stats.getResults();
             if(setup.isDecoding()){
                 tr.trace("Starting decoder");
-                setup.updateFilePath(setup.getOutputFilePath());
-            
+                setup.updateFilePath(setup.getOutputFilePath());           
                 pr1 = prFactory.createDecoderProcessor(setup);
                 pr1.processData();
             }
-            stats.getResults();
+            
         }else{
             
             if(setup.isDecoding()){

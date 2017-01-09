@@ -33,6 +33,7 @@ public class Setup {
     private boolean encoding = false;
     private boolean decoding = false;
     private boolean storing = true;
+    private boolean loop = false;
     
     private String inputFilePath;
     private String outputFilePath = "out";
@@ -78,8 +79,7 @@ public class Setup {
         checkDecoding(parser);
         checkInputFile(parser.getInputFile());
         
-        // if batch mode, decoded disabled
-        if(batchMode) decoding = false;
+        
         //check and set tile values
         if (parser.isEncodeEnabled()){ 
             setDimensions();
@@ -99,10 +99,18 @@ public class Setup {
         this.GOP = parser.getGOP();
         this.seekRange = parser.getSeekRange();
         this.quality = parser.getQuality();
-        setupLoopMode(parser.isLoop());
+        this.loop = parser.isLoop();
+        
         
         this.pixel_search = parser.isPixelSearchEnabled();
         this.fast_search = parser.isFastSearchEnabled();
+        // if batch mode, decoded disabled
+        if(isBatchMode()) {
+            
+            decoding = false;
+            loop = false;
+        }
+        setupLoopMode(this.loop);
     }
     
     private void checkFilters(ArgsParser parser){

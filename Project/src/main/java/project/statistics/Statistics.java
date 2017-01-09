@@ -27,6 +27,7 @@ public class Statistics {
     private long sourceLength = 0;
     private long sourceCompressedLength = 0;
     private long targetLength = 0;
+    private long time_start, time_end;
     
     private Setup setup; 
     
@@ -40,15 +41,33 @@ public class Statistics {
         sourceCompressedLength = getSize(compressedFileName(setup.getInputFilePath(),"_jpg.zip"));
         
     }
+    // use start, end and getTime() to check how many time spends a task
+    public void timeStart(){
+        time_start = System.currentTimeMillis();
+    }
+    public void timeEnd(){
+        time_end = System.currentTimeMillis();
+    }
+    public long getTime(){
+        return time_end - time_start;
+    }
+    //prints message at str + time spent
+    public void printTime(String str){
+        System.out.println(str +" "+ round((double)(getTime()/1000.0), 2) + "s");
+    }
+   
     public void getResults(){
         targetLength = getSize(setup.getOutputFilePath());
-        tr.trace("Source uncompressed size: " + sourceLength);
-        tr.trace("Source compressed size(jpg): " + sourceCompressedLength );
-        tr.trace("Target size: " + targetLength);
+        System.out.println("Source uncompressed size: " + sourceLength);
+        System.out.println("Source compressed size(jpg): " + sourceCompressedLength );
+        System.out.println("Target size: " + targetLength);
         double percentUncompressed = round(100.0 * (sourceLength - targetLength)/sourceLength, 2);
         double percentCompressed = round(100.0 * ( sourceCompressedLength - targetLength)/sourceCompressedLength, 2);
-        tr.trace("Improvement over uncompressed file: " + percentUncompressed + "%");
-        tr.trace("Improvement over compressed file(jpg): " + percentCompressed + "%");
+        System.out.println("Improvement over uncompressed file: " + percentUncompressed + "%");
+        System.out.println("Improvement over compressed file(jpg): " + percentCompressed + "%");
+        // prints message + time spent
+        printTime("the task has taken");
+        
        
     }
     

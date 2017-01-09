@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import project.encoder.compare.Comparer;
 import project.encoder.compare.MAD;
+import project.encoder.search.FastPixelSearch;
 import project.encoder.search.FastTileSearch;
 import project.encoder.search.FullPixelSearch;
 import project.encoder.search.FullTileSearch;
@@ -59,7 +60,13 @@ public class Encoder {
         
         if(setup.isFast_search()){
             tr.trace("Using Fast search encoding");
-            searcher = (Searcher) new FastTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, this.comparer);
+            if(setup.isPixel_search()){
+                tr.trace("Using Pixel search encoding");
+                searcher = (Searcher) new FastPixelSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, this.comparer);
+            }else{
+                tr.trace("Using Tile search encoding");
+                searcher = (Searcher) new FastTileSearch(this.seekRange,this.tWidth, this.tHeight, this.quality, this.comparer);
+            }
         }else{
             tr.trace("Using Full search encoding");
             if(setup.isPixel_search()){

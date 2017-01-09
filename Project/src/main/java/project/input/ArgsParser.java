@@ -53,7 +53,7 @@ public class ArgsParser {
     @Parameter(names = {"--fastSearch"}, description = "If tile that match our quality criteria is found search it stopped .")
     private boolean fastSearch = false;
     
-    @Parameter(names = {"--pixelSearch"}, description = "Search of best matching tile pixel by pixel, normal mode is tiletile by tile")
+    @Parameter(names = {"--pixelSearch"}, description = "Search of best matching tile pixel by pixel, normal mode is tile by tile")
     private boolean pixelSearch = false;
     
     @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = NumericValidator.class)
