@@ -78,6 +78,8 @@ public class Setup {
         checkDecoding(parser);
         checkInputFile(parser.getInputFile());
         
+        // if batch mode, decoded disabled
+        if(batchMode) decoding = false;
         //check and set tile values
         if (parser.isEncodeEnabled()){ 
             setDimensions();

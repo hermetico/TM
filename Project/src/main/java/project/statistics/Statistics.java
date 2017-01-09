@@ -46,7 +46,7 @@ public class Statistics {
         tr.trace("Source compressed size(jpg): " + sourceCompressedLength );
         tr.trace("Target size: " + targetLength);
         double percentUncompressed = round(100.0 * (sourceLength - targetLength)/sourceLength, 2);
-        double percentCompressed = round(100.0 * ( sourceCompressedLength - targetLength)/sourceLength, 2);
+        double percentCompressed = round(100.0 * ( sourceCompressedLength - targetLength)/sourceCompressedLength, 2);
         tr.trace("Improvement over uncompressed file: " + percentUncompressed + "%");
         tr.trace("Improvement over compressed file(jpg): " + percentCompressed + "%");
        

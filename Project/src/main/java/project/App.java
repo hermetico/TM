@@ -30,13 +30,6 @@ public class App {
         // Statistics generate compression results
         Statistics stats = new Statistics(setup);       
         
-        // por ahora siempre sera si
-        if(setup.getInputContainer() == FileType.ZIP){
-            //TODO Processor debe recibir una interfaz de datos
-            // con algun metodo get o algun iterator
-        }
-        
-        
         ProcessorFactory prFactory = new ProcessorFactory();
         Processor pr,pr1;
         if(setup.isEncoding()){
