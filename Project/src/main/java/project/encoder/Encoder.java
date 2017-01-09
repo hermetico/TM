@@ -1,5 +1,6 @@
 package project.encoder;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Encoder {
     
     protected Buffer<EncodedImage> buffer;
     protected BufferedImage previousFrame;
+    protected Color meanColor;
     
     protected Searcher searcher;
     
@@ -102,6 +104,7 @@ public class Encoder {
             // a DCT algorithm
             BufferedImage nImage = ImageUtils.deepCopy(image);
             List<Tile> teselas = ImageUtils.tessellate(nImage, tHeight, tWidth);
+            meanColor = ImageUtils.getMeanColor(nImage);
 
             
             List<DVector> vectors = new ArrayList<DVector>();
@@ -122,7 +125,8 @@ public class Encoder {
                     
                     // substract tesela
                     //ImageUtils.substractWantedTile(nImage, match, wanted);
-                    ImageUtils.toMeanWantedTile(nImage, wanted);
+                    ImageUtils.toColorWantedTile(nImage, wanted, meanColor);
+                    //ImageUtils.toMeanWantedTile(nImage, wanted);
                     //average.apply(nImage);
                     // adds vector
                     vectors.add(displacement);

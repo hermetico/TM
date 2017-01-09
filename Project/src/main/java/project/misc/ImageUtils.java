@@ -54,8 +54,8 @@ public class ImageUtils {
         int r, g, b;
         BufferedImage tileImage = match.getContent();
         
-        for(int y = 0; y < match.getWidth(); y++){ // tesela y coords
-            for (int x = 0; x < match.getHeight(); x++){ // tesela x coords
+        for(int y = 0; y < match.getHeight(); y++){ // tesela y coords
+            for (int x = 0; x < match.getWidth(); x++){ // tesela x coords
                 
                 // image coords
                 int imageX = wanted.getX() + x + displacement.getX();
@@ -92,8 +92,8 @@ public class ImageUtils {
         int r, g, b;
         BufferedImage tileImage = match.getContent();
         
-        for(int y = 0; y < match.getWidth(); y++){ // tesela y coords
-            for (int x = 0; x < match.getHeight(); x++){ // tesela x coords
+        for(int y = 0; y < match.getHeight(); y++){ // tesela y coords
+            for (int x = 0; x < match.getWidth(); x++){ // tesela x coords
                 
                 // image coords
                 int imageX = wanted.getX() + x;
@@ -128,8 +128,8 @@ public class ImageUtils {
         Color pixel;
         BufferedImage tileImage = wanted.getContent();
         
-        for(int y = 0; y < wanted.getWidth(); y++){ // tesela y coords
-            for (int x = 0; x < wanted.getHeight(); x++){ // tesela x coords
+        for(int y = 0; y < wanted.getHeight(); y++){ // tesela y coords
+            for (int x = 0; x < wanted.getWidth(); x++){ // tesela x coords
                 pixel = new Color(tileImage.getRGB(x, y));
                 meanR += pixel.getRed(); 
                 meanG += pixel.getGreen();
@@ -141,12 +141,57 @@ public class ImageUtils {
         meanG /= size;
         meanB /= size;
         
-        for(int y = 0; y < wanted.getWidth(); y++){ // tesela y coords
-            for (int x = 0; x < wanted.getHeight(); x++){ // tesela x coords
+        for(int y = 0; y < wanted.getHeight(); y++){ // tesela y coords
+            for (int x = 0; x < wanted.getWidth(); x++){ // tesela x coords
                 // image coords
                 int imageX = wanted.getX() + x;
                 int imageY = wanted.getY() + y;
                 image.setRGB(imageX, imageY, new Color(meanR,meanG,meanB).getRGB());
+            }
+        }
+        
+    }
+    
+    public static Color getMeanColor(BufferedImage image){
+        int meanR = 0, meanG = 0, meanB = 0;
+        Color pixel;
+        
+        for(int y = 0; y < image.getHeight(); y++){
+            for (int x = 0; x < image.getWidth(); x++){
+                pixel = new Color(image.getRGB(x, y));
+                meanR += pixel.getRed(); 
+                meanG += pixel.getGreen();
+                meanB += pixel.getBlue();
+            }
+        }
+        int size = image.getWidth() * image.getHeight();
+        meanR /= size;
+        meanG /= size;
+        meanB /= size;
+        
+        return new Color(meanR,meanG,meanB);
+    }
+    
+    public static void toBlackWantedTile(BufferedImage image, Tile wanted){
+        for(int y = 0; y < wanted.getHeight(); y++){ // tesela y coords
+            for (int x = 0; x < wanted.getWidth(); x++){ // tesela x coords
+                // image coords
+                int imageX = wanted.getX() + x;
+                int imageY = wanted.getY() + y;
+                image.setRGB(imageX, imageY, new Color(0,0,0).getRGB());
+            }
+        }
+        
+    }
+    
+    public static void toColorWantedTile(BufferedImage image, Tile wanted, Color color){
+        int nColor = color.getRGB();
+        for(int y = 0; y < wanted.getHeight(); y++){ // tesela y coords
+            for (int x = 0; x < wanted.getWidth(); x++){ // tesela x coords
+                // image coords
+                int imageX = wanted.getX() + x;
+                int imageY = wanted.getY() + y;
+                image.setRGB(imageX, imageY, nColor);
             }
         }
         
@@ -165,8 +210,8 @@ public class ImageUtils {
         int r, g, b;
         BufferedImage tileImage = match.getContent();
         
-        for(int y = 0; y < match.getWidth(); y++){ // tesela y coords
-            for (int x = 0; x < match.getHeight(); x++){ // tesela x coords
+        for(int y = 0; y < match.getHeight(); y++){ // tesela y coords
+            for (int x = 0; x < match.getWidth(); x++){ // tesela x coords
                 
                 // image coords
                 int imageX = match.getX() + x + displacement.getX();
@@ -202,8 +247,8 @@ public class ImageUtils {
         Color imagePixel, tilePixel;
         int r, g, b;
  
-        for(int y = 0; y < tileImage.getWidth(); y++){ // tesela y coords
-            for (int x = 0; x < tileImage.getHeight(); x++){ // tesela x coords
+        for(int y = 0; y < tileImage.getHeight(); y++){ // tesela y coords
+            for (int x = 0; x < tileImage.getWidth(); x++){ // tesela x coords
                 
                 // image coords
                 int imageX = x + iX;
@@ -240,8 +285,8 @@ public class ImageUtils {
         Color imagePixel, tilePixel;
         int r, g, b;
  
-        for(int y = 0; y < tileImage.getWidth(); y++){ // tesela y coords
-            for (int x = 0; x < tileImage.getHeight(); x++){ // tesela x coords
+        for(int y = 0; y < tileImage.getHeight(); y++){ // tesela y coords
+            for (int x = 0; x < tileImage.getWidth(); x++){ // tesela x coords
                 
                 // image coords
                 int imageX = x + iX;
