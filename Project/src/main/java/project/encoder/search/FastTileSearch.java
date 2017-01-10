@@ -35,8 +35,8 @@ public class FastTileSearch extends Searcher{
             // checks if is within bounds
             if( row - cRow <= seekRange &&
                 col - cCol <= seekRange &&
-                row - cRow <= 0 &&
-                col - cCol <= 0){
+                row - cRow >= 0 &&
+                col - cCol >= 0){
                 
                 double candidateCorrelation = comparer.compare(wanted, candidate);
                 if(candidateCorrelation < correlation){

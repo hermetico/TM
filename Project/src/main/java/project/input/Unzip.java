@@ -5,6 +5,7 @@
  */
 package project.input;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -114,7 +115,7 @@ public class Unzip {
         }
         return null;
     }
-    
+    /*
     public BufferedImage unzipImageEntry(ZipEntry entry){
         try {
             return ImageIO.read(unzipEntry(entry));
@@ -124,14 +125,17 @@ public class Unzip {
         }
         return null;
     }
-    /*
+    */
     public BufferedImage unzipImageEntry(ZipEntry entry){
         try {
             BufferedImage img = ImageIO.read(unzipEntry(entry));
+            
             if (img.getColorModel().hasAlpha()){
                 BufferedImage copy = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+                copy.createGraphics().drawImage(img, 0, 0, Color.WHITE, null);
                 return copy;
             }
+            
             return img;
         } catch (IOException ex) {
             System.err.println("Error unzipping the image");
@@ -139,7 +143,7 @@ public class Unzip {
         }
         return null;
     }
-*/
+
     
     public List<DVector> unzipVectorsEntry(ZipEntry entry){
 

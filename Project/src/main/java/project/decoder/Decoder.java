@@ -50,10 +50,16 @@ public class Decoder {
             // position of the wanted tile in the image
             int x = wantedTile.getX() + vector.getX();
             int y = wantedTile.getY() + vector.getY();
-            BufferedImage wantedSubimage = previousFrame.getSubimage(x, y, tWidth, tWidth);
             
-            // adds the subimage
-            ImageUtils.replaceSubimage(frame, wantedSubimage, wantedTile.getX(), wantedTile.getY());
+            try{
+                BufferedImage wantedSubimage = previousFrame.getSubimage(x, y, tWidth, tWidth);
+                // adds the subimage
+                ImageUtils.replaceSubimage(frame, wantedSubimage, wantedTile.getX(), wantedTile.getY());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            
+;
         }
         
         return frame;
