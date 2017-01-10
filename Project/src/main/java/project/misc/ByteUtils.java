@@ -44,12 +44,14 @@ public class ByteUtils {
     public List<DVector> inputStreamToVectors(InputStream stream){
         
         byte[] bytes = inputStreamToByte(stream);
-        int[] numbers = bytesToIntArray(bytes);
-        List<DVector> vectors = new ArrayList<DVector>();
         
-        for(int i = 0; i < numbers.length; ){
-            vectors.add(new DVector(numbers[i++], numbers[i++], numbers[i++]));
-            
+        List<DVector> vectors = new ArrayList<DVector>();
+        short reference, x, y;
+        for(int i = 0; i < bytes.length;){
+            reference = bytesToShort16(new byte[] {bytes[i++],bytes[i++]}, BIG_ENDIAN);
+            x = byteToShort16(bytes[i++]);
+            y = byteToShort16(bytes[i++]);
+            vectors.add(new DVector(reference,x, y));
         }
         return vectors;
     }
@@ -90,8 +92,10 @@ public class ByteUtils {
         //write_int32(buff, vector.getX());
         //write_int32(buff, vector.getY());
         write_short16(buff, (short)vector.getReference());
-        write_short16(buff, (short)vector.getX());
-        write_short16(buff, (short)vector.getY());
+        //write_short16(buff, (short)vector.getX());
+        //write_short16(buff, (short)vector.getY());
+        write_shortAs8(buff, (short)vector.getX());
+        write_shortAs8(buff, (short)vector.getY());
         
     }
  
@@ -115,6 +119,12 @@ public class ByteUtils {
         {
             buff.add(bytes[i]);
         }
+    }
+    
+    public  void write_shortAs8(List<Byte> buff,  short number)
+    {
+        byte result = (byte) (number & 0xFF);
+        buff.add(result);
     }
     
         
@@ -184,5 +194,11 @@ public class ByteUtils {
             number= (short) ((bytes[0] & 0xFF) | ((bytes[1] & 0xFF) << 8));
         }
         return number;
+    }
+    private short byteToShort16(byte number)
+    {
+        short result;
+            result = (short) number;
+        return result;
     }
 }
