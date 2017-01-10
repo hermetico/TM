@@ -43,7 +43,7 @@ public class App {
             if(!setup.isBatchMode()){
                 tr.trace("Creating player at "+ setup.getFPS() +" FPS" );
                 pr.setPlayer(new Player(setup.getFPS(), "Original"));
-                enc.setPlayer(new Player(setup.getFPS(), true, "Encoded"));
+                enc.setPlayer(new Player(setup.getFPS(), "Encoded"));
             }           
             tr.trace("Starting processor");
             stats.timeStart();// <--------------time start------------
