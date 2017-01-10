@@ -23,9 +23,13 @@ public class Decoder {
     protected List<Tile> sampleFrameTiles = null;
     
     
+    public Decoder(int tWidth, int tHeight){
+        this.tWidth = tWidth;
+        this.tHeight = tHeight;
+    }
+    
     public Decoder(Metadata data){
-        this.tWidth = data.tWidth;
-        this.tHeight = data.tHeight;
+        this(data.tWidth, data.tHeight);
     }
     
     

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import project.decoder.Decoder;
 import project.encoder.compare.Comparer;
 import project.encoder.compare.MAD;
 import project.encoder.search.FastPixelSearch;
@@ -39,6 +40,8 @@ public class Encoder {
     
     protected int frames = 0;
     protected Comparer comparer;
+    protected boolean realisticEncoding = false;
+    protected Decoder decoder = null;
     //private Filter average;
     
     
@@ -80,6 +83,11 @@ public class Encoder {
             }
         }
         
+        realisticEncoding = setup.getRealisitc();
+        if(realisticEncoding){
+            this.decoder = new Decoder(tWidth, tHeight);
+        }
+        
     }
 
     public void setPlayer(Player player){
@@ -100,11 +108,23 @@ public class Encoder {
         return buffer;
     }
     
+    private void updatePreviousFrame(BufferedImage current){
+        previousFrame = ImageUtils.deepCopy(current); 
+    }
+    
+    private void composePreviousFrame(BufferedImage current, List<DVector> vectors){
+        if(realisticEncoding){
+            decoder.updatePreviousFrame(previousFrame);
+            decoder.decode(current, vectors);
+        }
+    }
+    
     public void encode(BufferedImage image){
         EncodedImage encoded;
         
         if(frames % GOP == 0){ // frames I
             encoded = new ImageI(ImageUtils.deepCopy(image));
+            
         }else{ // frames P
         
             // As the project description indicates, we are going to implement
@@ -140,14 +160,12 @@ public class Encoder {
                     vectors.add(displacement);
                 }
             }
-                
-            //tr.trace("Total of " + vectors.size() + " vectors");
-            
             encoded = new ImageP(ImageUtils.deepCopy(nImage), vectors);
+            composePreviousFrame(image, vectors);
         }
         
         frames++;
-        previousFrame = ImageUtils.deepCopy(image);
+        updatePreviousFrame(image);
         buffer.add(encoded);
     }
     
