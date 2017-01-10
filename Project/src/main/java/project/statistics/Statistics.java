@@ -72,6 +72,20 @@ public class Statistics {
        
     }
     
+    public void getSynthResults(){
+        targetLength = getSize(setup.getOutputFilePath());
+        double jpgSize = sourceCompressedLength / 1000000.;
+        double targetSize = targetLength / 1000000.;
+        double percentCompressed = round(100.0 * ( sourceCompressedLength - targetLength)/sourceCompressedLength, 2);
+        double spent = round((double)(getTime()/1000.0), 2);
+        System.out.format("%.2f\t",jpgSize);
+        System.out.format("%.2f\t", targetSize);
+        System.out.format("%.1f\t",percentCompressed);
+        System.out.format("%.0f", spent);
+        
+        
+    }
+    
     private long getSize(String fileName){
         File f = new File(fileName);
         return f.length(); 

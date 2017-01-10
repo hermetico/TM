@@ -52,7 +52,7 @@ public class App {
             Zip zipper = new Zip();
             tr.trace("Zipping data");
             zipper.zipEncodedData(setup, enc.getBuffer(), setup.getOutputFilePath());
-            stats.getResults();
+            stats.getSynthResults();
             if(setup.isDecoding()){
                 tr.trace("Starting decoder");
                 setup.updateFilePath(setup.getOutputFilePath());           
