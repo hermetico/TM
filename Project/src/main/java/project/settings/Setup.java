@@ -73,6 +73,7 @@ public class Setup {
    
     public Setup(ArgsParser parser){
         
+        checkTracer(parser);
         checkFilters(parser);
         checkMode(parser);
         checkEncoding(parser);
@@ -113,6 +114,11 @@ public class Setup {
         setupLoopMode(this.loop);
     }
     
+    private void checkTracer(ArgsParser parser){
+        if(parser.isVerbosityEnabled()){ 
+            tr.enable();
+        }
+    }
     private void checkFilters(ArgsParser parser){
         
         if(parser.isAverageFilterEnabled()){

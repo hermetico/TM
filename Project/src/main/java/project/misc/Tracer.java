@@ -10,7 +10,7 @@ import project.settings.Configuration;
 public class Tracer {
     private static Tracer INSTANCE = new Tracer();
     private Configuration config = Configuration.getInstance();
-    
+    private boolean enabled = config.TRACE;
     
     private Tracer(){};
     
@@ -19,7 +19,16 @@ public class Tracer {
     }
     
     public void trace(String text){
-        if(config.TRACE) System.out.println(text);
+        if(enabled) System.out.println(text);
+    }
+    public void enable(){
+        enabled = true;
+    }
+    public void disable(){
+        enabled = false;
+    }
+    public void toggle(){
+        enabled = !enabled;
     }
     
 }

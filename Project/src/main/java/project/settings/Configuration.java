@@ -11,7 +11,7 @@ public class Configuration {
     private static Configuration INSTANCE = new Configuration();
     
     //booleans
-    public final boolean TRACE = true;
+    public boolean TRACE = false;
     public final boolean SORT_INPUT_BY_NAME = true;
     
     public final boolean PROCESSING_COUNTERS = false;
@@ -28,6 +28,10 @@ public class Configuration {
     public final char DATA_SEPARATOR = ',';
     public final char END_LINE = '\n';
     private Configuration() {};
+    
+    public void enableTracer(){
+        TRACE = true;
+    }
  
     public static Configuration getInstance() {
         return INSTANCE;

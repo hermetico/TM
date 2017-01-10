@@ -79,6 +79,9 @@ public class ArgsParser {
     @Parameter(names = {"--ssd"}, description = "Compute tile differencees using mean sum of square differences method. Default method: MAD (mean absolute differences)")
     private boolean ssd = false ;
     
+    @Parameter(names = {"--verbosity"}, description = "Use it to retrieve more info from application and compression process")
+    private boolean verbosity  = false ;
+    
     // parsed tile values set local variables
     private int nTilesX;
     private int nTilesY;
@@ -148,5 +151,7 @@ public class ArgsParser {
     public boolean isDecodeEnabled() { return decode; }
     
     public boolean isSSDEnabled() { return ssd; }
+    
+    public boolean isVerbosityEnabled() { return verbosity; }
     
 }
