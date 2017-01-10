@@ -81,6 +81,7 @@ public class FilterProcessor extends Processor{
             
             BufferedImage img, paddedImg, compressed;
             img = zp.unzipImageEntry(entry.getContent());
+            BufferedImage copy = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
             
             // applies filter
             if(filter != null) 
