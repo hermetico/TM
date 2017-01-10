@@ -66,6 +66,7 @@ public class Setup {
     
     private boolean fast_search = false;
     private boolean pixel_search = false;
+    private boolean realistic = false;
     private Configuration cfg = Configuration.getInstance();
     private Tracer tr = Tracer.getInstance();
     // Comparer method selection ( MAD or SSD )
@@ -112,6 +113,7 @@ public class Setup {
             loop = false;
         }
         setupLoopMode(this.loop);
+        this.realistic = parser.isRealisitcEnabled();
     }
     
     private void checkTracer(ArgsParser parser){
@@ -384,5 +386,9 @@ public class Setup {
     
     public void updateFilePath(String name){
         this.inputFilePath = name;
+    }
+    
+    public boolean getRealisitc(){
+        return realistic;
     }
 }
