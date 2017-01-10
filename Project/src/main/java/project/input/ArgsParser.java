@@ -53,8 +53,14 @@ public class ArgsParser {
     @Parameter(names = {"--fastSearch"}, description = "If tile that match our quality criteria is found search it stopped .")
     private boolean fastSearch = false;
     
+    @Parameter(names = {"--fullSearch"}, description = "Default full search mode")
+    private boolean fullSearch = false;
+    
     @Parameter(names = {"--pixelSearch"}, description = "Search of best matching tile pixel by pixel, normal mode is tile by tile")
     private boolean pixelSearch = false;
+    
+    @Parameter(names = {"--tileSearch"}, description = "Default tile search mode")
+    private boolean tileSearch = false;
     
     @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = NumericValidator.class)
     private int GOP = 5;
@@ -79,11 +85,17 @@ public class ArgsParser {
     @Parameter(names = {"--ssd"}, description = "Compute tile differencees using mean sum of square differences method. Default method: MAD (mean absolute differences)")
     private boolean ssd = false ;
     
+    @Parameter(names = {"--mad"}, description = "Default mean absolute differences")
+    private boolean mad = false ;
+    
     @Parameter(names = {"--verbosity"}, description = "Use it to retrieve more info from application and compression process")
     private boolean verbosity  = false ;
     
     @Parameter(names = {"--realistic"}, description = "Realisitc encoding encodes a frame based on the previous decoded frame instead of the original one")
     private boolean realistic  = false ;
+    
+    @Parameter(names = {"--regular"}, description = "Default encoding, encodes a frame based on the original previous one")
+    private boolean regular  = false ;
     
     // parsed tile values set local variables
     private int nTilesX;
