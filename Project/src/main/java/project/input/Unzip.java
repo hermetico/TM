@@ -124,6 +124,22 @@ public class Unzip {
         }
         return null;
     }
+    /*
+    public BufferedImage unzipImageEntry(ZipEntry entry){
+        try {
+            BufferedImage img = ImageIO.read(unzipEntry(entry));
+            if (img.getColorModel().hasAlpha()){
+                BufferedImage copy = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+                return copy;
+            }
+            return img;
+        } catch (IOException ex) {
+            System.err.println("Error unzipping the image");
+            System.err.println(ex.getMessage());
+        }
+        return null;
+    }
+*/
     
     public List<DVector> unzipVectorsEntry(ZipEntry entry){
 

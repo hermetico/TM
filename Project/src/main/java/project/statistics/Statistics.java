@@ -19,6 +19,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 import javax.imageio.ImageIO;
+import project.input.Unzip;
 import project.misc.Tracer;
 import project.settings.Setup;
 
@@ -35,7 +36,6 @@ public class Statistics {
     
     public Statistics(Setup setup){
         this.setup = setup;
-             
         sourceLength = getSize(setup.getInputFilePath());      
         source2JPG();
         sourceCompressedLength = getSize(compressedFileName(setup.getInputFilePath(),"_jpg.zip"));
@@ -86,15 +86,29 @@ public class Statistics {
             
             Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while(entries.hasMoreElements()){
+         
                 ZipEntry entry = entries.nextElement();
+                
                 String fileName = entry.getName();             
                 InputStream stream = zipFile.getInputStream(entry);
-                BufferedImage img = ImageIO.read(stream);
-                ZipEntry e = new ZipEntry(compressedFileName(fileName, ".jpg"));
-                out.putNextEntry(e);
-                ImageIO.write(img, "jpg", out);
-            }
-            out.closeEntry();
+                
+                if(entry.isDirectory()){                  
+                    ZipEntry e = new ZipEntry(fileName);
+                    out.putNextEntry(e);
+                    out.closeEntry();
+                    
+                }else{
+                    BufferedImage img = ImageIO.read(stream);
+                    BufferedImage copy = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+                    
+                    ZipEntry e = new ZipEntry(compressedFileName(fileName, ".jpg"));
+                    
+                    out.putNextEntry(e);
+                    ImageIO.write(copy, "jpg", out);   
+                    out.closeEntry();
+                    out.flush();
+                }
+            }         
             out.close();
         } catch (IOException ex) {
             Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
