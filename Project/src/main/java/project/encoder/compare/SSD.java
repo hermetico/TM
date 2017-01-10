@@ -20,8 +20,8 @@ public class SSD implements Comparer{
     @Override
     public double compare(BufferedImage wanted, BufferedImage candidate) {
         int difference = 0;
-        for (int y = 0; y < wanted.getWidth(); y++) {
-            for (int x = 0; x < wanted.getHeight(); x++) {
+        for (int y = 0; y < wanted.getHeight(); y++) {
+            for (int x = 0; x < wanted.getWidth(); x++) {
 
                 Color pixelB = new Color(wanted.getRGB(x, y));
                 Color pixelD = new Color(candidate.getRGB(x, y));

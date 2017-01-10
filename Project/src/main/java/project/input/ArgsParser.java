@@ -20,7 +20,7 @@ import project.validators.NumericValidator;
 
 public class ArgsParser {
     
-    @Parameter(names = {"--input", "-i"}, description = "input File <path to file.zip>", required = true)
+    @Parameter(names = {"--input", "-i"}, description = "input File <path to file>", required = true)
     private String inputFile;
     
     @Parameter(names = {"--output", "-o"}, description = "output File <path to output file>")
@@ -45,10 +45,10 @@ public class ArgsParser {
     private int avgValue;
     
     @Parameter(names = "--nTiles", arity = 2, description = "Number of tiles: nTiles <Tiles x> <Tiles y> or pixels per tile: <num>px <num>py")
-    private List<String> numTiles = new ArrayList(Arrays.asList("16px", "16px"));
+    private List<String> numTiles = new ArrayList(Arrays.asList("16px", "16py"));
      
     @Parameter(names = {"--seekRange"}, description = "max displacement in matching tile search", validateWith = NumericValidator.class)
-    private int seekRange = 4;
+    private int seekRange = 8;
     
     @Parameter(names = {"--fastSearch"}, description = "If tile that match our quality criteria is found search it stopped .")
     private boolean fastSearch = false;
@@ -57,7 +57,7 @@ public class ArgsParser {
     private boolean pixelSearch = false;
     
     @Parameter(names = {"--GOP"}, description = "number of frames between two adjacent reference images", validateWith = NumericValidator.class)
-    private int GOP = 10;
+    private int GOP = 5;
     
     @Parameter(names = {"--quality"}, description = "quality factor determine when two tiles match, Quality levels : 1, 2, 3, 4, 5, 6, 7 ( the higher the best, def: 5 ) ", validateWith= LevelValidator.class)
     private String quality = "5" ;
