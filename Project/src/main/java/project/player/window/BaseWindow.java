@@ -7,6 +7,7 @@ package project.player.window;
 
 import project.settings.Configuration;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -22,7 +23,7 @@ public class BaseWindow extends JFrame{
     JPanel contentPanel;
     JLabel label;
     ImageIcon image;
-    Boolean sized = false;
+    boolean sized = false;
     
     public BaseWindow(){
         contentPanel = new JPanel();
@@ -30,17 +31,19 @@ public class BaseWindow extends JFrame{
         contentPanel.add(label, BorderLayout.CENTER);
         this.add(contentPanel);
         this.addListeners();
+        label.setDoubleBuffered(true);
         
     }
 
     public void draw(BufferedImage img){
-        if(!sized){
-            this.setSize(img.getWidth(), img.getHeight());
-            label.setSize(img.getWidth(), img.getHeight());
+        
+        
+        label.setIcon(new ImageIcon(img));
+        if (!sized){
+            this.pack();
+            this.setSize(this.getWidth() - 10, this.getHeight() - 5 );
             sized = true;
         }
-        label.setIcon(new ImageIcon(img));
-        
     }
     
     @Override
