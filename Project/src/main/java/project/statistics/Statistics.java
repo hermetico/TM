@@ -5,6 +5,7 @@
  */
 package project.statistics;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -99,7 +100,11 @@ public class Statistics {
                     
                 }else{
                     BufferedImage img = ImageIO.read(stream);
+                    
+                    
                     BufferedImage copy = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+                    copy.createGraphics().drawImage(img, 0, 0, Color.WHITE, null);
+                    
                     
                     ZipEntry e = new ZipEntry(compressedFileName(fileName, ".jpg"));
                     
