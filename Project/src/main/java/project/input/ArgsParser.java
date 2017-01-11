@@ -48,7 +48,7 @@ public class ArgsParser {
     private List<String> numTiles = new ArrayList(Arrays.asList("16px", "16py"));
      
     @Parameter(names = {"--seekRange"}, description = "max displacement in matching tile search", validateWith = NumericValidator.class)
-    private int seekRange = 8;
+    private int seekRange = 2;
     
     @Parameter(names = {"--fastSearch"}, description = "If tile that match our quality criteria is found search it stopped .")
     private boolean fastSearch = false;
