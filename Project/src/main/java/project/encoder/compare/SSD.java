@@ -7,6 +7,7 @@ package project.encoder.compare;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import static java.lang.Math.pow;
 import project.encoder.Tile;
 
 
@@ -19,7 +20,7 @@ public class SSD implements Comparer{
 
     @Override
     public double compare(BufferedImage wanted, BufferedImage candidate) {
-        int difference = 0;
+        double difference = 0;
         for (int y = 0; y < wanted.getHeight(); y++) {
             for (int x = 0; x < wanted.getWidth(); x++) {
 
@@ -31,6 +32,7 @@ public class SSD implements Comparer{
                             + (pixelB.getBlue() - pixelD.getBlue()) * (pixelB.getBlue() - pixelD.getBlue());            
             }
         }
+        difference = pow(difference,0.5);
         int channels = 3;
         //get total number of pixels
         int pixelsOnTile = wanted.getWidth() * wanted.getHeight() * channels;
