@@ -85,6 +85,10 @@ public class ArgsParser {
     @Parameter(names = {"--realistic"}, description = "Realisitc encoding encodes a frame based on the previous decoded frame instead of the original one")
     private boolean realistic  = false ;
     
+    
+    @Parameter(names = {"--test", "-t"}, description = "testing mode, prints results in convenient way for testing purposes")
+    private boolean test  = false ;
+    
     // parsed tile values set local variables
     private int nTilesX;
     private int nTilesY;
@@ -158,4 +162,7 @@ public class ArgsParser {
     public boolean isVerbosityEnabled() { return verbosity; }
     
     public boolean isRealisitcEnabled(){return realistic;}
+    
+    public boolean isTesting(){ return test; }
+    
 }

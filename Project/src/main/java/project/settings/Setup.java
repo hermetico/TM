@@ -8,7 +8,9 @@ package project.settings;
 import com.beust.jcommander.ParameterException;
 import java.awt.image.BufferedImage;
 import static java.lang.Integer.parseInt;
+import java.util.Arrays;
 import java.util.List;
+import javax.imageio.ImageIO;
 import project.encoder.compare.Comparer;
 import project.encoder.compare.MAD;
 import project.encoder.compare.SSD;
@@ -67,6 +69,7 @@ public class Setup {
     private boolean fast_search = false;
     private boolean pixel_search = false;
     private boolean realistic = false;
+    private boolean test = false;
     private Configuration cfg = Configuration.getInstance();
     private Tracer tr = Tracer.getInstance();
     // Comparer method selection ( MAD or SSD )
@@ -74,6 +77,7 @@ public class Setup {
    
     public Setup(ArgsParser parser){
         
+        this.test = parser.isTesting();
         checkTracer(parser);
         checkFilters(parser);
         checkMode(parser);
@@ -174,8 +178,8 @@ public class Setup {
     
     // Read zip file, load images and get width and height from first image
     private void setDimensions(){
+        
         Unzip zp = new Unzip(inputFilePath);
-
         BufferedImage img = zp.unzipImageEntry(zp.getEntries().get(0).getContent());
         width = img.getWidth();
         height = img.getHeight();
@@ -311,6 +315,9 @@ public class Setup {
 
     public boolean isStoring() {
         return storing;
+    }
+    public boolean isTesting() {
+        return test;
     }
 
     public String getInputFilePath() {

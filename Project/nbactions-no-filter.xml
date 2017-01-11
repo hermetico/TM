@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath project.Main -e -i desplazamiento2.zip --nTiles 16px 16py --fps 29  --ssd --quality 4 --fastSearch --verbosity --pixelSearch  --seekRange 5 -o encoded --GOP 3</exec.args>
+                <exec.args>-classpath %classpath project.Main -e -i 3secuencias_BN.zip --nTiles 16px 16py --fps 29  --ssd --quality 4 --fastSearch --verbosity --pixelSearch  --seekRange 5 -o encoded --GOP 3</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -24,7 +24,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath project.Main -e -i desplazamiento2.zip --nTiles 16px 16py --fps 29  --ssd --quality 4 --fastSearch --verbosity --pixelSearch  --seekRange 5 -o encoded --GOP 3</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath project.Main -e -i 3secuencias_BN.zip --nTiles 16px 16py --fps 29  --ssd --quality 4 --fastSearch --verbosity --pixelSearch  --seekRange 5 -o encoded --GOP 3</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -39,7 +39,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath project.Main -e -i desplazamiento2.zip --nTiles 16px 16py --fps 29  --ssd --quality 4 --fastSearch --verbosity --pixelSearch  --seekRange 5 -o encoded --GOP 3</exec.args>
+                <exec.args>-classpath %classpath project.Main -e -i 3secuencias_BN.zip --nTiles 16px 16py --fps 29  --ssd --quality 4 --fastSearch --verbosity --pixelSearch  --seekRange 5 -o encoded --GOP 3</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>

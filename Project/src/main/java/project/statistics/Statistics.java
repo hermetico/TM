@@ -59,16 +59,24 @@ public class Statistics {
    
     public void getResults(){
         targetLength = getSize(setup.getOutputFilePath());
-        System.out.println("Source uncompressed size: " + sourceLength);
-        System.out.println("Source compressed size(jpg): " + sourceCompressedLength );
-        System.out.println("Target size: " + targetLength);
         double percentUncompressed = round(100.0 * (sourceLength - targetLength)/sourceLength, 2);
         double percentCompressed = round(100.0 * ( sourceCompressedLength - targetLength)/sourceCompressedLength, 2);
-        System.out.println("Improvement over uncompressed file: " + percentUncompressed + "%");
-        System.out.println("Improvement over compressed file(jpg): " + percentCompressed + "%");
-        // prints message + time spent
-        printTime("the task has taken");
         
+        if (setup.isTesting()){
+            System.out.print(percentUncompressed + "\t");
+            System.out.print(percentCompressed + "\t" );
+            System.out.println(round((double)(getTime()/1000.0), 2));
+        }else{
+
+            System.out.println("Source uncompressed size: " + sourceLength);
+            System.out.println("Source compressed size(jpg): " + sourceCompressedLength );
+            System.out.println("Target size: " + targetLength);
+
+            System.out.println("Improvement over uncompressed file: " + percentUncompressed + "%");
+            System.out.println("Improvement over compressed file(jpg): " + percentCompressed + "%");
+            // prints message + time spent
+            printTime("the task has taken");
+        }
        
     }
     
