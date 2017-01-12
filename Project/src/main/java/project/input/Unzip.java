@@ -115,17 +115,7 @@ public class Unzip {
         }
         return null;
     }
-    /*
-    public BufferedImage unzipImageEntry(ZipEntry entry){
-        try {
-            return ImageIO.read(unzipEntry(entry));
-        } catch (IOException ex) {
-            System.err.println("Error unzipping the image");
-            System.err.println(ex.getMessage());
-        }
-        return null;
-    }
-    */
+    
     public BufferedImage unzipImageEntry(ZipEntry entry){
         try {
             BufferedImage img = ImageIO.read(unzipEntry(entry));

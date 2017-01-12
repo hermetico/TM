@@ -57,26 +57,5 @@ public abstract class Processor{
     
 
     public abstract void processData();
-    /*{
-
-        // starts the player if there is any set up
-        if(player != null){ 
-            tr.trace("Starting player");
-            player.playLoop();
-        }
-        
-        for(ZipEntry entry: entries){
-            BufferedImage img;
-            img = zp.unzipImageEntry(entry);
-            buffer.add(img);
-            
-            if(cf.PROCESSING_COUNTERS)
-                counters.addTimestamp();
-        }
-        if(cf.PROCESSING_COUNTERS)
-            counters.flushCounters("Encoding", "fps");
-
-    }*/
-
     
 }

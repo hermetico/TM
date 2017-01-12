@@ -73,8 +73,6 @@ public class ImageUtils {
                 if(g < 0) g = 0;
                 if(b < 0) b = 0;
 
-                
-                //image.setRGB(imageX, imageY, new Color(0,0,0).getRGB());
                 image.setRGB(imageX, imageY, new Color(r,g,b).getRGB());
             }
         }

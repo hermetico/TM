@@ -40,6 +40,7 @@ public class SSD implements Comparer{
         double SSD = (double)difference / pixelsOnTile;
         // normalize to 0 -1 range
         double result = (double)SSD/255.0;
+       
         return result;
     }
 }

@@ -49,7 +49,6 @@ public class Encoder {
     public Encoder(Setup setup) {
         cf = Configuration.getInstance();
         tr =  Tracer.getInstance();
-        //average = new Average(4);
         this.setup(setup);
     }
     
@@ -151,11 +150,9 @@ public class Encoder {
                     DVector displacement = new DVector(reference, x, y);
                     
                     // substract tesela
-                    //ImageUtils.substractWantedTile(nImage, match, wanted);
+                    
                     ImageUtils.toColorWantedTile(nImage, wanted, meanColor);
-                    //ImageUtils.toMeanWantedTile(nImage, wanted);
-                    //ImageUtils.deblockingFilter(nImage, wanted, 9);
-                    //average.apply(nImage);
+                    
                     // adds vector
                     vectors.add(displacement);
                 }
