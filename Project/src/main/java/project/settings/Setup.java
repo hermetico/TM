@@ -70,11 +70,13 @@ public class Setup {
     private boolean verbose = false;
     private Configuration cfg = Configuration.getInstance();
     private Tracer tr = Tracer.getInstance();
+    
     // Comparer method selection ( MAD or SSD )
     private Comparer comparer;
    
     public Setup(ArgsParser parser){
         
+        // general checkers
         checkTracer(parser);
         checkFilters(parser);
         checkMode(parser);
@@ -94,10 +96,12 @@ public class Setup {
             }else{
                 comparer = new MAD();
             }
-        }     
+        }
+        
         if(parser.getOutputFile() != null){
             checkOutputFile(parser.getOutputFile());
         }
+        
         this.outputFilePath += "." + cfg.CODEC_EXTENSION.toString();
         this.GOP = parser.getGOP();
         this.seekRange = parser.getSeekRange();
@@ -107,6 +111,7 @@ public class Setup {
         
         this.pixel_search = parser.isPixelSearchEnabled();
         this.fast_search = parser.isFastSearchEnabled();
+        
         // if batch mode, decoded disabled
         if(isBatchMode()) {
             
