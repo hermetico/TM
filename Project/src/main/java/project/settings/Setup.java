@@ -67,6 +67,7 @@ public class Setup {
     private boolean fast_search = false;
     private boolean pixel_search = false;
     private boolean realistic = false;
+    private boolean verbose = false;
     private Configuration cfg = Configuration.getInstance();
     private Tracer tr = Tracer.getInstance();
     // Comparer method selection ( MAD or SSD )
@@ -114,6 +115,7 @@ public class Setup {
         }
         setupLoopMode(this.loop);
         this.realistic = parser.isRealisitcEnabled();
+        this.verbose = parser.isVerbosityEnabled();
     }
     
     private void checkTracer(ArgsParser parser){
@@ -391,4 +393,6 @@ public class Setup {
     public boolean getRealisitc(){
         return realistic;
     }
+    
+    public boolean isVerbose(){return this.verbose;}
 }

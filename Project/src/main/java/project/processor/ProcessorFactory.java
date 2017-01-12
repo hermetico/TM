@@ -37,7 +37,7 @@ public class ProcessorFactory {
             return new FilterDecoderProcessor(setup.getInputFilePath(), fl);
             
         }
-        Player player = new Player(setup.getFPS(), true, "Decoded");
+        Player player = new Player(setup.getFPS(), setup.isVerbose(), "Decoded");
         return new FilterDecoderProcessor(setup.getInputFilePath(), player, fl);
         
     }

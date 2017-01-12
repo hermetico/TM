@@ -8,10 +8,11 @@ package project.counters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import project.misc.Tracer;
 
 
 public class Counters {
-    
+    private Tracer tr = Tracer.getInstance();
     protected List<Long> timestamps;
     
     public Counters(){
@@ -31,11 +32,11 @@ public class Counters {
             long last = timestamps.get(0);
             timestamps.remove(0);
             
-            System.out.println("+ Resume of the " + name + ":");
+            tr.trace("+ Resume of the " + name + ":");
             for(long stamp: timestamps){
                 long difference = stamp - last;
-                System.out.format(name +": %.3f" + scale +"\t", toFPS(difference));
-                System.out.format("Difference with previous: %.3fms\n", toMillis(difference));
+                tr.trace(String.format(name +": %.3f" + scale +"\t", toFPS(difference)) + 
+                        String.format("Difference with previous: %.3fms\n", toMillis(difference)));
                 last = stamp;
             }
         }
