@@ -160,8 +160,8 @@ public class Encoder {
                     vectors.add(displacement);
                 }
             }
-            encoded = new ImageP(ImageUtils.deepCopy(nImage), vectors);
-            composePreviousFrame(image, vectors);
+            encoded = new ImageP(nImage, vectors);
+            composePreviousFrame(ImageUtils.deepCopy(image), vectors);
         }
         
         frames++;
