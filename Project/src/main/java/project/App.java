@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package project;
 
 import project.encoder.Encoder;
@@ -14,7 +10,6 @@ import project.processor.ProcessorFactory;
 import project.processor.filters.Filter;
 import project.processor.filters.FilterFactory;
 import project.settings.Setup;
-import project.settings.Types.FileType;
 import project.statistics.Statistics;
 
 public class App {
@@ -52,7 +47,7 @@ public class App {
             Zip zipper = new Zip();
             tr.trace("Zipping data");
             zipper.zipEncodedData(setup, enc.getBuffer(), setup.getOutputFilePath());
-            stats.getResults();
+            stats.getSynthResults();
             if(setup.isDecoding()){
                 tr.trace("Starting decoder");
                 setup.updateFilePath(setup.getOutputFilePath());           

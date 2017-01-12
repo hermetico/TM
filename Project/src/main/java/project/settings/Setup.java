@@ -116,6 +116,7 @@ public class Setup {
         }
         setupLoopMode(this.loop);
         this.realistic = parser.isRealisitcEnabled();
+        this.verbose = parser.isVerbosityEnabled();
     }
     
     private void checkTracer(ArgsParser parser){
@@ -176,8 +177,8 @@ public class Setup {
     
     // Read zip file, load images and get width and height from first image
     private void setDimensions(){
-        
         Unzip zp = new Unzip(inputFilePath);
+
         BufferedImage img = zp.unzipImageEntry(zp.getEntries().get(0).getContent());
         width = img.getWidth();
         height = img.getHeight();
@@ -396,4 +397,6 @@ public class Setup {
     public boolean getRealisitc(){
         return realistic;
     }
+    
+    public boolean isVerbose(){return this.verbose;}
 }

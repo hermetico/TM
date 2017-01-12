@@ -14,18 +14,21 @@ import project.processor.filters.FilterFactory;
 import project.settings.Setup;
 
 public class ProcessorFactory {
+    
     Tracer tr = Tracer.getInstance();
     FilterFactory flFactory = new FilterFactory();
+    
     public Processor createProcessor(Setup setup, Filter filter, Encoder encoder){
         
 
         if(filter == null){
             tr.trace("Creating processor with encoder");
-            //return  new Processor(setup.getInputFilePath());
+    
             if(encoder == null)return  new FilterProcessor(setup.getInputFilePath());
             
             return  new FilterProcessor(setup.getInputFilePath(), encoder);
         }
+    
         tr.trace("Creating processor with filter and encoder");
         if(encoder == null)return  new FilterProcessor(setup.getInputFilePath(), filter);
         return  new FilterProcessor(setup.getInputFilePath(), filter, encoder);
@@ -37,7 +40,7 @@ public class ProcessorFactory {
             return new FilterDecoderProcessor(setup.getInputFilePath(), fl);
             
         }
-        Player player = new Player(setup.getFPS(), true, "Decoded");
+        Player player = new Player(setup.getFPS(), setup.isVerbose(), "Decoded");
         return new FilterDecoderProcessor(setup.getInputFilePath(), player, fl);
         
     }

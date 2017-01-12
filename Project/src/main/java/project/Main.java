@@ -17,7 +17,7 @@ public class Main {
     Tracer tr;
 
     public static void main(String[] args){
-        Main software = new Main(args);
+        new Main(args);
     }
     
     public Main(String[] args){
@@ -37,8 +37,6 @@ public class Main {
         // Creates a setup for the app
         Setup setup = new Setup(parser);
         App app = new App(setup);
-        
-        
     }
     
 }
