@@ -115,6 +115,9 @@ public class Encoder {
         if(realisticEncoding){
             decoder.updatePreviousFrame(previousFrame);
             decoder.decode(current, vectors);
+            previousFrame = ImageUtils.deepCopy(current); 
+        }else{
+            previousFrame = current;
         }
     }
     
@@ -123,6 +126,7 @@ public class Encoder {
         
         if(frames % GOP == 0){ // frames I
             encoded = new ImageI(ImageUtils.deepCopy(image));
+            updatePreviousFrame(image);
             
         }else{ // frames P
         
@@ -162,7 +166,7 @@ public class Encoder {
         }
         
         frames++;
-        updatePreviousFrame(image);
+        
         buffer.add(encoded);
     }
     

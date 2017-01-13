@@ -68,6 +68,7 @@ public class Setup {
     private boolean pixel_search = false;
     private boolean realistic = false;
     private boolean test = false;
+    private boolean verbose = false;
     private Configuration cfg = Configuration.getInstance();
     private Tracer tr = Tracer.getInstance();
     // Comparer method selection ( MAD or SSD )
