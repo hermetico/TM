@@ -1,8 +1,6 @@
 # TM
 
-Exercices and projects from the Multimedia Technologies Course
-
-This contains different exercices and a final project.
+Exercices and a final project from the Multimedia Technologies Course
 
 The `Project/` folder contains a video Encoder/Decoder made in java which uses *motion compensation* and other tricks.
 
